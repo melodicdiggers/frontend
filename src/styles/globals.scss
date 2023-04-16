@@ -3,3 +3,25 @@
 @tailwind utilities;
 
 @import './_media';
+@import './_colors';
+
+html {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 100vw;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    //height: 100vh;
+    width: 100%;
+    //scroll-behavior: auto;
+    //overscroll-behavior-y: none;
+    background-color: $background !important;
+}
