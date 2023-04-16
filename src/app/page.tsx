@@ -1,3 +1,9 @@
 export default function Page() {
-	return <h1 className='text-3l text-4xl underline'>Hello, Next.js!</h1>
+	return (
+		<div>
+			<div className='font-cabin'>HELLO NEXTJS</div>
+
+			<div className='font-baskervville'>Hello, 2</div>
+		</div>
+	)
 }
