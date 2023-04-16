@@ -1,0 +1,27 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "next/core-web-vitals",
+        "plugin:react/recommended",
+        "plugin:prettier/recommended"
+    ],
+    "plugins": [
+        "react",
+        "prettier",
+        "prettier"
+    ],
+    "rules": {
+        "prettier/prettier": [ "warn", { "endOfLine": "auto" }],
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".ts", "tsx"] }],
+        "camelcase": "off",
+        "react/react-in-jsx-scope": "off",
+        "prefer-const": "off",
+        "no-unused-vars": "warn",
+        "no-console": "warn",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn"
+    },
+    "globals": {
+        "React": "writable"
+    }
+}
