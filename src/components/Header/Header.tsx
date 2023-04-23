@@ -5,6 +5,7 @@ import { IHeader, HeaderBlock } from '../../types/Header'
 export default async function Header() {
 	const [result] = await Promise.all([getHeader()])
 	const header: IHeader = result.header.data.attributes
+	console.log(header)
 
 	return (
 		<div className='flex items-center justify-between px-44 py-14'>
