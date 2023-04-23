@@ -1,5 +1,5 @@
 import '../styles/globals.scss'
-import { Baskervville, Cabin } from 'next/font/google'
+import { Baskervville, Cabin, Josefin_Sans } from 'next/font/google'
 
 const baskervville = Baskervville({
 	subsets: ['latin'],
@@ -12,6 +12,13 @@ const cabin = Cabin({
 	variable: '--font-cabin',
 	weight: ['400', '700'],
 })
+
+const josefin = Josefin_Sans({
+	subsets: ['latin'],
+	variable: '--font-josefin',
+	weight: ['400', '700'],
+})
+
 interface Props {
 	children: JSX.Element
 	params: {
@@ -21,7 +28,7 @@ interface Props {
 
 export default function RootLayout({ children, params }: Props) {
 	return (
-		<html lang='en' className={`${baskervville.variable} ${cabin.variable}`}>
+		<html lang='en' className={`${josefin.variable} ${baskervville.variable} ${cabin.variable}`}>
 			<body>{children}</body>
 		</html>
 	)

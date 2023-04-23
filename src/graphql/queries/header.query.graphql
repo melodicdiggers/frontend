@@ -2,7 +2,11 @@ query Header {
 	header {
 		data {
 			attributes {
-				Title
+				title
+				headerBlock {
+					title
+					options
+				}
 			}
 		}
 	}

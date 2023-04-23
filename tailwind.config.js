@@ -33,6 +33,7 @@ module.exports = {
 			fontFamily: {
 				cabin: ['var(--font-cabin)'],
 				baskervville: ['var(--font-baskervville)'],
+				josefin: ['var(--font-josefin)'],
 			},
 		},
 	},

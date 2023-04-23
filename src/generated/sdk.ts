@@ -44,6 +44,26 @@ export type BooleanFilterInput = {
   startsWith?: InputMaybe<Scalars['Boolean']>;
 };
 
+export type ComponentHeaderBlockHeaderBlock = {
+  id: Scalars['ID'];
+  options?: Maybe<Scalars['JSON']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type ComponentHeaderBlockHeaderBlockFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentHeaderBlockHeaderBlockFiltersInput>>>;
+  not?: InputMaybe<ComponentHeaderBlockHeaderBlockFiltersInput>;
+  options?: InputMaybe<JsonFilterInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentHeaderBlockHeaderBlockFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentHeaderBlockHeaderBlockInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  options?: InputMaybe<Scalars['JSON']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
 export type DateTimeFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
@@ -98,13 +118,21 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = Header | I18NLocale | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = ComponentHeaderBlockHeaderBlock | Header | I18NLocale | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
-  Title?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  headerBlock?: Maybe<Array<Maybe<ComponentHeaderBlockHeaderBlock>>>;
   publishedAt?: Maybe<Scalars['DateTime']>;
+  title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type HeaderHeaderBlockArgs = {
+  filters?: InputMaybe<ComponentHeaderBlockHeaderBlockFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type HeaderEntity = {
@@ -117,8 +145,9 @@ export type HeaderEntityResponse = {
 };
 
 export type HeaderInput = {
-  Title?: InputMaybe<Scalars['String']>;
+  headerBlock?: InputMaybe<Array<InputMaybe<ComponentHeaderBlockHeaderBlockInput>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
+  title?: InputMaybe<Scalars['String']>;
 };
 
 export type I18NLocale = {
@@ -868,7 +897,7 @@ export type UsersPermissionsUserRelationResponseCollection = {
 export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HeaderQuery = { header?: { data?: { attributes?: { Title?: string | null } | null } | null } | null };
+export type HeaderQuery = { header?: { data?: { attributes?: { title?: string | null, headerBlock?: Array<{ title?: string | null, options?: any | null } | null> | null } | null } | null } | null };
 
 
 export const HeaderDocument = /*#__PURE__*/ gql`
@@ -876,7 +905,11 @@ export const HeaderDocument = /*#__PURE__*/ gql`
   header {
     data {
       attributes {
-        Title
+        title
+        headerBlock {
+          title
+          options
+        }
       }
     }
   }
