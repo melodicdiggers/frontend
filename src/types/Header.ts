@@ -1,13 +1,13 @@
 export interface IHeader {
 	title: string
-	headerBlock: HeaderBlock[]
+	headerBlock: IHeaderBlock[]
 }
 
-export interface HeaderBlock {
+export interface IHeaderBlock {
 	title: string
-	options: Options[]
+	options: IOptions[]
 }
-export interface Options {
+export interface IOptions {
 	slug: string
 	route: string
 	title: string

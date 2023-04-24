@@ -28,6 +28,7 @@ module.exports = {
 		colors: {
 			primary: '#2222',
 			background: '#FCFCFC',
+			black: '#000',
 		},
 		extend: {
 			fontFamily: {
