@@ -1,0 +1,15 @@
+query landingPhoto {
+	uploadFile(id: 1) {
+		data {
+			attributes {
+				url
+				alternativeText
+				caption
+				width
+				height
+				size
+				ext
+			}
+		}
+	}
+}

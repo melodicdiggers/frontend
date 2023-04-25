@@ -9,7 +9,7 @@ interface Props {
 
 export default function HomeLayout({ children, params }: Props) {
 	return (
-		<div className='mx-5 flex flex-col'>
+		<div className='flex flex-col'>
 			{/* @ts-expect-error Server Component */}
 			<Header />
 			{children}

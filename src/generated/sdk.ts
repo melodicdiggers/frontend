@@ -44,21 +44,21 @@ export type BooleanFilterInput = {
   startsWith?: InputMaybe<Scalars['Boolean']>;
 };
 
-export type ComponentHeaderBlockHeaderBlock = {
+export type ComponentHeaderBlockHeader = {
   id: Scalars['ID'];
   options?: Maybe<Scalars['JSON']>;
   title?: Maybe<Scalars['String']>;
 };
 
-export type ComponentHeaderBlockHeaderBlockFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentHeaderBlockHeaderBlockFiltersInput>>>;
-  not?: InputMaybe<ComponentHeaderBlockHeaderBlockFiltersInput>;
+export type ComponentHeaderBlockHeaderFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentHeaderBlockHeaderFiltersInput>>>;
+  not?: InputMaybe<ComponentHeaderBlockHeaderFiltersInput>;
   options?: InputMaybe<JsonFilterInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentHeaderBlockHeaderBlockFiltersInput>>>;
+  or?: InputMaybe<Array<InputMaybe<ComponentHeaderBlockHeaderFiltersInput>>>;
   title?: InputMaybe<StringFilterInput>;
 };
 
-export type ComponentHeaderBlockHeaderBlockInput = {
+export type ComponentHeaderBlockHeaderInput = {
   id?: InputMaybe<Scalars['ID']>;
   options?: InputMaybe<Scalars['JSON']>;
   title?: InputMaybe<Scalars['String']>;
@@ -118,19 +118,19 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = ComponentHeaderBlockHeaderBlock | Header | I18NLocale | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = ComponentHeaderBlockHeader | Header | I18NLocale | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   createdAt?: Maybe<Scalars['DateTime']>;
-  headerBlock?: Maybe<Array<Maybe<ComponentHeaderBlockHeaderBlock>>>;
+  headerBlock?: Maybe<Array<Maybe<ComponentHeaderBlockHeader>>>;
   publishedAt?: Maybe<Scalars['DateTime']>;
-  title?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 
 export type HeaderHeaderBlockArgs = {
-  filters?: InputMaybe<ComponentHeaderBlockHeaderBlockFiltersInput>;
+  filters?: InputMaybe<ComponentHeaderBlockHeaderFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
@@ -145,7 +145,7 @@ export type HeaderEntityResponse = {
 };
 
 export type HeaderInput = {
-  headerBlock?: InputMaybe<Array<InputMaybe<ComponentHeaderBlockHeaderBlockInput>>>;
+  headerBlock?: InputMaybe<Array<InputMaybe<ComponentHeaderBlockHeaderInput>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -897,7 +897,12 @@ export type UsersPermissionsUserRelationResponseCollection = {
 export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HeaderQuery = { header?: { data?: { attributes?: { title?: string | null, headerBlock?: Array<{ title?: string | null, options?: any | null } | null> | null } | null } | null } | null };
+export type HeaderQuery = { header?: { data?: { attributes?: { title: string, headerBlock?: Array<{ title?: string | null, options?: any | null } | null> | null } | null } | null } | null };
+
+export type LandingPhotoQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LandingPhotoQuery = { uploadFile?: { data?: { attributes?: { url: string, alternativeText?: string | null, caption?: string | null, width?: number | null, height?: number | null, size: number, ext?: string | null } | null } | null } | null };
 
 
 export const HeaderDocument = /*#__PURE__*/ gql`
@@ -915,6 +920,23 @@ export const HeaderDocument = /*#__PURE__*/ gql`
   }
 }
     `;
+export const LandingPhotoDocument = /*#__PURE__*/ gql`
+    query landingPhoto {
+  uploadFile(id: 1) {
+    data {
+      attributes {
+        url
+        alternativeText
+        caption
+        width
+        height
+        size
+        ext
+      }
+    }
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -925,6 +947,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     Header(variables?: HeaderQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<HeaderQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<HeaderQuery>(HeaderDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Header', 'query');
+    },
+    landingPhoto(variables?: LandingPhotoQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<LandingPhotoQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<LandingPhotoQuery>(LandingPhotoDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'landingPhoto', 'query');
     }
   };
 }
