@@ -8,7 +8,7 @@ export default async function Homepage() {
 			<Image
 				alt='landing-image'
 				src={DefaultImage}
-				className='h-[32rem] w-screen object-cover sm:w-[40rem] lg:w-[90rem]'
+				className='mt-28 h-[32rem] w-full object-cover sm:mt-20'
 				quality={100}
 			/>
 			<div>Landing Page</div>
