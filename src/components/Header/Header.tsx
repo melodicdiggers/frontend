@@ -1,25 +1,24 @@
 import React from 'react'
 import { getHeader } from '../../utils/url'
-import { IHeader, IHeaderBlock } from '../../types/Header'
 import Link from 'next/link'
 import Menu from './Menu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { GenericBlock } from '../../types/block'
+import { Header, IHeader, IHeaderBlock } from '../../types'
 
-async function getHeaderData(): Promise<IHeader | null> {
+async function getHeaderData(): Promise<Header | null> {
 	try {
 		const result = await getHeader()
-		if (result) {
-			return result.header.data.attributes
-		}
+		if (result) return new Header(new GenericBlock<IHeader>(result, 'header'))
 		return null
 	} catch (err) {
 		return null
 	}
 }
 
-export default async function Header() {
-	const header: IHeader | null = await getHeaderData()
+export default async function HeaderContainer() {
+	const header = await getHeaderData()
 	console.log(header)
 
 	return (

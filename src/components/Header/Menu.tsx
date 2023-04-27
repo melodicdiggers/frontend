@@ -1,5 +1,5 @@
 import React from 'react'
-import { IHeaderBlock, IOptions } from '../../types/Header'
+import { IHeaderBlock, IOptions } from '../../types/header'
 import Link from 'next/link'
 
 interface MenuProps {

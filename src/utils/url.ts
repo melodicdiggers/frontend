@@ -1,6 +1,6 @@
 import { DocumentNode } from 'graphql'
 import { graphqlClient } from '../services/client'
-import { HeaderDocument, LandingPhotoDocument, Sdk } from '../generated/sdk'
+import { HeaderDocument, Sdk } from '../generated/sdk'
 import { Variables } from 'graphql-request'
 
 export type QueryName = keyof Sdk
