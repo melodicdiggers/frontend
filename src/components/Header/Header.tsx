@@ -13,9 +13,7 @@ export default async function Header() {
 	return (
 		<nav className='w-full px-44 py-10 sm:px-2 sm:py-6 md:px-6 lg:px-4'>
 			<div className='flex items-center justify-between'>
-				<Link
-					href={'localhost:3000'}
-					className='items-center font-josefin text-3xl font-semibold text-black no-underline'>
+				<Link href={'/'} className='items-center font-josefin text-3xl font-semibold text-black no-underline'>
 					{header.title.toUpperCase()}
 				</Link>
 				<div className='flex flex-row gap-12 sm:hidden'>

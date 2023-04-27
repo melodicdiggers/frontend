@@ -21,12 +21,9 @@ const josefin = Josefin_Sans({
 
 interface Props {
 	children: JSX.Element
-	params: {
-		lang: string
-	}
 }
 
-export default function RootLayout({ children, params }: Props) {
+export default function RootLayout({ children }: Props) {
 	return (
 		<html lang='en' className={`${josefin.variable} ${baskervville.variable} ${cabin.variable}`}>
 			<body>{children}</body>
