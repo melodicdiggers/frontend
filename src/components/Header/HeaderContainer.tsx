@@ -3,7 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import Menu from './Menu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Header, IHeaderBlock } from '../../types'
 
 interface Props {
@@ -11,6 +11,7 @@ interface Props {
 }
 
 export default function HeaderContainer(props: Props) {
+	const [mobileNavbar, setMobileNavbar] = React.useState(false)
 	let header: Header | null = null
 	if (props.headerData) header = JSON.parse(props.headerData)
 	else header = null
@@ -26,8 +27,17 @@ export default function HeaderContainer(props: Props) {
 						return <Menu block={block} key={`header-block-${block.title}`} />
 					})}
 				</div>
-				<div className='hidden h-6 w-6 cursor-pointer items-center sm:flex'>
-					<FontAwesomeIcon icon={faBars} size='2xs' style={{ flex: 1, color: '#000000' }} />
+				<div
+					className={`hidden h-6 w-6 cursor-pointer items-center sm:flex ${mobileNavbar ? 'active' : ''}`}
+					onClick={() => setMobileNavbar(!mobileNavbar)}>
+					<FontAwesomeIcon
+						icon={mobileNavbar ? faBars : faXmark}
+						size='xl'
+						className={`transition-transform duration-300 ${
+							mobileNavbar ? 'rotate-0 transform' : 'rotate-90 transform'
+						}`}
+						style={{ flex: 1, color: '#000000' }}
+					/>
 				</div>
 			</div>
 		</nav>
