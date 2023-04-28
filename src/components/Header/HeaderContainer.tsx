@@ -1,26 +1,20 @@
+'use client'
 import React from 'react'
-import { getHeader } from '../../utils/url'
 import Link from 'next/link'
 import Menu from './Menu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import { GenericBlock } from '../../types/block'
-import { Header, IHeader, IHeaderBlock } from '../../types'
+import { Header, IHeaderBlock } from '../../types'
 
-async function getHeaderData(): Promise<Header | null> {
-	try {
-		const result = await getHeader()
-		if (result) return new Header(new GenericBlock<IHeader>(result, 'header'))
-		return null
-	} catch (err) {
-		return null
-	}
+interface Props {
+	headerData: string
 }
 
-export default async function HeaderContainer() {
-	const header = await getHeaderData()
+export default function HeaderContainer(props: Props) {
+	let header: Header | null = null
+	if (props.headerData) header = JSON.parse(props.headerData)
+	else header = null
 	console.log(header)
-
 	return (
 		<nav className='w-full px-44 py-10 sm:px-2 sm:py-6 md:px-6 lg:px-4'>
 			<div className='flex items-center justify-between'>
