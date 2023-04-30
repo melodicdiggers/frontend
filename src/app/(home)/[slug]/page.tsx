@@ -1,4 +1,4 @@
-import { GenericBlock, Header, IHeader, IHeaderBlock } from '../../../types'
+import { GenericBlock, Header, IHeader } from '../../../types'
 import { getHeader } from '../../../utils/url'
 
 interface PageProps {
@@ -22,13 +22,11 @@ export async function generateStaticParams() {
 	const params = header?.headerBlock.map(block => {
 		return block.options
 	})
+	const slugObjects = params?.flatMap(options => options).map(options => ({ slug: options.slug }))
 
-	//create an array with all slugs since some are nested
-	console.log('params', params)
-
-	return params?.map(options => {
+	return slugObjects?.map(slug => {
 		return {
-			slug: options.slug,
+			slug: slug.slug,
 		}
 	})
 }
