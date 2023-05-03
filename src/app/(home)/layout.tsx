@@ -20,7 +20,7 @@ export default async function HomeLayout({ children }: Props) {
 	const header = await getHeaderData()
 
 	return (
-		<div className='flex flex-col'>
+		<div className='flex h-full w-full flex-col'>
 			<HeaderContainer headerData={JSON.stringify(header)} />
 			{children}
 			<div>Footer</div>
