@@ -24,7 +24,11 @@ export async function generateStaticParams() {
 	})
 	const slugObjects = params?.flatMap(options => options).map(options => ({ slug: options.slug }))
 
-	return slugObjects?.map(slug => {
+	if (slugObjects === undefined) {
+		return []
+	}
+
+	return slugObjects.map(slug => {
 		return {
 			slug: slug.slug,
 		}

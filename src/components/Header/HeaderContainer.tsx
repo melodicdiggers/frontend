@@ -1,10 +1,11 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
-import Menu from './DesktopMenu'
+import DesktopMenu from './DesktopMenu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faClose } from '@fortawesome/free-solid-svg-icons'
 import { Header, IHeaderBlock } from '../../types'
+import MobileMenu from './MobileMenu'
 
 interface Props {
 	headerData: string
@@ -26,7 +27,7 @@ export default function HeaderContainer(props: Props) {
 				</Link>
 				<div className='flex flex-row gap-12 sm:hidden'>
 					{header?.headerBlock.map((block: IHeaderBlock) => {
-						return <Menu block={block} key={`header-block-${block.title}`} />
+						return <DesktopMenu block={block} key={`header-desktop-block-${block.title}`} />
 					})}
 				</div>
 				<div
@@ -36,20 +37,22 @@ export default function HeaderContainer(props: Props) {
 				</div>
 			</div>
 			<div
-				className={`fixed left-0 top-0 h-full w-full transform bg-background transition-all duration-500 ease-in-out ${
+				className={`fixed left-0 top-0 h-full w-full transform bg-background pl-12 pr-5 pt-6 transition-all duration-500 ease-in-out ${
 					mobileNavbar ? 'translate-x-0' : '-translate-x-full'
 				} ${mobileNavbar ? 'sm:hidden lg:block' : ''}`}
 				onClick={() => setMobileNavbar(false)}>
-				<div className='mr-4 mt-4 flex justify-end'>
+				<div className='flex justify-end'>
 					<FontAwesomeIcon
 						icon={faClose}
-						size='lg'
+						size='xl'
 						className='text-white cursor-pointer'
 						onClick={() => setMobileNavbar(!mobileNavbar)}
 					/>
 				</div>
-				<div className='flex h-full flex-col items-center justify-center'>
-					<h3 className='text-white my-4 text-2xl font-semibold'>Sidebar Content</h3>
+				<div className='mt-6 flex flex-col gap-5'>
+					{header?.headerBlock.map((block: IHeaderBlock) => {
+						return <MobileMenu block={block} key={`header-mobile-block-${block.title}`} />
+					})}
 				</div>
 			</div>
 		</nav>

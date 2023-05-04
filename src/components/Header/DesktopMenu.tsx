@@ -6,7 +6,7 @@ interface MenuProps {
 	block: IHeaderBlock
 }
 
-export default function Menu({ block }: MenuProps) {
+export default function DesktopMenu({ block }: MenuProps) {
 	return (
 		<div key={`header-${block.title}`} className='group font-josefin text-2xl font-medium'>
 			{block.title === 'News' ? (
