@@ -39,8 +39,7 @@ export default function HeaderContainer(props: Props) {
 			<div
 				className={`fixed left-0 top-0 h-full w-full transform bg-background pl-12 pr-5 pt-6 transition-all duration-500 ease-in-out ${
 					mobileNavbar ? 'translate-x-0' : '-translate-x-full'
-				} ${mobileNavbar ? 'sm:hidden lg:block' : ''}`}
-				onClick={() => setMobileNavbar(false)}>
+				} ${mobileNavbar ? 'sm:hidden lg:block' : ''}`}>
 				<div className='flex justify-end'>
 					<FontAwesomeIcon
 						icon={faClose}
@@ -51,7 +50,9 @@ export default function HeaderContainer(props: Props) {
 				</div>
 				<div className='mt-6 flex flex-col gap-5'>
 					{header?.headerBlock.map((block: IHeaderBlock) => {
-						return <MobileMenu block={block} key={`header-mobile-block-${block.title}`} />
+						return (
+							<MobileMenu block={block} key={`header-mobile-block-${block.title}`} setMobileNavbar={setMobileNavbar} />
+						)
 					})}
 				</div>
 			</div>
