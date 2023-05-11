@@ -20,6 +20,31 @@ export type Scalars = {
   Upload: any;
 };
 
+export type About = {
+  aboutBlock?: Maybe<ComponentAboutBlockAbout>;
+  contactBlock?: Maybe<ComponentContactBlockContactBlock>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  socialBlock?: Maybe<ComponentSocialBlockSocialMediaBlock>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type AboutEntity = {
+  attributes?: Maybe<About>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type AboutEntityResponse = {
+  data?: Maybe<AboutEntity>;
+};
+
+export type AboutInput = {
+  aboutBlock?: InputMaybe<ComponentAboutBlockAboutInput>;
+  contactBlock?: InputMaybe<ComponentContactBlockContactBlockInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  socialBlock?: InputMaybe<ComponentSocialBlockSocialMediaBlockInput>;
+};
+
 export type BooleanFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
@@ -44,6 +69,32 @@ export type BooleanFilterInput = {
   startsWith?: InputMaybe<Scalars['Boolean']>;
 };
 
+export type ComponentAboutBlockAbout = {
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  subTitle?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+};
+
+export type ComponentAboutBlockAboutInput = {
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  subTitle?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type ComponentContactBlockContactBlock = {
+  contactOptions?: Maybe<Scalars['JSON']>;
+  id: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
+};
+
+export type ComponentContactBlockContactBlockInput = {
+  contactOptions?: InputMaybe<Scalars['JSON']>;
+  id?: InputMaybe<Scalars['ID']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
 export type ComponentHeaderBlockHeader = {
   id: Scalars['ID'];
   options?: Maybe<Scalars['JSON']>;
@@ -62,6 +113,16 @@ export type ComponentHeaderBlockHeaderInput = {
   id?: InputMaybe<Scalars['ID']>;
   options?: InputMaybe<Scalars['JSON']>;
   title?: InputMaybe<Scalars['String']>;
+};
+
+export type ComponentSocialBlockSocialMediaBlock = {
+  id: Scalars['ID'];
+  socialMediaOptions?: Maybe<Scalars['JSON']>;
+};
+
+export type ComponentSocialBlockSocialMediaBlockInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  socialMediaOptions?: InputMaybe<Scalars['JSON']>;
 };
 
 export type DateTimeFilterInput = {
@@ -118,7 +179,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']>;
 };
 
-export type GenericMorph = ComponentHeaderBlockHeader | Header | I18NLocale | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = About | ComponentAboutBlockAbout | ComponentContactBlockContactBlock | ComponentHeaderBlockHeader | ComponentSocialBlockSocialMediaBlock | Header | I18NLocale | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -263,6 +324,7 @@ export type Mutation = {
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  deleteAbout?: Maybe<AboutEntityResponse>;
   deleteHeader?: Maybe<HeaderEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -281,6 +343,7 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
+  updateAbout?: Maybe<AboutEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateHeader?: Maybe<HeaderEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -380,6 +443,11 @@ export type MutationResetPasswordArgs = {
 };
 
 
+export type MutationUpdateAboutArgs = {
+  data: AboutInput;
+};
+
+
 export type MutationUpdateFileInfoArgs = {
   id: Scalars['ID'];
   info?: InputMaybe<FileInfoInput>;
@@ -443,6 +511,7 @@ export enum PublicationState {
 }
 
 export type Query = {
+  about?: Maybe<AboutEntityResponse>;
   header?: Maybe<HeaderEntityResponse>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
@@ -455,6 +524,11 @@ export type Query = {
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
   usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>;
+};
+
+
+export type QueryAboutArgs = {
+  publicationState?: InputMaybe<PublicationState>;
 };
 
 
@@ -894,6 +968,11 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type FooterQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FooterQuery = { about?: { data?: { attributes?: { aboutBlock?: { title: string, subTitle?: string | null, description?: string | null } | null, contactBlock?: { title?: string | null, contactOptions?: any | null } | null, socialBlock?: { socialMediaOptions?: any | null } | null } | null } | null } | null };
+
 export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -905,6 +984,28 @@ export type LandingPhotoQueryVariables = Exact<{ [key: string]: never; }>;
 export type LandingPhotoQuery = { uploadFile?: { data?: { attributes?: { url: string, alternativeText?: string | null, caption?: string | null, width?: number | null, height?: number | null, size: number, ext?: string | null } | null } | null } | null };
 
 
+export const FooterDocument = /*#__PURE__*/ gql`
+    query Footer {
+  about {
+    data {
+      attributes {
+        aboutBlock {
+          title
+          subTitle
+          description
+        }
+        contactBlock {
+          title
+          contactOptions
+        }
+        socialBlock {
+          socialMediaOptions
+        }
+      }
+    }
+  }
+}
+    `;
 export const HeaderDocument = /*#__PURE__*/ gql`
     query Header {
   header {
@@ -945,6 +1046,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    Footer(variables?: FooterQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FooterQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FooterQuery>(FooterDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Footer', 'query');
+    },
     Header(variables?: HeaderQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<HeaderQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<HeaderQuery>(HeaderDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Header', 'query');
     },

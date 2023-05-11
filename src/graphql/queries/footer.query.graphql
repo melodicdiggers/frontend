@@ -1,0 +1,20 @@
+query Footer {
+	about {
+		data {
+			attributes {
+				aboutBlock {
+					title
+					subTitle
+					description
+				}
+				contactBlock {
+					title
+					contactOptions
+				}
+				socialBlock {
+					socialMediaOptions
+				}
+			}
+		}
+	}
+}

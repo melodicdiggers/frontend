@@ -1,4 +1,4 @@
-export const filtersType = ['header'] as const
+export const filtersType = ['header', 'about'] as const
 export type GenericBlockType = (typeof filtersType)[number]
 
 export type IGenericBlock<T> = {

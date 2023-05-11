@@ -1,6 +1,7 @@
+import FooterContainer from '../../components/Footer/FooterContainer'
 import HeaderContainer from '../../components/Header/HeaderContainer'
-import { GenericBlock, Header, IHeader } from '../../types'
-import { getHeader } from '../../utils/url'
+import { Footer, GenericBlock, Header, IFooter, IHeader } from '../../types'
+import { getFooter, getHeader } from '../../utils/url'
 
 interface Props {
 	children: JSX.Element
@@ -16,14 +17,25 @@ async function getHeaderData(): Promise<Header | null> {
 	}
 }
 
+async function getFooterData(): Promise<Footer | null> {
+	try {
+		const result = await getFooter()
+		if (result) return new Footer(new GenericBlock<IFooter>(result, 'about'))
+		return null
+	} catch (err) {
+		return null
+	}
+}
+
 export default async function HomeLayout({ children }: Props) {
 	const header = await getHeaderData()
+	const footer = await getFooterData()
 
 	return (
 		<div className='flex h-full w-full flex-col'>
 			<HeaderContainer headerData={JSON.stringify(header)} />
 			{children}
-			<div>Footer</div>
+			<FooterContainer headerData={JSON.stringify(footer)} />
 		</div>
 	)
 }

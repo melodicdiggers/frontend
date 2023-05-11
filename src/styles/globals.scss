@@ -25,3 +25,8 @@ body {
     //overscroll-behavior-y: none;
     background-color: $background !important;
 }
+
+img {
+    max-width: 100%;
+    display: block;
+}

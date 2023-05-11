@@ -1,6 +1,6 @@
 import { DocumentNode } from 'graphql'
 import { graphqlClient } from '../services/client'
-import { HeaderDocument, Sdk } from '../generated/sdk'
+import { FooterDocument, HeaderDocument, Sdk } from '../generated/sdk'
 import { Variables } from 'graphql-request'
 
 export type QueryName = keyof Sdk
@@ -17,4 +17,8 @@ export const fetchGraphQLData = async <Q, V>(query: DocumentNode, variables?: V)
 
 export const getHeader = async () => {
 	return await fetchGraphQLData(HeaderDocument)
+}
+
+export const getFooter = async () => {
+	return await fetchGraphQLData(FooterDocument)
 }
