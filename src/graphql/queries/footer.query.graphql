@@ -4,12 +4,9 @@ query Footer {
 			attributes {
 				aboutBlock {
 					title
-					subTitle
-					description
 				}
 				contactBlock {
 					title
-					contactOptions
 				}
 				socialBlock {
 					socialMediaOptions

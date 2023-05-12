@@ -1,0 +1,12 @@
+query ContactPage {
+	about {
+		data {
+			attributes {
+				contactBlock {
+					title
+					contactOptions
+				}
+			}
+		}
+	}
+}

@@ -5,7 +5,6 @@ export interface IFooter {
 	contactBlock: IContactBlock
 	socialBlock: ISocialBlock
 }
-
 export interface IAboutBlock {
 	title: string
 	subtitle: string

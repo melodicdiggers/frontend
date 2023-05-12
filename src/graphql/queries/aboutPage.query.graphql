@@ -1,0 +1,13 @@
+query AboutPage {
+	about {
+		data {
+			attributes {
+				aboutBlock {
+					title
+					subTitle
+					description
+				}
+			}
+		}
+	}
+}

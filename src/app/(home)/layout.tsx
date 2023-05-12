@@ -1,7 +1,7 @@
 import FooterContainer from '../../components/Footer/FooterContainer'
 import HeaderContainer from '../../components/Header/HeaderContainer'
 import { Footer, GenericBlock, Header, IFooter, IHeader } from '../../types'
-import { getFooter, getHeader } from '../../utils/url'
+import { getFooterBlock, getHeader } from '../../utils/url'
 
 interface Props {
 	children: JSX.Element
@@ -19,7 +19,7 @@ async function getHeaderData(): Promise<Header | null> {
 
 async function getFooterData(): Promise<Footer | null> {
 	try {
-		const result = await getFooter()
+		const result = await getFooterBlock()
 		if (result) return new Footer(new GenericBlock<IFooter>(result, 'about'))
 		return null
 	} catch (err) {

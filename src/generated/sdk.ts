@@ -968,10 +968,20 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type AboutPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AboutPageQuery = { about?: { data?: { attributes?: { aboutBlock?: { title: string, subTitle?: string | null, description?: string | null } | null } | null } | null } | null };
+
+export type ContactPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ContactPageQuery = { about?: { data?: { attributes?: { contactBlock?: { title?: string | null, contactOptions?: any | null } | null } | null } | null } | null };
+
 export type FooterQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FooterQuery = { about?: { data?: { attributes?: { aboutBlock?: { title: string, subTitle?: string | null, description?: string | null } | null, contactBlock?: { title?: string | null, contactOptions?: any | null } | null, socialBlock?: { socialMediaOptions?: any | null } | null } | null } | null } | null };
+export type FooterQuery = { about?: { data?: { attributes?: { aboutBlock?: { title: string } | null, contactBlock?: { title?: string | null } | null, socialBlock?: { socialMediaOptions?: any | null } | null } | null } | null } | null };
 
 export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -984,8 +994,8 @@ export type LandingPhotoQueryVariables = Exact<{ [key: string]: never; }>;
 export type LandingPhotoQuery = { uploadFile?: { data?: { attributes?: { url: string, alternativeText?: string | null, caption?: string | null, width?: number | null, height?: number | null, size: number, ext?: string | null } | null } | null } | null };
 
 
-export const FooterDocument = /*#__PURE__*/ gql`
-    query Footer {
+export const AboutPageDocument = /*#__PURE__*/ gql`
+    query AboutPage {
   about {
     data {
       attributes {
@@ -994,9 +1004,35 @@ export const FooterDocument = /*#__PURE__*/ gql`
           subTitle
           description
         }
+      }
+    }
+  }
+}
+    `;
+export const ContactPageDocument = /*#__PURE__*/ gql`
+    query ContactPage {
+  about {
+    data {
+      attributes {
         contactBlock {
           title
           contactOptions
+        }
+      }
+    }
+  }
+}
+    `;
+export const FooterDocument = /*#__PURE__*/ gql`
+    query Footer {
+  about {
+    data {
+      attributes {
+        aboutBlock {
+          title
+        }
+        contactBlock {
+          title
         }
         socialBlock {
           socialMediaOptions
@@ -1046,6 +1082,12 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    AboutPage(variables?: AboutPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AboutPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AboutPageQuery>(AboutPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AboutPage', 'query');
+    },
+    ContactPage(variables?: ContactPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ContactPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ContactPageQuery>(ContactPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ContactPage', 'query');
+    },
     Footer(variables?: FooterQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FooterQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FooterQuery>(FooterDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Footer', 'query');
     },

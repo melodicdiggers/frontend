@@ -1,6 +1,6 @@
 import { DocumentNode } from 'graphql'
 import { graphqlClient } from '../services/client'
-import { FooterDocument, HeaderDocument, Sdk } from '../generated/sdk'
+import { AboutPageDocument, ContactPageDocument, FooterDocument, HeaderDocument, Sdk } from '../generated/sdk'
 import { Variables } from 'graphql-request'
 
 export type QueryName = keyof Sdk
@@ -19,6 +19,14 @@ export const getHeader = async () => {
 	return await fetchGraphQLData(HeaderDocument)
 }
 
-export const getFooter = async () => {
+export const getFooterBlock = async () => {
 	return await fetchGraphQLData(FooterDocument)
+}
+
+export const getAboutPage = async () => {
+	return await fetchGraphQLData(AboutPageDocument)
+}
+
+export const getContactPage = async () => {
+	return await fetchGraphQLData(ContactPageDocument)
 }
