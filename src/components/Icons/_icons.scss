@@ -1,0 +1,29 @@
+.icon {
+    display: flex;
+
+    &.small {
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    &.large {
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    &.primary {
+        svg {
+            fill: #000;
+        }
+    }
+
+    &.white {
+        svg {
+            fill: #FFF;
+        }
+    }
+}
