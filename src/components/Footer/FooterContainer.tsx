@@ -28,7 +28,7 @@ export default function FooterContainer(props: Props) {
 				<Link href={'/about'} className='font-josefin text-sm font-medium text-black no-underline'>
 					{aboutBlock?.title.toUpperCase()}
 				</Link>
-				<Link href={'/about'} className=' font-josefin text-sm font-medium text-black no-underline'>
+				<Link href={'/contact'} className=' font-josefin text-sm font-medium text-black no-underline'>
 					{contactBlock?.title.toUpperCase()}
 				</Link>
 			</div>
