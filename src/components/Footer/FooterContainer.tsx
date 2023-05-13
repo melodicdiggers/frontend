@@ -23,12 +23,12 @@ export default function FooterContainer(props: Props) {
 	const { aboutBlock, contactBlock, socialBlock } = footer || {}
 
 	return (
-		<div className='mt-12 flex flex-col gap-12'>
+		<div className='mb-12 mt-12 flex flex-col gap-12'>
 			<div className='flex items-center justify-center gap-8'>
-				<Link href={'/about'} className='font-josefin text-sm font-medium text-black no-underline'>
+				<Link href={'/about'} className=' font-josefin text-sm font-medium text-black no-underline hover:text-hover'>
 					{aboutBlock?.title.toUpperCase()}
 				</Link>
-				<Link href={'/contact'} className=' font-josefin text-sm font-medium text-black no-underline'>
+				<Link href={'/contact'} className=' font-josefin text-sm font-medium text-black no-underline hover:text-hover'>
 					{contactBlock?.title.toUpperCase()}
 				</Link>
 			</div>

@@ -15,11 +15,20 @@ async function getContactData(): Promise<Contact | null> {
 export default async function ContactPage() {
 	const contact = await getContactData()
 	const { contactBlock } = contact || {}
-	console.log(contactBlock)
 
 	return (
-		<div className='flex flex-col'>
-			<div>Contact Page</div>
+		<div className='flex max-w-2xl flex-col gap-8 font-josefin'>
+			<div className='text-3xl font-bold'>{contactBlock?.title.toUpperCase()}</div>
+			{contactBlock?.contactOptions.map(option => {
+				return (
+					<div key={`email-${option.title}`}>
+						<div className='font-baskervville'>{option.title}</div>
+						<a className='font-baskervville leading-8 text-black' href={`mailto:${option.email}`}>
+							{option.email}
+						</a>
+					</div>
+				)
+			})}
 		</div>
 	)
 }
