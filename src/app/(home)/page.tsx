@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import DefaultImage from '../../assets/images/DefaultImage.jpg'
-
+import MediaGallery from '../../components/LandingPage/MediaGallery'
 export default async function Homepage() {
 	return (
 		<div className='flex flex-col'>
@@ -14,6 +14,7 @@ export default async function Homepage() {
 				style={{ objectFit: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
 			/>
 			<div>Landing Page</div>
+			<MediaGallery />
 		</div>
 	)
 }
