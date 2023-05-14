@@ -26,15 +26,16 @@ export default async function MediaGallery() {
 
 	return (
 		<div className='flex flex-col'>
-			<div className='flex flex-wrap gap-4 px-44'>
+			<div className='flex flex-wrap items-center justify-center gap-4 px-44 sm:px-4'>
 				{images.map(image => (
 					<div key={image.id}>
 						<Link href={image.media_url}>
 							<Image
 								src={image.media_url}
 								alt=''
-								width={250}
-								height={250}
+								width={280}
+								height={280}
+								quality={100}
 								style={{ objectFit: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
 							/>
 						</Link>
