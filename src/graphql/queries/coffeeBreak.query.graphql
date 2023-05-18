@@ -1,0 +1,11 @@
+query CoffeeBreak {
+	articles(filters: { category: { eq: "CoffeeBreak" } }) {
+		data {
+			attributes {
+				title
+				content
+				category
+			}
+		}
+	}
+}
