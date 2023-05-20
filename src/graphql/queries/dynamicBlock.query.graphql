@@ -1,0 +1,19 @@
+query dynamicBlock {
+	dynamicBlock {
+		data {
+			attributes {
+				landingPageBlock {
+					title
+					photograph {
+						data {
+							attributes {
+								url
+							}
+						}
+					}
+					url
+				}
+			}
+		}
+	}
+}

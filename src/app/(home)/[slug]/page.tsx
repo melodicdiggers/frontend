@@ -1,4 +1,4 @@
-import { Article, GenericBlock, Header, IArticle, IHeader } from '../../../types'
+import { Article, GenericBlock, Header, IArticle, IHeader, MultiGenericBlock } from '../../../types'
 import { getCoffeeBreaks, getHeader } from '../../../utils/url'
 
 interface PageProps {
@@ -7,20 +7,20 @@ interface PageProps {
 	}
 }
 
-async function getHeaderData(): Promise<Header | null> {
+async function getCoffeeBreaksData(): Promise<Article | null> {
 	try {
-		const result = await getHeader()
-		if (result) return new Header(new GenericBlock<IHeader>(result, 'header'))
+		const result = await getCoffeeBreaks()
+		if (result) return new Article(new MultiGenericBlock<IArticle>(result, 'articles'))
 		return null
 	} catch (err) {
 		return null
 	}
 }
 
-async function getCoffeeBreaksData(): Promise<Article | null> {
+async function getHeaderData(): Promise<Header | null> {
 	try {
-		const result = await getCoffeeBreaks()
-		if (result) return new Article(new GenericBlock<IArticle>(result, 'articles'))
+		const result = await getHeader()
+		if (result) return new Header(new GenericBlock<IHeader>(result, 'header'))
 		return null
 	} catch (err) {
 		return null
@@ -47,6 +47,6 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: PageProps) {
 	//const breaks = await getCoffeeBreaksData()
-	const result = await getHeader()
+	const result = await getCoffeeBreaksData()
 	return <div>{params.slug}</div>
 }

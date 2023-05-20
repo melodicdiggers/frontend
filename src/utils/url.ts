@@ -4,6 +4,7 @@ import {
 	AboutPageDocument,
 	CoffeeBreakDocument,
 	ContactPageDocument,
+	DynamicBlockDocument,
 	FooterDocument,
 	HeaderDocument,
 	Sdk,
@@ -40,4 +41,8 @@ export const getContactPage = async () => {
 
 export const getCoffeeBreaks = async () => {
 	return await fetchGraphQLData(CoffeeBreakDocument)
+}
+
+export const getDynamicBlocks = async () => {
+	return await fetchGraphQLData(DynamicBlockDocument)
 }
