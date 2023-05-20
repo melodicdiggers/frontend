@@ -15,7 +15,7 @@ export default async function Homepage() {
 				priority
 				style={{ objectFit: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
 			/>
-			<div>Landing Page</div>
+			<div className='flex items-center justify-center font-josefin text-3xl font-semibold'>FOLLOW US</div>
 			{/* @ts-expect-error Server Component */}
 			<MediaGallery />
 		</div>

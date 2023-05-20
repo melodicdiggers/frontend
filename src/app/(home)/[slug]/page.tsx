@@ -47,5 +47,6 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: PageProps) {
 	//const breaks = await getCoffeeBreaksData()
+	const result = await getHeader()
 	return <div>{params.slug}</div>
 }
