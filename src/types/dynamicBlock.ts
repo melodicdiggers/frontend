@@ -6,8 +6,19 @@ export interface IDynamicBlock {
 
 export interface ILandingPageBlock {
 	title: string
-	url: Object
-	photograph: Object
+	url: {
+		url: string
+		key: string
+	}
+	photograph: {
+		data: {
+			attributes: {
+				url: string
+				width: number
+				height: number
+			}
+		}
+	}
 }
 
 export class DynamicBlock implements IDynamicBlock {

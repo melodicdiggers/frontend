@@ -1132,7 +1132,7 @@ export type ContactPageQuery = { about?: { data?: { attributes?: { contactBlock?
 export type DynamicBlockQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DynamicBlockQuery = { dynamicBlock?: { data?: { attributes?: { landingPageBlock?: Array<{ title?: string | null, url?: any | null, photograph?: { data?: { attributes?: { url: string } | null } | null } | null } | null> | null } | null } | null } | null };
+export type DynamicBlockQuery = { dynamicBlock?: { data?: { attributes?: { landingPageBlock?: Array<{ title?: string | null, url?: any | null, photograph?: { data?: { attributes?: { url: string, width?: number | null, height?: number | null } | null } | null } | null } | null> | null } | null } | null } | null };
 
 export type FooterQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1203,6 +1203,8 @@ export const DynamicBlockDocument = /*#__PURE__*/ gql`
             data {
               attributes {
                 url
+                width
+                height
               }
             }
           }

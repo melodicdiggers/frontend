@@ -8,6 +8,8 @@ query dynamicBlock {
 						data {
 							attributes {
 								url
+								width
+								height
 							}
 						}
 					}
