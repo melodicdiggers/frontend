@@ -17,7 +17,7 @@ async function getDynamicBlockData(): Promise<DynamicBlock | null> {
 
 export default async function Homepage() {
 	const dynamicBlock = await getDynamicBlockData()
-	console.log(dynamicBlock?.landingPageBlock)
+
 	return (
 		<div className='flex flex-col gap-12 sm:gap-4'>
 			{dynamicBlock?.landingPageBlock

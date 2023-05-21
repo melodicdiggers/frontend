@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Article, GenericBlock, Header, IArticle, IHeader, MultiGenericBlock } from '../../../types'
 import { getCoffeeBreaks, getHeader } from '../../../utils/url'
 
@@ -46,7 +47,41 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: PageProps) {
-	//const breaks = await getCoffeeBreaksData()
-	const result = await getCoffeeBreaksData()
-	return <div>{params.slug}</div>
+	const coffeeBreaks = await getCoffeeBreaksData()
+
+	const formattedDate = coffeeBreaks?.createdAt
+		? new Date(coffeeBreaks.createdAt).toLocaleDateString('en-US', {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric',
+		  })
+		: ''
+
+	return (
+		<div className='flex flex-wrap gap-20 px-64'>
+			{coffeeBreaks?.category == 'CoffeeBreak' ? (
+				<div style={{ display: 'inline-block' }}>
+					<Image
+						src={process.env.MEDIA_HOST + coffeeBreaks.mediaArticle.data.attributes.url}
+						alt={''}
+						width={279}
+						height={279}
+						quality={100}
+						style={{
+							objectFit: 'cover',
+							backgroundPosition: 'center',
+							backgroundRepeat: 'no-repeat',
+							objectPosition: 'center 70%',
+						}}
+					/>
+					<div className='mt-6 flex flex-col gap-4' style={{ width: 279 }}>
+						<div className='text-sm font-medium italic text-hover'>{formattedDate}</div>
+						<div className='text-xl'>{coffeeBreaks.title}</div>
+					</div>
+				</div>
+			) : (
+				<div>Not a coffee break</div>
+			)}
+		</div>
+	)
 }

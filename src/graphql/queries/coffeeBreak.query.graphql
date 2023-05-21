@@ -5,6 +5,15 @@ query CoffeeBreak {
 				title
 				content
 				category
+				article_slug
+				createdAt
+				mediaArticle {
+					data {
+						attributes {
+							url
+						}
+					}
+				}
 			}
 		}
 	}

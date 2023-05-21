@@ -46,9 +46,11 @@ export type AboutInput = {
 };
 
 export type Article = {
+  article_slug?: Maybe<Scalars['String']>;
   category?: Maybe<Enum_Article_Category>;
   content?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  mediaArticle?: Maybe<UploadFileEntityResponse>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -70,6 +72,7 @@ export type ArticleEntityResponseCollection = {
 
 export type ArticleFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
+  article_slug?: InputMaybe<StringFilterInput>;
   category?: InputMaybe<StringFilterInput>;
   content?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
@@ -82,8 +85,10 @@ export type ArticleFiltersInput = {
 };
 
 export type ArticleInput = {
+  article_slug?: InputMaybe<Scalars['String']>;
   category?: InputMaybe<Enum_Article_Category>;
   content?: InputMaybe<Scalars['String']>;
+  mediaArticle?: InputMaybe<Scalars['ID']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -1122,7 +1127,7 @@ export type AboutPageQuery = { about?: { data?: { attributes?: { aboutBlock?: { 
 export type CoffeeBreakQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CoffeeBreakQuery = { articles?: { data: Array<{ attributes?: { title?: string | null, content?: string | null, category?: Enum_Article_Category | null } | null }> } | null };
+export type CoffeeBreakQuery = { articles?: { data: Array<{ attributes?: { title?: string | null, content?: string | null, category?: Enum_Article_Category | null, article_slug?: string | null, createdAt?: string | null, mediaArticle?: { data?: { attributes?: { url: string } | null } | null } | null } | null }> } | null };
 
 export type ContactPageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1173,6 +1178,15 @@ export const CoffeeBreakDocument = /*#__PURE__*/ gql`
         title
         content
         category
+        article_slug
+        createdAt
+        mediaArticle {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
       }
     }
   }
