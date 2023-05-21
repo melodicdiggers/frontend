@@ -17,7 +17,7 @@ export default function DesktopMenu({ block }: MenuProps) {
 				<div className='text-base font-semibold'>{block.title.toUpperCase()}</div>
 			)}
 			{block.title !== 'News' && (
-				<div className='absolute hidden bg-background px-2 pb-0 pt-4 group-hover:block'>
+				<div className='absolute z-10 hidden bg-background px-2 pb-0 pt-4 group-hover:block'>
 					{block.options.map((option: IOptions) => {
 						return (
 							<Link

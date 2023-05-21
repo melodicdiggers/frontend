@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import React from 'react'
-import DefaultImage from '../../assets/images/DefaultImage.jpg'
 import MediaGallery from '../../components/LandingPage/MediaGallery'
 import { getDynamicBlocks } from '../../utils/url'
 import { DynamicBlock, GenericBlock, IDynamicBlock } from '../../types'
@@ -29,7 +28,7 @@ export default async function Homepage() {
 							src={process.env.MEDIA_HOST + block.photograph.data.attributes.url}
 							alt={''}
 							width={2000}
-							height={500}
+							height={550}
 							quality={100}
 							style={{
 								objectFit: 'cover',
@@ -39,27 +38,36 @@ export default async function Homepage() {
 							}}
 						/>
 						<Link className='absolute bottom-2/4 flex w-full justify-center' href={block.url.url}>
-							<div className='flex w-96 flex-wrap items-center justify-center text-center font-josefin text-4xl font-bold leading-10 tracking-widest text-background hover:text-hover'>
+							<div className=' absolute left-1/2 top-1/2 flex h-32 w-96 -translate-x-1/2 -translate-y-1/2 transform items-center justify-center text-center font-josefin text-4xl font-bold leading-loose tracking-widest text-background underline decoration-1 underline-offset-8 hover:text-opacity-70'>
 								{block.title.toUpperCase()}
 							</div>
 						</Link>
 					</div>
 				))}
-
-			<Image
-				src={DefaultImage}
-				alt={'landing-image'}
-				width={2000}
-				height={560}
-				quality={100}
-				priority
-				style={{
-					objectFit: 'cover',
-					backgroundPosition: 'center',
-					backgroundRepeat: 'no-repeat',
-					objectPosition: 'center 70%',
-				}}
-			/>
+			{dynamicBlock?.landingPageBlock
+				?.filter(block => block.url.key === 'landing-bottom')
+				.map(block => (
+					<div key={`top-bloc-${block.url.key}`} className='relative flex w-full'>
+						<Image
+							src={process.env.MEDIA_HOST + block.photograph.data.attributes.url}
+							alt={''}
+							width={2000}
+							height={650}
+							quality={100}
+							style={{
+								objectFit: 'cover',
+								backgroundPosition: 'center',
+								backgroundRepeat: 'no-repeat',
+								objectPosition: 'center 70%',
+							}}
+						/>
+						<Link className='absolute bottom-2/4 flex w-full justify-center' href={block.url.url}>
+							<div className=' absolute left-1/2 top-1/2 flex h-32 -translate-x-1/2 -translate-y-1/2 transform items-center justify-center text-center font-josefin text-4xl font-bold leading-loose tracking-widest text-background underline decoration-1 underline-offset-8 hover:text-opacity-70'>
+								{block.title.toUpperCase()}
+							</div>
+						</Link>
+					</div>
+				))}
 			<div className='flex items-center justify-center font-josefin text-3xl font-semibold'>FOLLOW US</div>
 			{/* @ts-expect-error Server Component */}
 			<MediaGallery />
