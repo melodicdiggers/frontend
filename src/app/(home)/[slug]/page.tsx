@@ -46,7 +46,7 @@ export async function generateStaticParams() {
 	})
 }
 
-export default async function Page({ params }: PageProps) {
+export default async function SlugPage({ params }: PageProps) {
 	const coffeeBreaks = await getCoffeeBreaksData()
 
 	const formattedDate = coffeeBreaks?.createdAt

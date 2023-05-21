@@ -1127,7 +1127,7 @@ export type AboutPageQuery = { about?: { data?: { attributes?: { aboutBlock?: { 
 export type CoffeeBreakQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CoffeeBreakQuery = { articles?: { data: Array<{ attributes?: { title?: string | null, content?: string | null, category?: Enum_Article_Category | null, article_slug?: string | null, createdAt?: string | null, mediaArticle?: { data?: { attributes?: { url: string } | null } | null } | null } | null }> } | null };
+export type CoffeeBreakQuery = { articles?: { data: Array<{ attributes?: { title?: string | null, category?: Enum_Article_Category | null, article_slug?: string | null, createdAt?: string | null, mediaArticle?: { data?: { attributes?: { url: string } | null } | null } | null } | null }> } | null };
 
 export type ContactPageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1176,7 +1176,6 @@ export const CoffeeBreakDocument = /*#__PURE__*/ gql`
     data {
       attributes {
         title
-        content
         category
         article_slug
         createdAt
