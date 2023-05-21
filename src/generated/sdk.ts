@@ -1124,6 +1124,13 @@ export type AboutPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type AboutPageQuery = { about?: { data?: { attributes?: { aboutBlock?: { title: string, subTitle?: string | null, description?: string | null } | null } | null } | null } | null };
 
+export type ArticleByIdQueryVariables = Exact<{
+  article_slug?: InputMaybe<StringFilterInput>;
+}>;
+
+
+export type ArticleByIdQuery = { articles?: { data: Array<{ attributes?: { title?: string | null, category?: Enum_Article_Category | null, createdAt?: string | null, content?: string | null, article_slug?: string | null } | null }> } | null };
+
 export type CoffeeBreakQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1165,6 +1172,21 @@ export const AboutPageDocument = /*#__PURE__*/ gql`
           subTitle
           description
         }
+      }
+    }
+  }
+}
+    `;
+export const ArticleByIdDocument = /*#__PURE__*/ gql`
+    query ArticleById($article_slug: StringFilterInput) {
+  articles(filters: {article_slug: $article_slug}) {
+    data {
+      attributes {
+        title
+        category
+        createdAt
+        content
+        article_slug
       }
     }
   }
@@ -1289,6 +1311,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     AboutPage(variables?: AboutPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AboutPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AboutPageQuery>(AboutPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AboutPage', 'query');
+    },
+    ArticleById(variables?: ArticleByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ArticleByIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ArticleByIdQuery>(ArticleByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ArticleById', 'query');
     },
     CoffeeBreak(variables?: CoffeeBreakQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CoffeeBreakQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<CoffeeBreakQuery>(CoffeeBreakDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CoffeeBreak', 'query');
