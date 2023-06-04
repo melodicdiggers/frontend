@@ -37,7 +37,7 @@ export default function HeaderContainer(props: Props) {
 				</div>
 			</div>
 			<div
-				className={`fixed left-0 top-0 h-full w-full transform bg-background pl-12 pr-5 pt-6 transition-all duration-500 ease-in-out ${
+				className={`fixed left-0 top-0 z-10 h-full w-full transform bg-background pl-12 pr-5 pt-6 transition-all duration-500 ease-in-out ${
 					mobileNavbar ? 'translate-x-0' : '-translate-x-full'
 				} ${mobileNavbar ? 'sm:hidden lg:block' : ''}`}>
 				<div className='flex justify-end'>

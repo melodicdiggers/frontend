@@ -3,6 +3,7 @@ import { Article, GenericBlock, Header, IArticle, IHeader, MultiGenericBlock } f
 import { getCoffeeBreaks, getHeader } from '../../../utils/url'
 import Link from 'next/link'
 
+export const dynamicParams = false
 interface PageProps {
 	params: {
 		slug: string
@@ -60,10 +61,10 @@ export default async function SlugPage({ params }: PageProps) {
 
 	return (
 		<div className='flex flex-wrap gap-20'>
-			{coffeeBreaks?.category == 'CoffeeBreak' ? (
+			{params.slug == 'coffee-break' && coffeeBreaks ? (
 				<Link
 					style={{ display: 'inline-block', textDecoration: 'none' }}
-					href={params.slug + '/' + coffeeBreaks.article_slug}>
+					href={params.slug + '/' + coffeeBreaks?.article_slug}>
 					<Image
 						src={process.env.MEDIA_HOST + coffeeBreaks.mediaArticle.data.attributes.url}
 						alt={''}
@@ -79,7 +80,7 @@ export default async function SlugPage({ params }: PageProps) {
 					/>
 					<div className='mt-6 flex flex-col gap-4' style={{ width: 279 }}>
 						<div className='text-sm font-medium italic text-hover'>{formattedDate}</div>
-						<div className='text-xl text-black hover:text-hover'>{coffeeBreaks.title}</div>
+						<div className='text-xl text-black hover:text-hover'>{coffeeBreaks?.title}</div>
 					</div>
 				</Link>
 			) : (

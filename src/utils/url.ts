@@ -17,7 +17,7 @@ export type QueryName = keyof Sdk
 export const fetchGraphQLData = async <Q, V>(query: DocumentNode, variables?: V) => {
 	try {
 		let response = null
-		response = await graphqlClient.request<Q>(query, variables as Variables)
+		response = (await graphqlClient.request<Q>(query, variables as Variables)) as any
 		return response
 	} catch (error) {
 		return null
