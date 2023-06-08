@@ -33,7 +33,7 @@ export default function FooterContainer(props: Props) {
 				</Link>
 			</div>
 			<div className='flex items-center justify-center gap-2'>
-				{socialBlock?.socialMediaOptions.map(option => (
+				{socialBlock?.socialMediaOptions?.map(option => (
 					<a href={option.url} key={`block-${option.title}`} className='text-black no-underline'>
 						{iconMap[option.title]}
 					</a>

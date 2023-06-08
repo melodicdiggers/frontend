@@ -4,6 +4,8 @@ query dynamicBlock {
 			attributes {
 				landingPageBlock {
 					title
+					url
+					key
 					photograph {
 						data {
 							attributes {
@@ -13,7 +15,6 @@ query dynamicBlock {
 							}
 						}
 					}
-					url
 				}
 			}
 		}

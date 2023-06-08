@@ -49,19 +49,19 @@ export async function generateStaticParams() {
 }
 
 export default async function SlugPage({ params }: PageProps) {
-	const coffeeBreaks = await getCoffeeBreaksData()
+	//const coffeeBreaks = await getCoffeeBreaksData()
 
-	const formattedDate = coffeeBreaks?.createdAt
+	/* const formattedDate = coffeeBreaks?.createdAt
 		? new Date(coffeeBreaks.createdAt).toLocaleDateString('en-US', {
 				year: 'numeric',
 				month: 'long',
 				day: 'numeric',
 		  })
-		: ''
+		: '' */
 
 	return (
 		<div className='flex flex-wrap gap-20'>
-			{params.slug == 'coffee-break' && coffeeBreaks ? (
+			{/* {params.slug == 'coffee-break' && coffeeBreaks ? (
 				<Link
 					style={{ display: 'inline-block', textDecoration: 'none' }}
 					href={params.slug + '/' + coffeeBreaks?.article_slug}>
@@ -85,7 +85,8 @@ export default async function SlugPage({ params }: PageProps) {
 				</Link>
 			) : (
 				<div>Not a coffee break</div>
-			)}
+			)} */}
+			{params.slug}
 		</div>
 	)
 }

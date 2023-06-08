@@ -1,6 +1,6 @@
 overwrite: true
 schema:
-  - https://backend-production-ef30.up.railway.app/graphql
+  - http://localhost:1337/graphql
 documents: src/graphql/**/*.graphql
 generates:
   ./src/generated/sdk.ts:

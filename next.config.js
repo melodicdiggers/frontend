@@ -4,7 +4,7 @@ const nextConfig = {
 		appDir: true,
 	},
 	images: {
-		domains: ['backend-production-ef30.up.railway.app', 'scontent.cdninstagram.com'],
+		domains: ['backend-production-ef30.up.railway.app', 'scontent.cdninstagram.com', 'localhost'],
 	},
 }
 

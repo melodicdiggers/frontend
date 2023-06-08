@@ -1,5 +1,5 @@
 query Footer {
-	about {
+	footer {
 		data {
 			attributes {
 				aboutBlock {

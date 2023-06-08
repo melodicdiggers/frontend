@@ -20,7 +20,7 @@ async function getHeaderData(): Promise<Header | null> {
 async function getFooterData(): Promise<Footer | null> {
 	try {
 		const result = await getFooterBlock()
-		if (result) return new Footer(new GenericBlock<IFooter>(result, 'about'))
+		if (result) return new Footer(new GenericBlock<IFooter>(result, 'footer'))
 		return null
 	} catch (err) {
 		return null

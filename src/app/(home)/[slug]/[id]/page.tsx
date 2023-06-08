@@ -19,23 +19,23 @@ async function getArticlesByIdData(id: string): Promise<Article | null> {
 	}
 }
 export default async function IdPage({ params }: PageProps) {
-	const article = await getArticlesByIdData(params.id)
+	//const article = await getArticlesByIdData(params.id)
 
-	const formattedDate = article?.createdAt
+	/* 	const formattedDate = article?.createdAt
 		? new Date(article.createdAt).toLocaleDateString('en-US', {
 				year: 'numeric',
 				month: 'long',
 				day: 'numeric',
 		  })
-		: ''
+		: '' */
 
 	return (
 		<div className='mt-10 flex flex-col flex-wrap gap-20'>
-			<div className='flex flex-col items-center justify-center gap-8'>
+			{/* 			<div className='flex flex-col items-center justify-center gap-8'>
 				<div className='text-sm font-medium italic text-hover'>{formattedDate}</div>
 				<div className='text-4xl'>{article?.title}</div>
 			</div>
-			{article?.content && <ReactMarkdown>{article.content}</ReactMarkdown>}
+			{article?.content && <ReactMarkdown>{article.content}</ReactMarkdown>} */}
 		</div>
 	)
 }
