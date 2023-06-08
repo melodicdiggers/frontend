@@ -4,6 +4,8 @@ import MediaGallery from '../../components/LandingPage/MediaGallery'
 import { getDynamicBlocks } from '../../utils/url'
 import { DynamicBlock, GenericBlock, IDynamicBlock } from '../../types'
 import Link from 'next/link'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../../pages/api/auth/[...nextauth]'
 
 async function getDynamicBlockData(): Promise<DynamicBlock | null> {
 	try {
@@ -17,7 +19,9 @@ async function getDynamicBlockData(): Promise<DynamicBlock | null> {
 
 export default async function Homepage() {
 	const dynamicBlock = await getDynamicBlockData()
+	const session = await getServerSession(authOptions)
 
+	console.log(session)
 	return (
 		<div className='flex flex-col gap-12 sm:gap-4'>
 			{dynamicBlock?.landingPageBlock
