@@ -4,10 +4,9 @@ import { getToken } from 'next-auth/jwt'
 
 export async function middleware(req: NextRequest) {
 	const session = await getToken({ req, secret: process.env.AUTH_SECRET })
-	if (!session) {
+	if (!session && req.nextUrl.pathname.length > 1) {
 		const url = req.nextUrl.clone()
-		url.pathname = '/'
-		console.log(url)
+		url.pathname = '/login'
 		return NextResponse.redirect(url)
 	}
 
@@ -16,5 +15,5 @@ export async function middleware(req: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-	matcher: ['/:slug', '/:about'],
+	matcher: ['/:slug', '/about'],
 }

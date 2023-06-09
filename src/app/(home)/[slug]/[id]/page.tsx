@@ -1,6 +1,5 @@
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import { Article, IArticle, MultiGenericBlock } from '../../../../types'
-import { getArticleById } from '../../../../utils/url'
 
 interface PageProps {
 	params: {
@@ -9,7 +8,7 @@ interface PageProps {
 	}
 }
 
-async function getArticlesByIdData(id: string): Promise<Article | null> {
+/* async function getArticlesByIdData(id: string): Promise<Article | null> {
 	try {
 		const result = await getArticleById(id)
 		if (result) return new Article(new MultiGenericBlock<IArticle>(result, 'articles'))
@@ -17,7 +16,7 @@ async function getArticlesByIdData(id: string): Promise<Article | null> {
 	} catch (err) {
 		return null
 	}
-}
+} */
 export default async function IdPage({ params }: PageProps) {
 	//const article = await getArticlesByIdData(params.id)
 
