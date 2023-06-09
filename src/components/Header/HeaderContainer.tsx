@@ -6,16 +6,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faClose } from '@fortawesome/free-solid-svg-icons'
 import { Header, IHeaderBlock } from '../../types'
 import MobileMenu from './MobileMenu'
+import { LoginSvg, SignOutSvg } from '../Icons'
+import { signOut, useSession } from 'next-auth/react'
 
 interface Props {
 	headerData: string
 }
 
 export default function HeaderContainer(props: Props) {
+	const session = useSession()
 	const [mobileNavbar, setMobileNavbar] = React.useState(false)
 	let header: Header | null = null
 	if (props.headerData) header = JSON.parse(props.headerData)
 	else header = null
+
+	console.log('session', session)
+
+	const logoutAccount = () => {
+		localStorage.removeItem('token')
+		signOut({ callbackUrl: `/` })
+	}
 
 	return (
 		<nav className='w-full px-64 py-14 sm:px-2 sm:py-4 md:px-12 lg:px-4'>
@@ -29,6 +39,18 @@ export default function HeaderContainer(props: Props) {
 					{header?.headerBlock.map((block: IHeaderBlock) => {
 						return <DesktopMenu block={block} key={`header-desktop-block-${block.title}`} />
 					})}
+					{session?.data == null ? (
+						<Link href={'/login'} className='cursor-pointer'>
+							<LoginSvg width={18} heigth={18} color={'#000'} />
+						</Link>
+					) : (
+						<div className='flex flex-row gap-2'>
+							<div>hello {session.data.user?.name}</div>
+							<div className='cursor-pointer' onClick={logoutAccount}>
+								<SignOutSvg width={18} heigth={18} color={'#000'} />
+							</div>
+						</div>
+					)}
 				</div>
 				<div
 					className={`hidden h-6 w-6 cursor-pointer items-center sm:flex ${mobileNavbar ? 'active' : ''}`}
@@ -49,6 +71,13 @@ export default function HeaderContainer(props: Props) {
 					/>
 				</div>
 				<div className='mt-6 flex flex-col gap-5'>
+					{session?.data == null ? (
+						<Link href={'/login'} className='cursor-pointer'>
+							<LoginSvg width={18} heigth={18} color={'#000'} />
+						</Link>
+					) : (
+						<div>hello {session.data.user?.name}</div>
+					)}
 					{header?.headerBlock.map((block: IHeaderBlock) => {
 						return (
 							<MobileMenu block={block} key={`header-mobile-block-${block.title}`} setMobileNavbar={setMobileNavbar} />

@@ -1,6 +1,7 @@
 import React from 'react'
 import { IHeaderBlock, IOptions } from '../../types/header'
 import Link from 'next/link'
+import { LoginSvg } from '../Icons'
 
 interface MenuProps {
 	block: IHeaderBlock

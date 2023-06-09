@@ -5,7 +5,7 @@ import { getContactPage } from '../../../utils/url'
 async function getContactData(): Promise<Contact | null> {
 	try {
 		const result = await getContactPage()
-		if (result) return new Contact(new GenericBlock<IContactData>(result, 'about'))
+		if (result) return new Contact(new GenericBlock<IContactData>(result, 'aboutPage'))
 		return null
 	} catch (err) {
 		return null

@@ -1,16 +1,17 @@
 import Image from 'next/image'
-import { Article, GenericBlock, Header, IArticle, IHeader, MultiGenericBlock } from '../../../types'
-import { getCoffeeBreaks, getHeader } from '../../../utils/url'
-import Link from 'next/link'
+import { GenericBlock, Header, IHeader } from '../../../types'
+import { getHeader } from '../../../utils/url'
 
-export const dynamicParams = false
+const dynamicParams = false
+export { dynamicParams }
+
 interface PageProps {
 	params: {
 		slug: string
 	}
 }
 
-async function getCoffeeBreaksData(): Promise<Article | null> {
+/* async function getCoffeeBreaksData(): Promise<Article | null> {
 	try {
 		const result = await getCoffeeBreaks()
 		if (result) return new Article(new MultiGenericBlock<IArticle>(result, 'articles'))
@@ -18,7 +19,7 @@ async function getCoffeeBreaksData(): Promise<Article | null> {
 	} catch (err) {
 		return null
 	}
-}
+} */
 
 async function getHeaderData(): Promise<Header | null> {
 	try {
