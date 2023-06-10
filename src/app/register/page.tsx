@@ -1,10 +1,12 @@
 'use client'
 import { useState } from 'react'
-import { createUser } from '../../services/auth'
 import { useRouter } from 'next/navigation'
+import { FacebookSvg, InstagramSvg } from '../../components/Icons'
+import { signIn } from 'next-auth/react'
 
 export default function Register() {
 	const router = useRouter()
+
 	const [formData, setFormData] = useState({
 		user: '' as string,
 		email: '' as string,
@@ -20,10 +22,12 @@ export default function Register() {
 
 	const handleSubmit = async e => {
 		e.preventDefault()
-		const result = await createUser({
+		const result = await signIn('credentials', {
 			username: formData.user,
+			redirect: false,
 			email: formData.email,
 			password: formData.password,
+			isLogin: 'false',
 		})
 		if (result?.ok) {
 			router.replace('/login')
@@ -49,7 +53,7 @@ export default function Register() {
 										</label>
 										<input
 											type='text'
-											name='user' // Change the name attribute to 'user'
+											name='user'
 											id='name'
 											className='bg-gray-50 border-gray-300 text-gray-900 focus:ring-primary-600 focus:border-primary-600 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full rounded-lg border p-2.5 sm:text-sm'
 											placeholder='John Doe'
@@ -95,6 +99,9 @@ export default function Register() {
 											Register
 										</button>
 									</div>
+									<div>or</div>
+									<FacebookSvg width={20} heigth={20} color='#000' />
+									<InstagramSvg width={20} heigth={20} color='#000' />
 								</form>
 							</div>
 						</div>

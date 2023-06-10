@@ -9,9 +9,12 @@ export const authOptions: NextAuthOptions = {
 		CredentialsProvider({
 			name: 'Sign in with Email',
 			credentials: {
+				username: { label: 'Username', type: 'text' },
 				email: { label: 'Email', type: 'text' },
 				password: { label: 'Password', type: 'password' },
+				isLogin: { label: 'IsLogin', type: 'boolean' },
 			},
+
 			async authorize(credentials, req) {
 				/**
 				 * This function is used to define if the user is authenticated or not.
@@ -23,17 +26,30 @@ export const authOptions: NextAuthOptions = {
 				 * credentials is defined in the config above.
 				 * We can expect it contains two properties: `email` and `password`
 				 */
-				try {
-					const { user, jwt } = await signIn({
-						email: credentials.email,
-						password: credentials.password,
-					})
-					console.log('user no login', user)
-					console.log('jwt no login', jwt)
-					return { ...user, jwt }
-				} catch (error) {
-					// Sign In Fail
-					return null
+				if (credentials.isLogin === 'true') {
+					try {
+						const { user, jwt } = await signIn({
+							email: credentials.email,
+							password: credentials.password,
+						})
+						return { ...user, jwt }
+					} catch (error) {
+						// Sign In Fail
+						return null
+					}
+				}
+				if (credentials.isLogin === 'false') {
+					try {
+						const { user, jwt } = await createUser({
+							username: credentials.username,
+							email: credentials.email,
+							password: credentials.password,
+						})
+						return { ...user, jwt }
+					} catch (error) {
+						// Sign In Fail
+						return null
+					}
 				}
 			},
 		}),

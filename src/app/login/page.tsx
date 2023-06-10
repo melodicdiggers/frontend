@@ -11,6 +11,7 @@ export default function Login() {
 			redirect: false,
 			email: e.target.email.value,
 			password: e.target.password.value,
+			isLogin: 'true',
 		})
 		if (result?.ok) {
 			router.replace('/')
@@ -89,7 +90,7 @@ export default function Login() {
 							</div>
 							<p className='text-gray-500 dark:text-gray-400 text-sm font-light'>
 								Don’t have an account yet?{' '}
-								<a href='#' className='text-primary-600 dark:text-primary-500 font-medium hover:underline'>
+								<a href='/register' className='text-primary-600 dark:text-primary-500 font-medium hover:underline'>
 									Sign up
 								</a>
 							</p>
