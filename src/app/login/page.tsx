@@ -1,5 +1,4 @@
 'use client'
-import Head from 'next/head'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 

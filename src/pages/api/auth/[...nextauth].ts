@@ -1,5 +1,5 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { signIn } from '../../../services/auth'
+import { createUser, signIn } from '../../../services/auth'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 
 export const authOptions: NextAuthOptions = {
