@@ -14,8 +14,7 @@ interface PageProps {
 async function getArticleBySlug(slug: string): Promise<Article | null> {
 	try {
 		const result = await getArticles(decodeURIComponent(slug))
-		console.log('result', result)
-		if (result) return new Article(new MultiGenericBlock<IArticle>(result, 'article'))
+		if (result) return new Article(new MultiGenericBlock<IArticle>(result, 'articles'))
 		return null
 	} catch (err) {
 		return null
@@ -51,8 +50,34 @@ export async function generateStaticParams() {
 }
 
 export default async function SlugPage({ params }: PageProps) {
-	const coffeeBreaks = await getArticleBySlug(params.slug)
-	console.log('coffeeBreaks', coffeeBreaks)
+	const articles = await getArticleBySlug(params.slug)
 
-	return <div className='flex flex-wrap gap-20'>{params.slug}</div>
+	return (
+		<div className='flex flex-wrap gap-20'>
+			{articles && (
+				<div style={{ display: 'inline-block' }}>
+					{articles?.media?.data?.attributes && (
+						<Image
+							src={process.env.MEDIA_HOST + articles?.media?.data?.attributes?.url}
+							alt={''}
+							width={279}
+							height={279}
+							quality={100}
+							style={{
+								objectFit: 'cover',
+								backgroundPosition: 'center',
+								backgroundRepeat: 'no-repeat',
+								objectPosition: 'center 70%',
+							}}
+						/>
+					)}
+					<div className='mt-6 flex flex-col gap-4' style={{ width: 279 }}>
+						<div className='text-sm font-medium italic text-hover'>{articles?.date}</div>
+						<div className='text-xl'>{articles?.title}</div>
+					</div>
+				</div>
+			)}
+			{params.slug}
+		</div>
+	)
 }
