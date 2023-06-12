@@ -1,4 +1,4 @@
-export const multyFiltersType = ['articles'] as const
+export const multyFiltersType = ['article'] as const
 export type MultiGenericBlockType = (typeof multyFiltersType)[number]
 
 export type IMultiGenericBlock<T> = {

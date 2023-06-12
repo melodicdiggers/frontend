@@ -1,0 +1,19 @@
+query articles($category: String!) {
+	articles(filters: { category: { eq: $category } }) {
+		data {
+			attributes {
+				title
+				date
+				category
+				content
+				media {
+					data {
+						attributes {
+							url
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,9 +1,9 @@
+export { dynamicParams }
 import Image from 'next/image'
-import { GenericBlock, Header, IHeader } from '../../../types'
-import { getHeader } from '../../../utils/url'
+import { Article, GenericBlock, Header, IArticle, IHeader, MultiGenericBlock } from '../../../types'
+import { getArticles, getHeader } from '../../../utils/url'
 
 const dynamicParams = false
-export { dynamicParams }
 
 interface PageProps {
 	params: {
@@ -11,15 +11,16 @@ interface PageProps {
 	}
 }
 
-/* async function getCoffeeBreaksData(): Promise<Article | null> {
+async function getArticleBySlug(slug: string): Promise<Article | null> {
 	try {
-		const result = await getCoffeeBreaks()
-		if (result) return new Article(new MultiGenericBlock<IArticle>(result, 'articles'))
+		const result = await getArticles(decodeURIComponent(slug))
+		console.log('result', result)
+		if (result) return new Article(new MultiGenericBlock<IArticle>(result, 'article'))
 		return null
 	} catch (err) {
 		return null
 	}
-} */
+}
 
 async function getHeaderData(): Promise<Header | null> {
 	try {
@@ -50,44 +51,8 @@ export async function generateStaticParams() {
 }
 
 export default async function SlugPage({ params }: PageProps) {
-	//const coffeeBreaks = await getCoffeeBreaksData()
+	const coffeeBreaks = await getArticleBySlug(params.slug)
+	console.log('coffeeBreaks', coffeeBreaks)
 
-	/* const formattedDate = coffeeBreaks?.createdAt
-		? new Date(coffeeBreaks.createdAt).toLocaleDateString('en-US', {
-				year: 'numeric',
-				month: 'long',
-				day: 'numeric',
-		  })
-		: '' */
-
-	return (
-		<div className='flex flex-wrap gap-20'>
-			{/* {params.slug == 'coffee-break' && coffeeBreaks ? (
-				<Link
-					style={{ display: 'inline-block', textDecoration: 'none' }}
-					href={params.slug + '/' + coffeeBreaks?.article_slug}>
-					<Image
-						src={process.env.MEDIA_HOST + coffeeBreaks.mediaArticle.data.attributes.url}
-						alt={''}
-						width={279}
-						height={279}
-						quality={100}
-						style={{
-							objectFit: 'cover',
-							backgroundPosition: 'center',
-							backgroundRepeat: 'no-repeat',
-							objectPosition: 'center 70%',
-						}}
-					/>
-					<div className='mt-6 flex flex-col gap-4' style={{ width: 279 }}>
-						<div className='text-sm font-medium italic text-hover'>{formattedDate}</div>
-						<div className='text-xl text-black hover:text-hover'>{coffeeBreaks?.title}</div>
-					</div>
-				</Link>
-			) : (
-				<div>Not a coffee break</div>
-			)} */}
-			{params.slug}
-		</div>
-	)
+	return <div className='flex flex-wrap gap-20'>{params.slug}</div>
 }

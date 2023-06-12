@@ -2,6 +2,7 @@ import { DocumentNode } from 'graphql'
 import { graphqlClient } from '../services/client'
 import {
 	AboutPageDocument,
+	ArticlesDocument,
 	ContactPageDocument,
 	DynamicBlockDocument,
 	FooterDocument,
@@ -40,4 +41,8 @@ export const getContactPage = async () => {
 
 export const getDynamicBlocks = async () => {
 	return await fetchGraphQLData(DynamicBlockDocument)
+}
+
+export const getArticles = async (category: string) => {
+	return await fetchGraphQLData(ArticlesDocument, { category })
 }

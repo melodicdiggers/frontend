@@ -15,6 +15,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Date: any;
   DateTime: string;
   JSON: any;
   Upload: any;
@@ -60,6 +61,57 @@ export type AboutPageEntityResponse = {
 export type AboutPageInput = {
   contactBlock?: InputMaybe<ComponentContactBlockContactBlockInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type Article = {
+  category?: Maybe<Enum_Article_Category>;
+  content?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  date?: Maybe<Scalars['Date']>;
+  followButtons?: Maybe<Scalars['JSON']>;
+  media?: Maybe<UploadFileEntityResponse>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  title?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type ArticleEntity = {
+  attributes?: Maybe<Article>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type ArticleEntityResponse = {
+  data?: Maybe<ArticleEntity>;
+};
+
+export type ArticleEntityResponseCollection = {
+  data: Array<ArticleEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type ArticleFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
+  category?: InputMaybe<StringFilterInput>;
+  content?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  date?: InputMaybe<DateFilterInput>;
+  followButtons?: InputMaybe<JsonFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<ArticleFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ArticleInput = {
+  category?: InputMaybe<Enum_Article_Category>;
+  content?: InputMaybe<Scalars['String']>;
+  date?: InputMaybe<Scalars['Date']>;
+  followButtons?: InputMaybe<Scalars['JSON']>;
+  media?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  title?: InputMaybe<Scalars['String']>;
 };
 
 export type BooleanFilterInput = {
@@ -167,6 +219,30 @@ export type ComponentSocialBlockSocialBlockInput = {
   socialMediaOptions?: InputMaybe<Scalars['JSON']>;
 };
 
+export type DateFilterInput = {
+  and?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  between?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  contains?: InputMaybe<Scalars['Date']>;
+  containsi?: InputMaybe<Scalars['Date']>;
+  endsWith?: InputMaybe<Scalars['Date']>;
+  eq?: InputMaybe<Scalars['Date']>;
+  eqi?: InputMaybe<Scalars['Date']>;
+  gt?: InputMaybe<Scalars['Date']>;
+  gte?: InputMaybe<Scalars['Date']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  lt?: InputMaybe<Scalars['Date']>;
+  lte?: InputMaybe<Scalars['Date']>;
+  ne?: InputMaybe<Scalars['Date']>;
+  not?: InputMaybe<DateFilterInput>;
+  notContains?: InputMaybe<Scalars['Date']>;
+  notContainsi?: InputMaybe<Scalars['Date']>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  notNull?: InputMaybe<Scalars['Boolean']>;
+  null?: InputMaybe<Scalars['Boolean']>;
+  or?: InputMaybe<Array<InputMaybe<Scalars['Date']>>>;
+  startsWith?: InputMaybe<Scalars['Date']>;
+};
+
 export type DateTimeFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
@@ -218,6 +294,13 @@ export type DynamicBlockInput = {
   landingPageBlock?: InputMaybe<Array<InputMaybe<ComponentLandingpageBlockLandingPageBlockInput>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
 };
+
+export enum Enum_Article_Category {
+  CoffeeBreak = 'coffee_break',
+  Equanimity = 'equanimity',
+  LabelTalks = 'label_talks',
+  News = 'news'
+}
 
 export enum Enum_Componentlandingpageblocklandingpageblock_Key {
   LandingBottom = 'landing_bottom',
@@ -279,7 +362,7 @@ export type FooterInput = {
   socialBlock?: InputMaybe<ComponentSocialBlockSocialBlockInput>;
 };
 
-export type GenericMorph = About | AboutPage | ComponentAboutBlockAboutBlock | ComponentContactBlockContactBlock | ComponentHeaderBlockHeaderBlock | ComponentLandingpageBlockLandingPageBlock | ComponentSocialBlockSocialBlock | DynamicBlock | Footer | Header | I18NLocale | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = About | AboutPage | Article | ComponentAboutBlockAboutBlock | ComponentContactBlockContactBlock | ComponentHeaderBlockHeaderBlock | ComponentLandingpageBlockLandingPageBlock | ComponentSocialBlockSocialBlock | DynamicBlock | Footer | Header | I18NLocale | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -418,6 +501,7 @@ export type JsonFilterInput = {
 export type Mutation = {
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
+  createArticle?: Maybe<ArticleEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   createUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Create a new role */
@@ -426,6 +510,7 @@ export type Mutation = {
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
   deleteAbout?: Maybe<AboutEntityResponse>;
   deleteAboutPage?: Maybe<AboutPageEntityResponse>;
+  deleteArticle?: Maybe<ArticleEntityResponse>;
   deleteDynamicBlock?: Maybe<DynamicBlockEntityResponse>;
   deleteFooter?: Maybe<FooterEntityResponse>;
   deleteHeader?: Maybe<HeaderEntityResponse>;
@@ -448,6 +533,7 @@ export type Mutation = {
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
   updateAbout?: Maybe<AboutEntityResponse>;
   updateAboutPage?: Maybe<AboutPageEntityResponse>;
+  updateArticle?: Maybe<ArticleEntityResponse>;
   updateDynamicBlock?: Maybe<DynamicBlockEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateFooter?: Maybe<FooterEntityResponse>;
@@ -469,6 +555,11 @@ export type MutationChangePasswordArgs = {
 };
 
 
+export type MutationCreateArticleArgs = {
+  data: ArticleInput;
+};
+
+
 export type MutationCreateUploadFileArgs = {
   data: UploadFileInput;
 };
@@ -486,6 +577,11 @@ export type MutationCreateUsersPermissionsRoleArgs = {
 
 export type MutationCreateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput;
+};
+
+
+export type MutationDeleteArticleArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -556,6 +652,12 @@ export type MutationUpdateAboutArgs = {
 
 export type MutationUpdateAboutPageArgs = {
   data: AboutPageInput;
+};
+
+
+export type MutationUpdateArticleArgs = {
+  data: ArticleInput;
+  id: Scalars['ID'];
 };
 
 
@@ -634,6 +736,8 @@ export enum PublicationState {
 export type Query = {
   about?: Maybe<AboutEntityResponse>;
   aboutPage?: Maybe<AboutPageEntityResponse>;
+  article?: Maybe<ArticleEntityResponse>;
+  articles?: Maybe<ArticleEntityResponseCollection>;
   dynamicBlock?: Maybe<DynamicBlockEntityResponse>;
   footer?: Maybe<FooterEntityResponse>;
   header?: Maybe<HeaderEntityResponse>;
@@ -658,6 +762,19 @@ export type QueryAboutArgs = {
 
 export type QueryAboutPageArgs = {
   publicationState?: InputMaybe<PublicationState>;
+};
+
+
+export type QueryArticleArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryArticlesArgs = {
+  filters?: InputMaybe<ArticleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 
@@ -1055,7 +1172,6 @@ export type UsersPermissionsUser = {
   email: Scalars['String'];
   provider?: Maybe<Scalars['String']>;
   role?: Maybe<UsersPermissionsRoleEntityResponse>;
-  test1?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   username: Scalars['String'];
 };
@@ -1088,7 +1204,6 @@ export type UsersPermissionsUserFiltersInput = {
   provider?: InputMaybe<StringFilterInput>;
   resetPasswordToken?: InputMaybe<StringFilterInput>;
   role?: InputMaybe<UsersPermissionsRoleFiltersInput>;
-  test1?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   username?: InputMaybe<StringFilterInput>;
 };
@@ -1102,7 +1217,6 @@ export type UsersPermissionsUserInput = {
   provider?: InputMaybe<Scalars['String']>;
   resetPasswordToken?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Scalars['ID']>;
-  test1?: InputMaybe<Scalars['String']>;
   username?: InputMaybe<Scalars['String']>;
 };
 
@@ -1114,6 +1228,13 @@ export type AboutPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type AboutPageQuery = { about?: { data?: { attributes?: { aboutBlock?: { title?: string | null, subTitle?: string | null, description?: string | null } | null } | null } | null } | null };
+
+export type ArticlesQueryVariables = Exact<{
+  category: Scalars['String'];
+}>;
+
+
+export type ArticlesQuery = { articles?: { data: Array<{ attributes?: { title?: string | null, date?: any | null, category?: Enum_Article_Category | null, content?: string | null, media?: { data?: { attributes?: { url: string } | null } | null } | null } | null }> } | null };
 
 export type ContactPageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1150,6 +1271,27 @@ export const AboutPageDocument = /*#__PURE__*/ gql`
           title
           subTitle
           description
+        }
+      }
+    }
+  }
+}
+    `;
+export const ArticlesDocument = /*#__PURE__*/ gql`
+    query articles($category: String!) {
+  articles(filters: {category: {eq: $category}}) {
+    data {
+      attributes {
+        title
+        date
+        category
+        content
+        media {
+          data {
+            attributes {
+              url
+            }
+          }
         }
       }
     }
@@ -1255,6 +1397,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     AboutPage(variables?: AboutPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AboutPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AboutPageQuery>(AboutPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AboutPage', 'query');
+    },
+    articles(variables: ArticlesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ArticlesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ArticlesQuery>(ArticlesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'articles', 'query');
     },
     ContactPage(variables?: ContactPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ContactPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ContactPageQuery>(ContactPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ContactPage', 'query');

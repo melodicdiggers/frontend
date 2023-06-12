@@ -9,7 +9,7 @@ export interface IArticle {
 	mediaArticle: {
 		data: {
 			attributes: {
-				url
+				url: string
 			}
 		}
 	}
