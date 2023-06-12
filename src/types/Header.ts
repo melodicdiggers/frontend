@@ -7,7 +7,7 @@ export interface IHeader {
 
 export interface IHeaderBlock {
 	title: string
-	options: IOptions[]
+	options: IOptions[] | any
 }
 export interface IOptions {
 	slug: string

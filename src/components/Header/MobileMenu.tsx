@@ -20,8 +20,11 @@ export default function MobileMenu({ block, setMobileNavbar }: MenuProps) {
 
 	return (
 		<div>
-			{block.title === 'News' ? (
-				<Link className='cursor-pointer text-black no-underline' href={'/news'} onClick={() => closeMobile()}>
+			{block.title === 'News' || block.title === 'Equanimity' ? (
+				<Link
+					className='cursor-pointer text-black no-underline'
+					href={block.options.route}
+					onClick={() => closeMobile()}>
 					<div className='font-josefin text-2xl font-semibold'>{block.title.toUpperCase()}</div>
 				</Link>
 			) : (
