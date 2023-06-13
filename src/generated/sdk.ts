@@ -307,6 +307,13 @@ export enum Enum_Componentlandingpageblocklandingpageblock_Key {
   LandingTop = 'landing_top'
 }
 
+export enum Enum_Music_Category {
+  AMinuteWith = 'a_minute_with',
+  DjMix = 'dj_mix',
+  FreeDl = 'free_dl',
+  NewMusic = 'new_music'
+}
+
 export type FileInfoInput = {
   alternativeText?: InputMaybe<Scalars['String']>;
   caption?: InputMaybe<Scalars['String']>;
@@ -362,7 +369,7 @@ export type FooterInput = {
   socialBlock?: InputMaybe<ComponentSocialBlockSocialBlockInput>;
 };
 
-export type GenericMorph = About | AboutPage | Article | ComponentAboutBlockAboutBlock | ComponentContactBlockContactBlock | ComponentHeaderBlockHeaderBlock | ComponentLandingpageBlockLandingPageBlock | ComponentSocialBlockSocialBlock | DynamicBlock | Footer | Header | I18NLocale | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = About | AboutPage | Article | ComponentAboutBlockAboutBlock | ComponentContactBlockContactBlock | ComponentHeaderBlockHeaderBlock | ComponentLandingpageBlockLandingPageBlock | ComponentSocialBlockSocialBlock | DynamicBlock | Footer | Header | I18NLocale | Music | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -498,10 +505,57 @@ export type JsonFilterInput = {
   startsWith?: InputMaybe<Scalars['JSON']>;
 };
 
+export type Music = {
+  category?: Maybe<Enum_Music_Category>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  description?: Maybe<Scalars['String']>;
+  mediaBlock?: Maybe<Scalars['JSON']>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  title?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type MusicEntity = {
+  attributes?: Maybe<Music>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type MusicEntityResponse = {
+  data?: Maybe<MusicEntity>;
+};
+
+export type MusicEntityResponseCollection = {
+  data: Array<MusicEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type MusicFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<MusicFiltersInput>>>;
+  category?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  mediaBlock?: InputMaybe<JsonFilterInput>;
+  not?: InputMaybe<MusicFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<MusicFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type MusicInput = {
+  category?: InputMaybe<Enum_Music_Category>;
+  description?: InputMaybe<Scalars['String']>;
+  mediaBlock?: InputMaybe<Scalars['JSON']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
 export type Mutation = {
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
   createArticle?: Maybe<ArticleEntityResponse>;
+  createMusic?: Maybe<MusicEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   createUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Create a new role */
@@ -514,6 +568,7 @@ export type Mutation = {
   deleteDynamicBlock?: Maybe<DynamicBlockEntityResponse>;
   deleteFooter?: Maybe<FooterEntityResponse>;
   deleteHeader?: Maybe<HeaderEntityResponse>;
+  deleteMusic?: Maybe<MusicEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Delete an existing role */
@@ -538,6 +593,7 @@ export type Mutation = {
   updateFileInfo: UploadFileEntityResponse;
   updateFooter?: Maybe<FooterEntityResponse>;
   updateHeader?: Maybe<HeaderEntityResponse>;
+  updateMusic?: Maybe<MusicEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Update an existing role */
@@ -557,6 +613,11 @@ export type MutationChangePasswordArgs = {
 
 export type MutationCreateArticleArgs = {
   data: ArticleInput;
+};
+
+
+export type MutationCreateMusicArgs = {
+  data: MusicInput;
 };
 
 
@@ -581,6 +642,11 @@ export type MutationCreateUsersPermissionsUserArgs = {
 
 
 export type MutationDeleteArticleArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteMusicArgs = {
   id: Scalars['ID'];
 };
 
@@ -682,6 +748,12 @@ export type MutationUpdateHeaderArgs = {
 };
 
 
+export type MutationUpdateMusicArgs = {
+  data: MusicInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateUploadFileArgs = {
   data: UploadFileInput;
   id: Scalars['ID'];
@@ -744,6 +816,8 @@ export type Query = {
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   me?: Maybe<UsersPermissionsMe>;
+  music?: Maybe<MusicEntityResponse>;
+  musics?: Maybe<MusicEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
   uploadFiles?: Maybe<UploadFileEntityResponseCollection>;
   uploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -801,6 +875,19 @@ export type QueryI18NLocaleArgs = {
 export type QueryI18NLocalesArgs = {
   filters?: InputMaybe<I18NLocaleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryMusicArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryMusicsArgs = {
+  filters?: InputMaybe<MusicFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
@@ -1261,6 +1348,13 @@ export type LandingPhotoQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type LandingPhotoQuery = { uploadFile?: { data?: { attributes?: { url: string, alternativeText?: string | null, caption?: string | null, width?: number | null, height?: number | null, size: number, ext?: string | null } | null } | null } | null };
 
+export type MusicQueryVariables = Exact<{
+  category: Scalars['String'];
+}>;
+
+
+export type MusicQuery = { musics?: { data: Array<{ attributes?: { title?: string | null, description?: string | null, category?: Enum_Music_Category | null, mediaBlock?: any | null } | null }> } | null };
+
 
 export const AboutPageDocument = /*#__PURE__*/ gql`
     query AboutPage {
@@ -1387,6 +1481,20 @@ export const LandingPhotoDocument = /*#__PURE__*/ gql`
   }
 }
     `;
+export const MusicDocument = /*#__PURE__*/ gql`
+    query music($category: String!) {
+  musics(filters: {category: {eq: $category}}) {
+    data {
+      attributes {
+        title
+        description
+        category
+        mediaBlock
+      }
+    }
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -1415,6 +1523,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     landingPhoto(variables?: LandingPhotoQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<LandingPhotoQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<LandingPhotoQuery>(LandingPhotoDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'landingPhoto', 'query');
+    },
+    music(variables: MusicQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<MusicQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<MusicQuery>(MusicDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'music', 'query');
     }
   };
 }

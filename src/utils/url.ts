@@ -7,6 +7,7 @@ import {
 	DynamicBlockDocument,
 	FooterDocument,
 	HeaderDocument,
+	MusicDocument,
 	Sdk,
 } from '../generated/sdk'
 import { Variables } from 'graphql-request'
@@ -45,4 +46,8 @@ export const getDynamicBlocks = async () => {
 
 export const getArticles = async (category: string) => {
 	return await fetchGraphQLData(ArticlesDocument, { category })
+}
+
+export const getMusics = async (category: string) => {
+	return await fetchGraphQLData(MusicDocument, { category })
 }

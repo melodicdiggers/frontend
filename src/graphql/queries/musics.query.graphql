@@ -1,0 +1,12 @@
+query music($category: String!) {
+	musics(filters: { category: { eq: $category } }) {
+		data {
+			attributes {
+				title
+				description
+				category
+				mediaBlock
+			}
+		}
+	}
+}
