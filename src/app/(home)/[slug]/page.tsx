@@ -2,6 +2,9 @@ export { dynamicParams }
 import Image from 'next/image'
 import { Article, GenericBlock, Header, IArticle, IHeader, IMusic, MultiGenericBlock, Music } from '../../../types'
 import { getArticles, getHeader, getMusics } from '../../../utils/url'
+import Player from '../../../components/Player/Player'
+import { Suspense } from 'react'
+import Link from 'next/link'
 
 const dynamicParams = false
 
@@ -69,15 +72,13 @@ export default async function SlugPage({ params }: PageProps) {
 	const articleSlugs: articleSlugs[] = ['coffee-break', 'label-talks', 'news', 'equanimity']
 	const musicSlugs: musicSlugs[] = ['new-music', 'dj-mix', 'free-dl', 'a-minute-with']
 
-	console.log(musics)
-
 	return (
 		<div className='flex flex-wrap gap-20'>
 			{articles && articleSlugs.includes(params.slug as articleSlugs) && (
 				<div style={{ display: 'inline-block' }}>
 					{articles?.media?.data?.attributes && (
 						<Image
-							src={process.env.MEDIA_HOST + articles?.media?.data?.attributes?.url}
+							src={process.env.MEDIA_HOST + articles.media.data.attributes.url}
 							alt={''}
 							width={279}
 							height={279}
@@ -91,12 +92,28 @@ export default async function SlugPage({ params }: PageProps) {
 						/>
 					)}
 					<div className='mt-6 flex flex-col gap-4' style={{ width: 279 }}>
-						<div className='text-sm font-medium italic text-hover'>{articles?.date}</div>
-						<div className='text-xl'>{articles?.title}</div>
+						<div className='text-sm font-medium italic text-hover'>{articles.date}</div>
+						<div className='text-xl'>{articles.title}</div>
 					</div>
 				</div>
 			)}
-			{musics && musicSlugs.includes(params.slug as musicSlugs) && <div>{params.slug}</div>}
+			{musics && musicSlugs.includes(params.slug as musicSlugs) && (
+				<Suspense fallback={<div>Loading...</div>}>
+					<div className='mt-12 flex w-full flex-col items-center justify-center gap-10'>
+						<div className='font-cabin text-4xl font-bold tracking-widest'>{musics.title}</div>
+						<div className='flex flex-wrap gap-16'>
+							{musics.mediaBlock.map(block => {
+								return <Player key={`music-block-${block.url}`} url={block.url} slug={params.slug} />
+							})}
+						</div>
+						<Link
+							href={'https://soundcloud.com/melodicdiggers'}
+							className='font-cabin text-xs tracking-widest text-black no-underline hover:text-hover'>
+							{musics.description}
+						</Link>
+					</div>
+				</Suspense>
+			)}
 		</div>
 	)
 }
