@@ -6,6 +6,7 @@ query articles($category: String!) {
 				date
 				category
 				content
+				slug
 				media {
 					data {
 						attributes {

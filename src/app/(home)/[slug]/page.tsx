@@ -1,10 +1,21 @@
 export { dynamicParams }
-import Image from 'next/image'
-import { Article, GenericBlock, Header, IArticle, IHeader, IMusic, MultiGenericBlock, Music } from '../../../types'
-import { getArticles, getHeader, getMusics } from '../../../utils/url'
-import Player from '../../../components/Player/Player'
+import {
+	Article,
+	Event,
+	GenericBlock,
+	Header,
+	IArticle,
+	IEvent,
+	IHeader,
+	IMusic,
+	MultiGenericBlock,
+	Music,
+} from '../../../types'
+import { getArticles, getEvents, getHeader, getMusics } from '../../../utils/url'
 import { Suspense } from 'react'
-import Link from 'next/link'
+import Articles from '../../../components/pages/Articles'
+import Musics from '../../../components/pages/Music'
+import Events from '../../../components/pages/Events'
 
 const dynamicParams = false
 
@@ -12,6 +23,7 @@ interface PageProps {
 	params: {
 		slug: string
 	}
+	searchParams: { [key: string]: string | string[] | undefined }
 }
 
 async function getArticleBySlug(slug: string): Promise<Article | null> {
@@ -28,6 +40,16 @@ async function getMusicPageBySlug(slug: string): Promise<Music | null> {
 	try {
 		const result = await getMusics(decodeURIComponent(slug))
 		if (result) return new Music(new MultiGenericBlock<IMusic>(result, 'musics'))
+		return null
+	} catch (err) {
+		return null
+	}
+}
+
+async function getEventsData(): Promise<Event | null> {
+	try {
+		const result = await getEvents()
+		if (result) return new Event(new MultiGenericBlock<IEvent>(result, 'events'))
 		return null
 	} catch (err) {
 		return null
@@ -62,56 +84,36 @@ export async function generateStaticParams() {
 	})
 }
 
-type articleSlugs = 'coffee-break' | 'label-talks' | 'news' | 'equanimity'
-
-type musicSlugs = 'new-music' | 'dj-mix' | 'free-dl' | 'a-minute-with'
-
 export default async function SlugPage({ params }: PageProps) {
-	const articles = await getArticleBySlug(params.slug)
-	const musics = await getMusicPageBySlug(params.slug)
-	const articleSlugs: articleSlugs[] = ['coffee-break', 'label-talks', 'news', 'equanimity']
-	const musicSlugs: musicSlugs[] = ['new-music', 'dj-mix', 'free-dl', 'a-minute-with']
+	const articleSlugs: string[] = ['coffee-break', 'label-talks', 'news', 'equanimity']
+	const musicSlugs: string[] = ['new-music', 'dj-mix', 'free-dl', 'a-minute-with']
+	const eventSlugs: string[] = ['events']
+
+	let data
+
+	if (articleSlugs.includes(params.slug)) {
+		data = await getArticleBySlug(params.slug)
+	} else if (musicSlugs.includes(params.slug)) {
+		data = await getMusicPageBySlug(params.slug)
+	} else if (eventSlugs.includes(params.slug)) {
+		data = await getEventsData()
+	}
 
 	return (
 		<div className='flex flex-wrap gap-20'>
-			{articles && articleSlugs.includes(params.slug as articleSlugs) && (
-				<div style={{ display: 'inline-block' }}>
-					{articles?.media?.data?.attributes && (
-						<Image
-							src={process.env.MEDIA_HOST + articles.media.data.attributes.url}
-							alt={''}
-							width={279}
-							height={279}
-							quality={100}
-							style={{
-								objectFit: 'cover',
-								backgroundPosition: 'center',
-								backgroundRepeat: 'no-repeat',
-								objectPosition: 'center 70%',
-							}}
-						/>
-					)}
-					<div className='mt-6 flex flex-col gap-4' style={{ width: 279 }}>
-						<div className='text-sm font-medium italic text-hover'>{articles.date}</div>
-						<div className='text-xl'>{articles.title}</div>
-					</div>
-				</div>
-			)}
-			{musics && musicSlugs.includes(params.slug as musicSlugs) && (
+			{data && articleSlugs.includes(params.slug) && (
 				<Suspense fallback={<div>Loading...</div>}>
-					<div className='mt-12 flex w-full flex-col items-center justify-center gap-10'>
-						<div className='font-cabin text-4xl font-bold tracking-widest'>{musics.title}</div>
-						<div className='flex flex-wrap gap-16'>
-							{musics.mediaBlock.map(block => {
-								return <Player key={`music-block-${block.url}`} url={block.url} slug={params.slug} />
-							})}
-						</div>
-						<Link
-							href={'https://soundcloud.com/melodicdiggers'}
-							className='font-cabin text-xs tracking-widest text-black no-underline hover:text-hover'>
-							{musics.description}
-						</Link>
-					</div>
+					<Articles article={data} slug={params.slug} />
+				</Suspense>
+			)}
+			{data && musicSlugs.includes(params.slug) && (
+				<Suspense fallback={<div>Loading...</div>}>
+					<Musics musics={data} slug={params.slug} />
+				</Suspense>
+			)}
+			{data && eventSlugs.includes(params.slug) && (
+				<Suspense fallback={<div>Loading...</div>}>
+					<Events events={data} />
 				</Suspense>
 			)}
 		</div>

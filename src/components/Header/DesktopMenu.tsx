@@ -9,14 +9,14 @@ interface MenuProps {
 export default function DesktopMenu({ block }: MenuProps) {
 	return (
 		<div key={`header-${block.title}`} className='group font-josefin text-2xl font-medium'>
-			{block.title === 'News' || block.title === 'Equanimity' ? (
+			{block.title === 'News' || block.title === 'Equanimity' || block.title === 'Events' ? (
 				<Link className='cursor-pointer text-black no-underline' href={block.options.route}>
 					<div className='text-base font-semibold'>{block.title.toUpperCase()}</div>
 				</Link>
 			) : (
 				<div className='text-base font-semibold'>{block.title.toUpperCase()}</div>
 			)}
-			{block.title !== 'News' && block.title !== 'Equanimity' && (
+			{block.title !== 'News' && block.title !== 'Equanimity' && block.title !== 'Events' && (
 				<div className='absolute z-10 hidden bg-background px-2 pb-0 pt-4 group-hover:block'>
 					{block.options.map((option: IOptions) => (
 						<Link

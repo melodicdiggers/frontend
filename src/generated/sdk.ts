@@ -71,6 +71,7 @@ export type Article = {
   followButtons?: Maybe<Scalars['JSON']>;
   media?: Maybe<UploadFileEntityResponse>;
   publishedAt?: Maybe<Scalars['DateTime']>;
+  slug?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -100,6 +101,7 @@ export type ArticleFiltersInput = {
   not?: InputMaybe<ArticleFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -111,6 +113,7 @@ export type ArticleInput = {
   followButtons?: InputMaybe<Scalars['JSON']>;
   media?: InputMaybe<Scalars['ID']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
+  slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
 
@@ -314,6 +317,64 @@ export enum Enum_Music_Category {
   NewMusic = 'new_music'
 }
 
+export type Event = {
+  createdAt?: Maybe<Scalars['DateTime']>;
+  description?: Maybe<Scalars['String']>;
+  eventDate?: Maybe<Scalars['Date']>;
+  location?: Maybe<Scalars['String']>;
+  media?: Maybe<UploadFileRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  ticketPrices?: Maybe<Scalars['JSON']>;
+  title?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type EventMediaArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type EventEntity = {
+  attributes?: Maybe<Event>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type EventEntityResponse = {
+  data?: Maybe<EventEntity>;
+};
+
+export type EventEntityResponseCollection = {
+  data: Array<EventEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type EventFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<EventFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  eventDate?: InputMaybe<DateFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  location?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<EventFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<EventFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  ticketPrices?: InputMaybe<JsonFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type EventInput = {
+  description?: InputMaybe<Scalars['String']>;
+  eventDate?: InputMaybe<Scalars['Date']>;
+  location?: InputMaybe<Scalars['String']>;
+  media?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  ticketPrices?: InputMaybe<Scalars['JSON']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
 export type FileInfoInput = {
   alternativeText?: InputMaybe<Scalars['String']>;
   caption?: InputMaybe<Scalars['String']>;
@@ -369,7 +430,7 @@ export type FooterInput = {
   socialBlock?: InputMaybe<ComponentSocialBlockSocialBlockInput>;
 };
 
-export type GenericMorph = About | AboutPage | Article | ComponentAboutBlockAboutBlock | ComponentContactBlockContactBlock | ComponentHeaderBlockHeaderBlock | ComponentLandingpageBlockLandingPageBlock | ComponentSocialBlockSocialBlock | DynamicBlock | Footer | Header | I18NLocale | Music | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = About | AboutPage | Article | ComponentAboutBlockAboutBlock | ComponentContactBlockContactBlock | ComponentHeaderBlockHeaderBlock | ComponentLandingpageBlockLandingPageBlock | ComponentSocialBlockSocialBlock | DynamicBlock | Event | Footer | Header | I18NLocale | Music | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -555,6 +616,7 @@ export type Mutation = {
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
   createArticle?: Maybe<ArticleEntityResponse>;
+  createEvent?: Maybe<EventEntityResponse>;
   createMusic?: Maybe<MusicEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   createUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -566,6 +628,7 @@ export type Mutation = {
   deleteAboutPage?: Maybe<AboutPageEntityResponse>;
   deleteArticle?: Maybe<ArticleEntityResponse>;
   deleteDynamicBlock?: Maybe<DynamicBlockEntityResponse>;
+  deleteEvent?: Maybe<EventEntityResponse>;
   deleteFooter?: Maybe<FooterEntityResponse>;
   deleteHeader?: Maybe<HeaderEntityResponse>;
   deleteMusic?: Maybe<MusicEntityResponse>;
@@ -590,6 +653,7 @@ export type Mutation = {
   updateAboutPage?: Maybe<AboutPageEntityResponse>;
   updateArticle?: Maybe<ArticleEntityResponse>;
   updateDynamicBlock?: Maybe<DynamicBlockEntityResponse>;
+  updateEvent?: Maybe<EventEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateFooter?: Maybe<FooterEntityResponse>;
   updateHeader?: Maybe<HeaderEntityResponse>;
@@ -613,6 +677,11 @@ export type MutationChangePasswordArgs = {
 
 export type MutationCreateArticleArgs = {
   data: ArticleInput;
+};
+
+
+export type MutationCreateEventArgs = {
+  data: EventInput;
 };
 
 
@@ -642,6 +711,11 @@ export type MutationCreateUsersPermissionsUserArgs = {
 
 
 export type MutationDeleteArticleArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteEventArgs = {
   id: Scalars['ID'];
 };
 
@@ -732,6 +806,12 @@ export type MutationUpdateDynamicBlockArgs = {
 };
 
 
+export type MutationUpdateEventArgs = {
+  data: EventInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateFileInfoArgs = {
   id: Scalars['ID'];
   info?: InputMaybe<FileInfoInput>;
@@ -811,6 +891,8 @@ export type Query = {
   article?: Maybe<ArticleEntityResponse>;
   articles?: Maybe<ArticleEntityResponseCollection>;
   dynamicBlock?: Maybe<DynamicBlockEntityResponse>;
+  event?: Maybe<EventEntityResponse>;
+  events?: Maybe<EventEntityResponseCollection>;
   footer?: Maybe<FooterEntityResponse>;
   header?: Maybe<HeaderEntityResponse>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
@@ -854,6 +936,19 @@ export type QueryArticlesArgs = {
 
 export type QueryDynamicBlockArgs = {
   publicationState?: InputMaybe<PublicationState>;
+};
+
+
+export type QueryEventArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryEventsArgs = {
+  filters?: InputMaybe<EventFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 
@@ -1321,7 +1416,7 @@ export type ArticlesQueryVariables = Exact<{
 }>;
 
 
-export type ArticlesQuery = { articles?: { data: Array<{ attributes?: { title?: string | null, date?: any | null, category?: Enum_Article_Category | null, content?: string | null, media?: { data?: { attributes?: { url: string } | null } | null } | null } | null }> } | null };
+export type ArticlesQuery = { articles?: { data: Array<{ attributes?: { title?: string | null, date?: any | null, category?: Enum_Article_Category | null, content?: string | null, slug?: string | null, media?: { data?: { attributes?: { url: string } | null } | null } | null } | null }> } | null };
 
 export type ContactPageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1332,6 +1427,11 @@ export type DynamicBlockQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type DynamicBlockQuery = { dynamicBlock?: { data?: { attributes?: { landingPageBlock?: Array<{ title?: string | null, url?: string | null, key?: Enum_Componentlandingpageblocklandingpageblock_Key | null, photograph?: { data?: { attributes?: { url: string, width?: number | null, height?: number | null } | null } | null } | null } | null> | null } | null } | null } | null };
+
+export type EventsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type EventsQuery = { events?: { data: Array<{ attributes?: { title?: string | null, location?: string | null, eventDate?: any | null, ticketPrices?: any | null, media?: { data: Array<{ attributes?: { url: string } | null }> } | null } | null }> } | null };
 
 export type FooterQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1380,6 +1480,7 @@ export const ArticlesDocument = /*#__PURE__*/ gql`
         date
         category
         content
+        slug
         media {
           data {
             attributes {
@@ -1422,6 +1523,27 @@ export const DynamicBlockDocument = /*#__PURE__*/ gql`
                 width
                 height
               }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export const EventsDocument = /*#__PURE__*/ gql`
+    query Events {
+  events {
+    data {
+      attributes {
+        title
+        location
+        eventDate
+        ticketPrices
+        media {
+          data {
+            attributes {
+              url
             }
           }
         }
@@ -1514,6 +1636,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     dynamicBlock(variables?: DynamicBlockQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DynamicBlockQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<DynamicBlockQuery>(DynamicBlockDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'dynamicBlock', 'query');
+    },
+    Events(variables?: EventsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<EventsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<EventsQuery>(EventsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Events', 'query');
     },
     Footer(variables?: FooterQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FooterQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FooterQuery>(FooterDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Footer', 'query');

@@ -5,6 +5,7 @@ export interface IArticle {
 	content: string
 	category: string
 	date: string
+	slug: string
 	media: {
 		data: {
 			attributes: {
@@ -19,6 +20,7 @@ export class Article implements IArticle {
 	content: string
 	category: string
 	date: string
+	slug: string
 	media: {
 		data: {
 			attributes: {
@@ -32,6 +34,7 @@ export class Article implements IArticle {
 		this.title = item.title
 		this.content = item.content
 		this.category = item.category
+		this.slug = item.slug
 		this.date = item.date
 		this.media = item.media
 	}

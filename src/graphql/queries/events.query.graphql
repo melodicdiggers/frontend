@@ -1,0 +1,19 @@
+query Events {
+	events {
+		data {
+			attributes {
+				title
+				location
+				eventDate
+				ticketPrices
+				media {
+					data {
+						attributes {
+							url
+						}
+					}
+				}
+			}
+		}
+	}
+}

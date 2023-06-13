@@ -1,0 +1,37 @@
+import React from 'react'
+import { Article } from '../../types'
+import Image from 'next/image'
+import Link from 'next/link'
+
+interface ArticlesProps {
+	article: Article
+	slug: string
+}
+
+export default function Articles({ article }: ArticlesProps) {
+	return (
+		<Link
+			className='inline-block no-underline '
+			href={`${article.category}/${new Date(article.date).getFullYear()}/${article.slug}`}>
+			{article?.media?.data?.attributes && (
+				<Image
+					src={process.env.MEDIA_HOST + article.media.data.attributes.url}
+					alt={''}
+					width={279}
+					height={279}
+					quality={100}
+					style={{
+						objectFit: 'cover',
+						backgroundPosition: 'center',
+						backgroundRepeat: 'no-repeat',
+						objectPosition: 'center 70%',
+					}}
+				/>
+			)}
+			<div className='mt-6 flex flex-col gap-4' style={{ width: 279 }}>
+				<div className='text-sm font-medium italic text-hover'>{article.date}</div>
+				<div className='text-xl text-black'>{article.title}</div>
+			</div>
+		</Link>
+	)
+}

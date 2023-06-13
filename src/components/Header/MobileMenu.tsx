@@ -20,7 +20,7 @@ export default function MobileMenu({ block, setMobileNavbar }: MenuProps) {
 
 	return (
 		<div>
-			{block.title === 'News' || block.title === 'Equanimity' ? (
+			{block.title === 'News' || block.title === 'Equanimity' || block.title === 'Events' ? (
 				<Link
 					className='cursor-pointer text-black no-underline'
 					href={block.options.route}

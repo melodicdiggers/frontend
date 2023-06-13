@@ -28,7 +28,7 @@ export default function HeaderContainer(props: Props) {
 	}
 
 	return (
-		<nav className='w-full px-64 py-14 sm:px-2 sm:py-4 md:px-12 lg:px-4'>
+		<nav className='w-full px-48 py-14 sm:px-2 sm:py-4 md:px-12 lg:px-4'>
 			<div className='flex items-center justify-between sm:hidden lg:flex'>
 				<Link
 					href={'/'}

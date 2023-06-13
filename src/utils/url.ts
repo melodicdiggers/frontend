@@ -5,6 +5,7 @@ import {
 	ArticlesDocument,
 	ContactPageDocument,
 	DynamicBlockDocument,
+	EventsDocument,
 	FooterDocument,
 	HeaderDocument,
 	MusicDocument,
@@ -50,4 +51,8 @@ export const getArticles = async (category: string) => {
 
 export const getMusics = async (category: string) => {
 	return await fetchGraphQLData(MusicDocument, { category })
+}
+
+export const getEvents = async () => {
+	return await fetchGraphQLData(EventsDocument)
 }
