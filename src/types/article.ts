@@ -6,6 +6,12 @@ export interface IArticle {
 	category: string
 	date: string
 	slug: string
+	followButtons: [
+		{
+			url: string
+			title: string
+		}
+	]
 	media: {
 		data: {
 			attributes: {
@@ -21,6 +27,12 @@ export class Article implements IArticle {
 	category: string
 	date: string
 	slug: string
+	followButtons: [
+		{
+			url: string
+			title: string
+		}
+	]
 	media: {
 		data: {
 			attributes: {
@@ -36,6 +48,7 @@ export class Article implements IArticle {
 		this.category = item.category
 		this.slug = item.slug
 		this.date = item.date
+		this.followButtons = item.followButtons
 		this.media = item.media
 	}
 }

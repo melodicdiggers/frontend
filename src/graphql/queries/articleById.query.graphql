@@ -7,6 +7,7 @@ query articlebySlug($slug: String!) {
 				category
 				content
 				slug
+				followButtons
 				media {
 					data {
 						attributes {

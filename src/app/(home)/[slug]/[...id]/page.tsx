@@ -2,6 +2,7 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import { Article, IArticle, MultiGenericBlock } from '../../../../types'
 import { getArticleBySlug } from '../../../../utils/url'
 import Image from 'next/image'
+import FollowButton from '../../../../components/Buttons/FollowButton'
 
 interface PageProps {
 	params: {
@@ -23,28 +24,70 @@ async function getArticlesByIdData(slug: string): Promise<Article | null> {
 export default async function IdPage({ params }: PageProps) {
 	const slug = params.id[params.id.length - 1]
 	const article = await getArticlesByIdData(slug)
+	const date = new Date(article?.date as string)
+	const options = { month: 'long', day: 'numeric', year: 'numeric' }
+	const formattedDate = date.toLocaleDateString('en-US', options as any)
 
 	return (
-		<div className='mt-10 flex flex-col flex-wrap gap-20'>
-			<div className='flex items-center justify-center'>{article?.date}</div>
-			<div className='flex items-center justify-center'>
-				{article?.media?.data?.attributes && (
-					<Image
-						src={process.env.MEDIA_HOST + article?.media?.data?.attributes?.url}
-						alt={''}
-						width={900}
-						height={400}
-						quality={100}
-						style={{
-							objectFit: 'cover',
-							backgroundPosition: 'center',
-							backgroundRepeat: 'no-repeat',
-							objectPosition: 'center 70%',
-						}}
-					/>
-				)}
-			</div>
-			<ReactMarkdown>{article?.content}</ReactMarkdown>
-		</div>
+		<>
+			{params.slug !== 'equanimity' ? (
+				<div className='mt-10 flex flex-col flex-wrap gap-12'>
+					<div className='flex items-center justify-center font-bold italic text-hover'>{formattedDate}</div>
+					<div className='flex items-center justify-center text-center font-baskervville text-4xl'>
+						{article?.title}
+					</div>
+					<div className='flex items-center justify-center'>
+						{article?.media?.data?.attributes && (
+							<Image
+								src={process.env.MEDIA_HOST + article?.media?.data?.attributes?.url}
+								alt={''}
+								width={1200}
+								height={600}
+								quality={100}
+								className='70% bg-center bg-no-repeat object-cover object-center'
+							/>
+						)}
+					</div>
+					<ReactMarkdown>{article?.content}</ReactMarkdown>
+					<div className='mt-6 flex flex-col items-center justify-center gap-6'>
+						{article?.followButtons?.map(button => {
+							return <FollowButton key={`button-${button.url}`} url={button.url} text={button.title} />
+						})}
+					</div>
+				</div>
+			) : (
+				<div className='mt-10 flex flex-col flex-wrap gap-12'>
+					<div className='flex items-center justify-center font-bold italic text-hover'>{formattedDate}</div>
+					<div className='flex items-center justify-center text-center font-baskervville text-4xl'>
+						{article?.title}
+					</div>
+					<div className='flex gap-6'>
+						{article?.media?.data?.attributes && (
+							<div className='flex w-2/5 items-center'>
+								<Image
+									src={process.env.MEDIA_HOST + article?.media?.data?.attributes?.url}
+									alt=''
+									width={450}
+									height={450}
+									quality={100}
+									className='h-auto w-full'
+								/>
+							</div>
+						)}
+						<div className='grid flex-1'>
+							<div className='flex grid-cols-1 flex-col gap-6 p-2 font-baskervville text-lg tracking-wider'>
+								<ReactMarkdown>{article?.content}</ReactMarkdown>
+							</div>
+						</div>
+					</div>
+
+					<div className='mt-6 flex flex-col items-center justify-center gap-6'>
+						{article?.followButtons?.map(button => {
+							return <FollowButton key={`button-${button.url}`} url={button.url} text={button.title} />
+						})}
+					</div>
+				</div>
+			)}
+		</>
 	)
 }

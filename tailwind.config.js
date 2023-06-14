@@ -30,6 +30,7 @@ module.exports = {
 			background: '#FCFCFC',
 			black: '#000',
 			hover: '#9CA3AF',
+			secondBlack: '#1d1d1d',
 		},
 		extend: {
 			fontFamily: {

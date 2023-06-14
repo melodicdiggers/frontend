@@ -11,10 +11,10 @@ export default function DesktopMenu({ block }: MenuProps) {
 		<div key={`header-${block.title}`} className='group font-josefin text-2xl font-medium'>
 			{block.title === 'News' || block.title === 'Equanimity' || block.title === 'Events' ? (
 				<Link className='cursor-pointer text-black no-underline' href={block.options.route}>
-					<div className='text-base font-semibold'>{block.title.toUpperCase()}</div>
+					<div className='text-base font-semibold hover:text-hover'>{block.title.toUpperCase()}</div>
 				</Link>
 			) : (
-				<div className='text-base font-semibold'>{block.title.toUpperCase()}</div>
+				<div className='cursor-pointer text-base  font-semibold hover:text-hover'>{block.title.toUpperCase()}</div>
 			)}
 			{block.title !== 'News' && block.title !== 'Equanimity' && block.title !== 'Events' && (
 				<div className='absolute z-10 hidden bg-background px-2 pb-0 pt-4 group-hover:block'>
@@ -22,7 +22,7 @@ export default function DesktopMenu({ block }: MenuProps) {
 						<Link
 							href={`${option.route}`}
 							key={`option-${option.slug}`}
-							className='flex-column mb-2 flex cursor-pointer text-base font-semibold text-black no-underline'>
+							className='flex-column mb-2 flex cursor-pointer text-base font-semibold text-black no-underline hover:text-hover'>
 							{option.title.toUpperCase()}
 						</Link>
 					))}

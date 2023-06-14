@@ -1416,7 +1416,7 @@ export type ArticlebySlugQueryVariables = Exact<{
 }>;
 
 
-export type ArticlebySlugQuery = { articles?: { data: Array<{ attributes?: { title?: string | null, date?: any | null, category?: Enum_Article_Category | null, content?: string | null, slug?: string | null, media?: { data?: { attributes?: { url: string } | null } | null } | null } | null }> } | null };
+export type ArticlebySlugQuery = { articles?: { data: Array<{ attributes?: { title?: string | null, date?: any | null, category?: Enum_Article_Category | null, content?: string | null, slug?: string | null, followButtons?: any | null, media?: { data?: { attributes?: { url: string } | null } | null } | null } | null }> } | null };
 
 export type ArticlesQueryVariables = Exact<{
   category: Scalars['String'];
@@ -1488,6 +1488,7 @@ export const ArticlebySlugDocument = /*#__PURE__*/ gql`
         category
         content
         slug
+        followButtons
         media {
           data {
             attributes {

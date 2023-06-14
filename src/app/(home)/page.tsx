@@ -23,7 +23,7 @@ export default async function Homepage() {
 
 	console.log(session)
 	return (
-		<div className='flex flex-col gap-12 sm:gap-4'>
+		<div className='flex flex-col gap-12 pb-16 sm:gap-4'>
 			<Suspense fallback={<div>Loading...</div>}>
 				{dynamicBlock?.landingPageBlock
 					?.filter(block => block.key === 'landing_top')
