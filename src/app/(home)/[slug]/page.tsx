@@ -1,16 +1,5 @@
 export { dynamicParams }
-import {
-	Article,
-	Event,
-	GenericBlock,
-	Header,
-	IArticle,
-	IEvent,
-	IHeader,
-	IMusic,
-	MultiGenericBlock,
-	Music,
-} from '../../../types'
+import { Article, Event, GenericBlock, Header, IHeader, IMusic, MultiGenericBlock, Music } from '../../../types'
 import { getArticles, getEvents, getHeader, getMusics } from '../../../utils/url'
 import { Suspense } from 'react'
 import Articles from '../../../components/pages/Articles'
@@ -26,10 +15,10 @@ interface PageProps {
 	searchParams: { [key: string]: string | string[] | undefined }
 }
 
-async function getArticleBySlug(slug: string): Promise<Article | null> {
+async function getArticleBySlug(slug: string): Promise<Article[] | null> {
 	try {
-		const result = await getArticles(decodeURIComponent(slug))
-		if (result) return new Article(new MultiGenericBlock<IArticle>(result, 'articles'))
+		const result: any = await getArticles(decodeURIComponent(slug))
+		if (result) return new MultiGenericBlock<Article>(result, 'articles').data
 		return null
 	} catch (err) {
 		return null
@@ -46,10 +35,10 @@ async function getMusicPageBySlug(slug: string): Promise<Music | null> {
 	}
 }
 
-async function getEventsData(): Promise<Event | null> {
+async function getEventsData(): Promise<Event[] | null> {
 	try {
 		const result = await getEvents()
-		if (result) return new Event(new MultiGenericBlock<IEvent>(result, 'events'))
+		if (result) return new MultiGenericBlock<Event>(result, 'events').data
 		return null
 	} catch (err) {
 		return null
@@ -103,7 +92,7 @@ export default async function SlugPage({ params }: PageProps) {
 		<div className='flex flex-wrap gap-20'>
 			{data && articleSlugs.includes(params.slug) && (
 				<Suspense fallback={<div>Loading...</div>}>
-					<Articles article={data} slug={params.slug} />
+					<Articles articles={data} slug={params.slug} />
 				</Suspense>
 			)}
 			{data && musicSlugs.includes(params.slug) && (

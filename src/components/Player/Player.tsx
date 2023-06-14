@@ -18,8 +18,8 @@ export default function Player({ url, slug }: PlayerProps) {
 				<SoundCloudPlayer
 					url={url}
 					controls={true}
-					width={slug === 'a-minute-with' ? 1200 : 390}
-					height={slug === 'a-minute-with' ? 600 : 400}
+					width={slug === 'a-minute-with' ? 1200 : 300}
+					height={slug === 'a-minute-with' ? 600 : 380}
 				/>
 			}
 		</div>

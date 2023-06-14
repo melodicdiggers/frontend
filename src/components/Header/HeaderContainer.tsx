@@ -20,7 +20,7 @@ export default function HeaderContainer(props: Props) {
 	if (props.headerData) header = JSON.parse(props.headerData)
 	else header = null
 
-	console.log('session', session)
+	//console.log('session', session)
 
 	const logoutAccount = () => {
 		localStorage.removeItem('token')
