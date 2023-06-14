@@ -2,7 +2,7 @@ import { MultiGenericBlock } from './multiBlock'
 
 export interface IArticle {
 	title: string
-	content: string
+	content: any
 	category: string
 	date: string
 	slug: string
@@ -17,7 +17,7 @@ export interface IArticle {
 
 export class Article implements IArticle {
 	title: string
-	content: string
+	content: any
 	category: string
 	date: string
 	slug: string

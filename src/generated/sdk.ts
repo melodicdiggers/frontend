@@ -1411,12 +1411,19 @@ export type AboutPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type AboutPageQuery = { about?: { data?: { attributes?: { aboutBlock?: { title?: string | null, subTitle?: string | null, description?: string | null } | null } | null } | null } | null };
 
+export type ArticlebySlugQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type ArticlebySlugQuery = { articles?: { data: Array<{ attributes?: { title?: string | null, date?: any | null, category?: Enum_Article_Category | null, content?: string | null, slug?: string | null, media?: { data?: { attributes?: { url: string } | null } | null } | null } | null }> } | null };
+
 export type ArticlesQueryVariables = Exact<{
   category: Scalars['String'];
 }>;
 
 
-export type ArticlesQuery = { articles?: { data: Array<{ attributes?: { title?: string | null, date?: any | null, category?: Enum_Article_Category | null, content?: string | null, slug?: string | null, media?: { data?: { attributes?: { url: string } | null } | null } | null } | null }> } | null };
+export type ArticlesQuery = { articles?: { data: Array<{ attributes?: { title?: string | null, date?: any | null, category?: Enum_Article_Category | null, slug?: string | null, media?: { data?: { attributes?: { url: string } | null } | null } | null } | null }> } | null };
 
 export type ContactPageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1471,6 +1478,28 @@ export const AboutPageDocument = /*#__PURE__*/ gql`
   }
 }
     `;
+export const ArticlebySlugDocument = /*#__PURE__*/ gql`
+    query articlebySlug($slug: String!) {
+  articles(filters: {slug: {eq: $slug}}) {
+    data {
+      attributes {
+        title
+        date
+        category
+        content
+        slug
+        media {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
 export const ArticlesDocument = /*#__PURE__*/ gql`
     query articles($category: String!) {
   articles(filters: {category: {eq: $category}}) {
@@ -1479,7 +1508,6 @@ export const ArticlesDocument = /*#__PURE__*/ gql`
         title
         date
         category
-        content
         slug
         media {
           data {
@@ -1627,6 +1655,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     AboutPage(variables?: AboutPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AboutPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AboutPageQuery>(AboutPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AboutPage', 'query');
+    },
+    articlebySlug(variables: ArticlebySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ArticlebySlugQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ArticlebySlugQuery>(ArticlebySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'articlebySlug', 'query');
     },
     articles(variables: ArticlesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ArticlesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ArticlesQuery>(ArticlesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'articles', 'query');

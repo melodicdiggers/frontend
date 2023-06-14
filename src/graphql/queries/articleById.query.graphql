@@ -1,10 +1,11 @@
-query articles($category: String!) {
-	articles(filters: { category: { eq: $category } }) {
+query articlebySlug($slug: String!) {
+	articles(filters: { slug: { eq: $slug } }) {
 		data {
 			attributes {
 				title
 				date
 				category
+				content
 				slug
 				media {
 					data {
