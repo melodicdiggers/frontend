@@ -21,7 +21,7 @@ export default async function Homepage() {
 	const dynamicBlock = await getDynamicBlockData()
 	const session = await getServerSession(authOptions)
 
-	console.log(session)
+	//console.log(session)
 	return (
 		<div className='flex flex-col gap-12 pb-16 sm:gap-4'>
 			<Suspense fallback={<div>Loading...</div>}>

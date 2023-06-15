@@ -102,7 +102,7 @@ export default async function SlugPage({ params }: PageProps) {
 			)}
 			{data && eventSlugs.includes(params.slug) && (
 				<Suspense fallback={<div>Loading...</div>}>
-					<Events events={data} />
+					<Events events={data} slug={params.slug} />
 				</Suspense>
 			)}
 		</div>

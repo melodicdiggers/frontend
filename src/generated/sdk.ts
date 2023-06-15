@@ -324,6 +324,7 @@ export type Event = {
   location?: Maybe<Scalars['String']>;
   media?: Maybe<UploadFileRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']>;
+  slug?: Maybe<Scalars['String']>;
   ticketPrices?: Maybe<Scalars['JSON']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -360,6 +361,7 @@ export type EventFiltersInput = {
   not?: InputMaybe<EventFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<EventFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
   ticketPrices?: InputMaybe<JsonFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -371,6 +373,7 @@ export type EventInput = {
   location?: InputMaybe<Scalars['String']>;
   media?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
+  slug?: InputMaybe<Scalars['String']>;
   ticketPrices?: InputMaybe<Scalars['JSON']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -1435,10 +1438,17 @@ export type DynamicBlockQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type DynamicBlockQuery = { dynamicBlock?: { data?: { attributes?: { landingPageBlock?: Array<{ title?: string | null, url?: string | null, key?: Enum_Componentlandingpageblocklandingpageblock_Key | null, photograph?: { data?: { attributes?: { url: string, width?: number | null, height?: number | null } | null } | null } | null } | null> | null } | null } | null } | null };
 
+export type EventBySlugQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type EventBySlugQuery = { events?: { data: Array<{ attributes?: { title?: string | null, location?: string | null, eventDate?: any | null, slug?: string | null, ticketPrices?: any | null, media?: { data: Array<{ attributes?: { url: string } | null }> } | null } | null }> } | null };
+
 export type EventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type EventsQuery = { events?: { data: Array<{ attributes?: { title?: string | null, location?: string | null, eventDate?: any | null, ticketPrices?: any | null, media?: { data: Array<{ attributes?: { url: string } | null }> } | null } | null }> } | null };
+export type EventsQuery = { events?: { data: Array<{ attributes?: { title?: string | null, location?: string | null, eventDate?: any | null, slug?: string | null, ticketPrices?: any | null, media?: { data: Array<{ attributes?: { url: string } | null }> } | null } | null }> } | null };
 
 export type FooterQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1560,6 +1570,28 @@ export const DynamicBlockDocument = /*#__PURE__*/ gql`
   }
 }
     `;
+export const EventBySlugDocument = /*#__PURE__*/ gql`
+    query eventBySlug($slug: String!) {
+  events(filters: {slug: {eq: $slug}}) {
+    data {
+      attributes {
+        title
+        location
+        eventDate
+        slug
+        ticketPrices
+        media {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
 export const EventsDocument = /*#__PURE__*/ gql`
     query Events {
   events {
@@ -1568,6 +1600,7 @@ export const EventsDocument = /*#__PURE__*/ gql`
         title
         location
         eventDate
+        slug
         ticketPrices
         media {
           data {
@@ -1668,6 +1701,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     dynamicBlock(variables?: DynamicBlockQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DynamicBlockQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<DynamicBlockQuery>(DynamicBlockDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'dynamicBlock', 'query');
+    },
+    eventBySlug(variables: EventBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<EventBySlugQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<EventBySlugQuery>(EventBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'eventBySlug', 'query');
     },
     Events(variables?: EventsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<EventsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<EventsQuery>(EventsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Events', 'query');

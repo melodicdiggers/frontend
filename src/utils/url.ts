@@ -6,6 +6,7 @@ import {
 	ArticlesDocument,
 	ContactPageDocument,
 	DynamicBlockDocument,
+	EventBySlugDocument,
 	EventsDocument,
 	FooterDocument,
 	HeaderDocument,
@@ -60,4 +61,8 @@ export const getEvents = async () => {
 
 export const getArticleBySlug = async (slug: string) => {
 	return await fetchGraphQLData(ArticlebySlugDocument, { slug })
+}
+
+export const getEventBySlug = async (slug: string) => {
+	return await fetchGraphQLData(EventBySlugDocument, { slug })
 }

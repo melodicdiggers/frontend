@@ -29,12 +29,11 @@ async function getFooterData(): Promise<Footer | null> {
 }
 
 export default async function HomeLayout({ children }: Props) {
-	const header = await getHeaderData()
-	const footer = await getFooterData()
+	const [header, footer] = await Promise.all([getHeaderData(), getFooterData()])
 
 	return (
 		<ProvidersWrapper>
-			<div className='flex h-screen w-full flex-col '>
+			<div className='flex h-full w-full flex-col'>
 				<HeaderContainer headerData={JSON.stringify(header)} />
 				{children}
 				<FooterContainer headerData={JSON.stringify(footer)} />

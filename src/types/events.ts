@@ -4,6 +4,7 @@ export interface IEvent {
 	title: string
 	location: string
 	eventDate: string
+	slug: string
 	ticketPrices: {
 		name: string
 		value: string
@@ -23,6 +24,7 @@ export class Event implements IEvent {
 	title: string
 	location: string
 	eventDate: string
+	slug: string
 	ticketPrices: {
 		name: string
 		value: string
@@ -42,6 +44,7 @@ export class Event implements IEvent {
 		this.title = item.title
 		this.location = item.location
 		this.eventDate = item.eventDate
+		this.slug = item.slug
 		this.ticketPrices = item.ticketPrices
 		this.media = item.media
 	}

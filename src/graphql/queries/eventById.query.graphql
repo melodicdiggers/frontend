@@ -1,5 +1,5 @@
-query Events {
-	events {
+query eventBySlug($slug: String!) {
+	events(filters: { slug: { eq: $slug } }) {
 		data {
 			attributes {
 				title
