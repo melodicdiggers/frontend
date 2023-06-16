@@ -5,10 +5,12 @@ export interface IEvent {
 	location: string
 	eventDate: string
 	slug: string
-	ticketPrices: {
-		name: string
-		value: string
-	}
+	ticketPrices: [
+		{
+			name: string
+			value: string
+		}
+	]
 	media: {
 		data: [
 			{
@@ -25,10 +27,12 @@ export class Event implements IEvent {
 	location: string
 	eventDate: string
 	slug: string
-	ticketPrices: {
-		name: string
-		value: string
-	}
+	ticketPrices: [
+		{
+			name: string
+			value: string
+		}
+	]
 	media: {
 		data: [
 			{

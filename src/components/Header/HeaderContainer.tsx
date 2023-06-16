@@ -66,7 +66,7 @@ export default function HeaderContainer(props: Props) {
 					<FontAwesomeIcon
 						icon={faClose}
 						size='xl'
-						className='text-white cursor-pointer'
+						className='cursor-pointer text-white'
 						onClick={() => setMobileNavbar(!mobileNavbar)}
 					/>
 				</div>
