@@ -11,7 +11,7 @@ export async function signIn({ email, password }) {
 }
 
 export async function createUser({ username, email, password }) {
-	const res = await axios.post(`${'http://localhost:1337/'}api/auth/local/register`, {
+	const res = await axios.post(`${strapiUrl}api/auth/local/register`, {
 		username,
 		email,
 		password,

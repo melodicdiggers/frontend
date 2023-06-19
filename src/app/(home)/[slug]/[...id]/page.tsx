@@ -52,7 +52,7 @@ export default async function IdPage({ params }: PageProps) {
 			)}
 			{params.slug === 'events' && event && (
 				<Suspense fallback={<div>loading...</div>}>
-					<EventPage venue={event} />
+					<EventPage event={JSON.stringify(event)} />
 				</Suspense>
 			)}
 		</>

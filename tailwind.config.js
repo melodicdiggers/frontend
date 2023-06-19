@@ -32,6 +32,7 @@ module.exports = {
 			hover: '#9CA3AF',
 			secondBlack: '#1d1d1d',
 			white: '#fff',
+			secondBackground: '#F8F8F8',
 		},
 		extend: {
 			fontFamily: {
