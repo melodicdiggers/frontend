@@ -6,17 +6,23 @@ export interface IEvent {
 	eventDate: string
 	slug: string
 	description: string
-	ticketPrices: [
-		{
-			name: string
-			value: string
-		}
-	]
 	media: {
 		data: [
 			{
 				attributes: {
 					url: string
+				}
+			}
+		]
+	}
+	ticket: {
+		data: [
+			{
+				attributes: {
+					name: string
+					ammount: number
+					available: boolean
+					value: number
 				}
 			}
 		]
@@ -29,17 +35,23 @@ export class Event implements IEvent {
 	eventDate: string
 	description: string
 	slug: string
-	ticketPrices: [
-		{
-			name: string
-			value: string
-		}
-	]
 	media: {
 		data: [
 			{
 				attributes: {
 					url: string
+				}
+			}
+		]
+	}
+	ticket: {
+		data: [
+			{
+				attributes: {
+					name: string
+					ammount: number
+					available: boolean
+					value: number
 				}
 			}
 		]
@@ -52,7 +64,7 @@ export class Event implements IEvent {
 		this.description = item.description
 		this.eventDate = item.eventDate
 		this.slug = item.slug
-		this.ticketPrices = item.ticketPrices
 		this.media = item.media
+		this.ticket = item.ticket
 	}
 }

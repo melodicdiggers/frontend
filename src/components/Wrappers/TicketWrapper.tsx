@@ -6,21 +6,18 @@ import { Event } from '../../types'
 import Image from 'next/image'
 
 interface TicketCardProps {
-	ticket: [
-		{
-			name: string
-			value: string
-		}
-	]
+	tickets: Ticket[]
 	venue: string
 }
 
 interface Ticket {
 	name: string
-	value: string
+	ammount: number
+	available: boolean
+	value: any
 }
 
-export default function TicketWrapper({ ticket, venue }: TicketCardProps) {
+export default function TicketWrapper({ tickets, venue }: TicketCardProps) {
 	let event: Event | null = null
 	if (venue) event = JSON.parse(venue)
 	else event = null
@@ -31,6 +28,7 @@ export default function TicketWrapper({ ticket, venue }: TicketCardProps) {
 	const openModal = (selectedTicket: Ticket) => {
 		setSelectedTicket(selectedTicket)
 		setIsOpened(true)
+		setCount(1)
 	}
 
 	const closeModal = () => {
@@ -50,14 +48,14 @@ export default function TicketWrapper({ ticket, venue }: TicketCardProps) {
 	return (
 		<div className='relative'>
 			<div className='flex flex-col gap-6'>
-				{ticket.map(ticket => {
+				{tickets.map(ticket => {
 					return (
 						<div
 							className='flex cursor-pointer items-center gap-6 rounded-md bg-white p-8'
 							key={ticket.name}
 							onClick={() => handleTicketClick(ticket)}>
 							<div className='text-xl'>{ticket.name} :</div>
-							<div className='text-lg'>{ticket.value}</div>
+							<div className='text-lg'>{ticket.value + '€'}</div>
 						</div>
 					)
 				})}

@@ -14,9 +14,18 @@ export default function EventPage({ event }: EvenetPageProps) {
 	let venue: Event | null = null
 	if (event) venue = JSON.parse(event)
 	else venue = null
+	let ticketsData = venue?.ticket.data
+	let tickets = null as any
+	if (ticketsData) {
+		tickets = ticketsData.map(ticket => {
+			const { name, ammount, available, value } = ticket.attributes
+			return { name, ammount, available, value }
+		})
+	}
+
 	return (
 		<>
-			{venue && (
+			{venue && tickets && (
 				<div className='mt-10 flex flex-col flex-wrap gap-12'>
 					<div className='flex items-center justify-center text-center font-baskervville text-4xl'>{venue?.title}</div>
 					<div className='flex w-full items-center justify-center gap-44'>
@@ -44,7 +53,7 @@ export default function EventPage({ event }: EvenetPageProps) {
 								<div className='text-2xl '>Venue Date:</div>
 								<div className='text-xl'>{venue.eventDate}</div>
 							</div>
-							{venue.ticketPrices && <TicketWrapper ticket={venue.ticketPrices} venue={JSON.stringify(venue)} />}
+							{venue.ticket && <TicketWrapper tickets={tickets} venue={JSON.stringify(venue)} />}
 						</div>
 					</div>
 				</div>

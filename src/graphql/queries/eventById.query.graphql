@@ -7,11 +7,20 @@ query eventBySlug($slug: String!) {
 				eventDate
 				slug
 				description
-				ticketPrices
 				media {
 					data {
 						attributes {
 							url
+						}
+					}
+				}
+				ticket {
+					data {
+						attributes {
+							name
+							ammount
+							available
+							value
 						}
 					}
 				}

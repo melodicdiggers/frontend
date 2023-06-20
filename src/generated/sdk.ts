@@ -325,6 +325,7 @@ export type Event = {
   media?: Maybe<UploadFileRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   slug?: Maybe<Scalars['String']>;
+  ticket?: Maybe<TicketRelationResponseCollection>;
   ticketPrices?: Maybe<Scalars['JSON']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -334,6 +335,14 @@ export type Event = {
 export type EventMediaArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type EventTicketArgs = {
+  filters?: InputMaybe<TicketFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
@@ -362,6 +371,7 @@ export type EventFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<EventFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
+  ticket?: InputMaybe<TicketFiltersInput>;
   ticketPrices?: InputMaybe<JsonFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -374,6 +384,7 @@ export type EventInput = {
   media?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   slug?: InputMaybe<Scalars['String']>;
+  ticket?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   ticketPrices?: InputMaybe<Scalars['JSON']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -433,7 +444,7 @@ export type FooterInput = {
   socialBlock?: InputMaybe<ComponentSocialBlockSocialBlockInput>;
 };
 
-export type GenericMorph = About | AboutPage | Article | ComponentAboutBlockAboutBlock | ComponentContactBlockContactBlock | ComponentHeaderBlockHeaderBlock | ComponentLandingpageBlockLandingPageBlock | ComponentSocialBlockSocialBlock | DynamicBlock | Event | Footer | Header | I18NLocale | Music | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = About | AboutPage | Article | ComponentAboutBlockAboutBlock | ComponentContactBlockContactBlock | ComponentHeaderBlockHeaderBlock | ComponentLandingpageBlockLandingPageBlock | ComponentSocialBlockSocialBlock | DynamicBlock | Event | Footer | Header | I18NLocale | Music | Ticket | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -621,6 +632,7 @@ export type Mutation = {
   createArticle?: Maybe<ArticleEntityResponse>;
   createEvent?: Maybe<EventEntityResponse>;
   createMusic?: Maybe<MusicEntityResponse>;
+  createTicket?: Maybe<TicketEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   createUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Create a new role */
@@ -635,6 +647,7 @@ export type Mutation = {
   deleteFooter?: Maybe<FooterEntityResponse>;
   deleteHeader?: Maybe<HeaderEntityResponse>;
   deleteMusic?: Maybe<MusicEntityResponse>;
+  deleteTicket?: Maybe<TicketEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Delete an existing role */
@@ -661,6 +674,7 @@ export type Mutation = {
   updateFooter?: Maybe<FooterEntityResponse>;
   updateHeader?: Maybe<HeaderEntityResponse>;
   updateMusic?: Maybe<MusicEntityResponse>;
+  updateTicket?: Maybe<TicketEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Update an existing role */
@@ -690,6 +704,11 @@ export type MutationCreateEventArgs = {
 
 export type MutationCreateMusicArgs = {
   data: MusicInput;
+};
+
+
+export type MutationCreateTicketArgs = {
+  data: TicketInput;
 };
 
 
@@ -724,6 +743,11 @@ export type MutationDeleteEventArgs = {
 
 
 export type MutationDeleteMusicArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteTicketArgs = {
   id: Scalars['ID'];
 };
 
@@ -837,6 +861,12 @@ export type MutationUpdateMusicArgs = {
 };
 
 
+export type MutationUpdateTicketArgs = {
+  data: TicketInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateUploadFileArgs = {
   data: UploadFileInput;
   id: Scalars['ID'];
@@ -903,6 +933,8 @@ export type Query = {
   me?: Maybe<UsersPermissionsMe>;
   music?: Maybe<MusicEntityResponse>;
   musics?: Maybe<MusicEntityResponseCollection>;
+  ticket?: Maybe<TicketEntityResponse>;
+  tickets?: Maybe<TicketEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
   uploadFiles?: Maybe<UploadFileEntityResponseCollection>;
   uploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -990,6 +1022,19 @@ export type QueryMusicsArgs = {
 };
 
 
+export type QueryTicketArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryTicketsArgs = {
+  filters?: InputMaybe<TicketFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
 export type QueryUploadFileArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
@@ -1063,6 +1108,56 @@ export type StringFilterInput = {
   null?: InputMaybe<Scalars['Boolean']>;
   or?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   startsWith?: InputMaybe<Scalars['String']>;
+};
+
+export type Ticket = {
+  ammount?: Maybe<Scalars['Int']>;
+  available?: Maybe<Scalars['Boolean']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  name?: Maybe<Scalars['String']>;
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  value?: Maybe<Scalars['Float']>;
+};
+
+export type TicketEntity = {
+  attributes?: Maybe<Ticket>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type TicketEntityResponse = {
+  data?: Maybe<TicketEntity>;
+};
+
+export type TicketEntityResponseCollection = {
+  data: Array<TicketEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type TicketFiltersInput = {
+  ammount?: InputMaybe<IntFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<TicketFiltersInput>>>;
+  available?: InputMaybe<BooleanFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<TicketFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<TicketFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  value?: InputMaybe<FloatFilterInput>;
+};
+
+export type TicketInput = {
+  ammount?: InputMaybe<Scalars['Int']>;
+  available?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  value?: InputMaybe<Scalars['Float']>;
+};
+
+export type TicketRelationResponseCollection = {
+  data: Array<TicketEntity>;
 };
 
 export type UploadFile = {
@@ -1443,12 +1538,12 @@ export type EventBySlugQueryVariables = Exact<{
 }>;
 
 
-export type EventBySlugQuery = { events?: { data: Array<{ attributes?: { title?: string | null, location?: string | null, eventDate?: any | null, slug?: string | null, description?: string | null, ticketPrices?: any | null, media?: { data: Array<{ attributes?: { url: string } | null }> } | null } | null }> } | null };
+export type EventBySlugQuery = { events?: { data: Array<{ attributes?: { title?: string | null, location?: string | null, eventDate?: any | null, slug?: string | null, description?: string | null, media?: { data: Array<{ attributes?: { url: string } | null }> } | null, ticket?: { data: Array<{ attributes?: { name?: string | null, ammount?: number | null, available?: boolean | null, value?: number | null } | null }> } | null } | null }> } | null };
 
 export type EventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type EventsQuery = { events?: { data: Array<{ attributes?: { title?: string | null, location?: string | null, eventDate?: any | null, slug?: string | null, ticketPrices?: any | null, media?: { data: Array<{ attributes?: { url: string } | null }> } | null } | null }> } | null };
+export type EventsQuery = { events?: { data: Array<{ attributes?: { title?: string | null, location?: string | null, eventDate?: any | null, slug?: string | null, media?: { data: Array<{ attributes?: { url: string } | null }> } | null } | null }> } | null };
 
 export type FooterQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1580,11 +1675,20 @@ export const EventBySlugDocument = /*#__PURE__*/ gql`
         eventDate
         slug
         description
-        ticketPrices
         media {
           data {
             attributes {
               url
+            }
+          }
+        }
+        ticket {
+          data {
+            attributes {
+              name
+              ammount
+              available
+              value
             }
           }
         }
@@ -1602,7 +1706,6 @@ export const EventsDocument = /*#__PURE__*/ gql`
         location
         eventDate
         slug
-        ticketPrices
         media {
           data {
             attributes {

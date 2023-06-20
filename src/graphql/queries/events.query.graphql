@@ -6,7 +6,6 @@ query Events {
 				location
 				eventDate
 				slug
-				ticketPrices
 				media {
 					data {
 						attributes {
