@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { Event } from '../../types'
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface TicketCardProps {
 	tickets: Ticket[]
@@ -43,6 +44,11 @@ export default function TicketWrapper({ tickets, venue }: TicketCardProps) {
 		setCount(currentCount => {
 			return currentCount + amount
 		})
+	}
+
+	const savePurchase = () => {
+		localStorage.setItem('ticket', JSON.stringify(selectedTicket))
+		localStorage.setItem('ammount', JSON.stringify(count))
 	}
 
 	return (
@@ -132,9 +138,13 @@ export default function TicketWrapper({ tickets, venue }: TicketCardProps) {
 								</div>
 							</div>
 							<div className='mb-0 mt-auto flex w-full items-center bg-background p-6'>
-								<button className='ml-auto flex cursor-pointer justify-end rounded-md border-0 bg-secondBlack p-2 font-cabin text-sm font-semibold text-white'>
-									Continue
-								</button>
+								<Link href={'/checkout'} className='ml-auto no-underline'>
+									<button
+										className='ml-auto flex cursor-pointer justify-end rounded-md border-0 bg-secondBlack p-2 font-cabin text-sm font-semibold text-white'
+										onClick={savePurchase}>
+										Continue
+									</button>
+								</Link>
 							</div>
 						</div>
 					</div>
