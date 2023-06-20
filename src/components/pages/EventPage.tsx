@@ -19,7 +19,7 @@ export default function EventPage({ event }: EvenetPageProps) {
 			{venue && (
 				<div className='mt-10 flex flex-col flex-wrap gap-12'>
 					<div className='flex items-center justify-center text-center font-baskervville text-4xl'>{venue?.title}</div>
-					<div className='flex w-full gap-24'>
+					<div className='flex w-full items-center justify-center gap-44'>
 						{venue.media?.data && (
 							<Image
 								src={process.env.MEDIA_HOST + venue.media.data[0].attributes.url}
@@ -35,7 +35,7 @@ export default function EventPage({ event }: EvenetPageProps) {
 								}}
 							/>
 						)}
-						<div className='flex flex-col justify-center gap-6 p-12'>
+						<div className=' flex flex-col justify-center gap-6 p-12'>
 							<div className='flex items-center gap-6'>
 								<div className='text-2xl '>Location:</div>
 								<div className='text-xl'>{venue.location}</div>
@@ -44,7 +44,7 @@ export default function EventPage({ event }: EvenetPageProps) {
 								<div className='text-2xl '>Venue Date:</div>
 								<div className='text-xl'>{venue.eventDate}</div>
 							</div>
-							<TicketWrapper ticket={venue.ticketPrices} venue={JSON.stringify(venue)} />
+							{venue.ticketPrices && <TicketWrapper ticket={venue.ticketPrices} venue={JSON.stringify(venue)} />}
 						</div>
 					</div>
 				</div>

@@ -1443,7 +1443,7 @@ export type EventBySlugQueryVariables = Exact<{
 }>;
 
 
-export type EventBySlugQuery = { events?: { data: Array<{ attributes?: { title?: string | null, location?: string | null, eventDate?: any | null, slug?: string | null, ticketPrices?: any | null, media?: { data: Array<{ attributes?: { url: string } | null }> } | null } | null }> } | null };
+export type EventBySlugQuery = { events?: { data: Array<{ attributes?: { title?: string | null, location?: string | null, eventDate?: any | null, slug?: string | null, description?: string | null, ticketPrices?: any | null, media?: { data: Array<{ attributes?: { url: string } | null }> } | null } | null }> } | null };
 
 export type EventsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1579,6 +1579,7 @@ export const EventBySlugDocument = /*#__PURE__*/ gql`
         location
         eventDate
         slug
+        description
         ticketPrices
         media {
           data {

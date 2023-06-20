@@ -1,9 +1,9 @@
 import { Article as ArticleDTO, Event, IArticle, IEvent, MultiGenericBlock } from '../../../../types'
 import { getArticleBySlug, getEventBySlug } from '../../../../utils/url'
-import ArticlePage from '../../../../components/pages/ArticlePage'
-import EquanimityPage from '../../../../components/pages/EquanimityPage'
+import ArticlePage from '../../../../components/Pages/ArticlePage'
+import EquanimityPage from '../../../../components/Pages/EquanimityPage'
 import { Suspense } from 'react'
-import EventPage from '../../../../components/pages/EventPage'
+import EventPage from '../../../../components/Pages/EventPage'
 
 interface PageProps {
 	params: {

@@ -1,7 +1,7 @@
 'use client'
-import { faClose } from '@fortawesome/free-solid-svg-icons'
+import { faClose, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { useState } from 'react'
 import { Event } from '../../types'
 import Image from 'next/image'
 
@@ -24,8 +24,9 @@ export default function TicketWrapper({ ticket, venue }: TicketCardProps) {
 	let event: Event | null = null
 	if (venue) event = JSON.parse(venue)
 	else event = null
-	const [isOpened, setIsOpened] = React.useState(false)
-	const [selectedTicket, setSelectedTicket] = React.useState<Ticket | null>(null)
+	const [isOpened, setIsOpened] = useState(false)
+	const [count, setCount] = useState(1)
+	const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null)
 
 	const openModal = (selectedTicket: Ticket) => {
 		setSelectedTicket(selectedTicket)
@@ -38,6 +39,12 @@ export default function TicketWrapper({ ticket, venue }: TicketCardProps) {
 
 	const handleTicketClick = (ticket: Ticket) => {
 		openModal(ticket)
+	}
+
+	const adjustCount = (amount: number) => {
+		setCount(currentCount => {
+			return currentCount + amount
+		})
 	}
 
 	return (
@@ -57,8 +64,7 @@ export default function TicketWrapper({ ticket, venue }: TicketCardProps) {
 			</div>
 			{isOpened && selectedTicket && event && (
 				<div
-					className={`} fixed bottom-0 right-0 top-0 z-10 ml-auto mr-0 flex h-full w-full flex-col rounded-l-md p-8 opacity-95 transition-opacity
-					duration-500`}
+					className={`} fixed bottom-0 right-0 top-0 z-10 ml-auto mr-0 flex h-full w-full flex-col rounded-l-md p-8 `}
 					style={{ backdropFilter: 'blur(6px)', overflow: 'auto' }}>
 					<div className='flex h-full w-full flex-col items-center justify-center'>
 						<div
@@ -77,32 +83,60 @@ export default function TicketWrapper({ ticket, venue }: TicketCardProps) {
 									</div>
 								</div>
 								<div className='flex justify-center gap-20'>
-									<div className='flex items-center justify-center text-base text-hover'>{event.eventDate}</div>
-									<div className='flex items-center justify-center text-base  text-hover'>{event.location}</div>
+									<div className='flex items-center justify-center font-cabin text-base text-hover'>
+										{event.eventDate}
+									</div>
+									<div className='flex items-center justify-center font-cabin text-base  text-hover'>
+										{event.location}
+									</div>
 								</div>
 							</div>
-							<div className='grid w-full grid-cols-2 flex-col items-center justify-center gap-6 rounded-md bg-white p-6'>
-								<div className='flex w-full flex-col items-center justify-center'>
-									<div className='flex items-center justify-center'>summary:</div>
-									<div>{selectedTicket.name}</div>
-									<div className='flex items-center justify-center'>{selectedTicket.value}</div>
-									<div className='flex items-center justify-center'>amount component</div>
-									<div className='flex items-center justify-center'>lineup</div>
+							<div className='grid w-full grid-cols-2 flex-col items-center justify-center gap-28 rounded-md bg-white p-6'>
+								<div className='mb-auto mt-0 flex w-full flex-col gap-12'>
+									<div className='font-cabin text-xl font-semibold'>{selectedTicket.name}</div>
+									<div className='font-cabin'>{event.description}</div>
+									<div className='flex font-cabin'>lineup test section</div>
+									<div className='flex items-center gap-6'>
+										<button
+											onClick={() => adjustCount(-1)}
+											className='h-8 w-8 cursor-pointer rounded-full border-0 p-2'>
+											<FontAwesomeIcon icon={faMinus} size='xs' className='ml-auto mr-0  text-black' />
+										</button>
+										<span className='font-cabin text-xl'>{count}</span>
+										<button
+											onClick={() => adjustCount(+1)}
+											className='h-8 w-8 cursor-pointer rounded-full border-0 p-2'>
+											<FontAwesomeIcon icon={faPlus} size='xs' className='ml-auto mr-0 text-black' />
+										</button>
+									</div>
 								</div>
-								<div className='flex w-full flex-col'>
+								<div className='ml-auto mr-0 flex w-full flex-col gap-12'>
 									<Image
 										height={250}
 										width={250}
 										src={process.env.MEDIA_HOST + event.media.data[0].attributes.url}
 										alt='background-image'
 										quality={100}
-										className='ml-auto mr-0 flex'
 									/>
-									<div className='ml-auto mr-0 flex'>
-										<div>Total:</div>
-										<div>{selectedTicket.value}</div>
+									<div className='mr-6 flex flex-col justify-center gap-2'>
+										<div className='font-cabin text-xl font-semibold'>Summary:</div>
+										<div className='flex justify-between px-2'>
+											<div className='font-cabin text-base'>{count + ' x ' + ' ' + selectedTicket.name}</div>
+											<div className='flex font-cabin text-base'>{selectedTicket.value}</div>
+										</div>
+										<span style={{ border: '1px solid rgb(226, 228, 229)' }} />
+										<div className='flex gap-4 px-2'>
+											<div className='font-cabin'>Total:</div>
+											<div className='font-cabin'>{parseInt(selectedTicket.value) * count + '$'}</div>
+										</div>
+										<span style={{ border: '1px solid rgb(226, 228, 229)' }} />
 									</div>
 								</div>
+							</div>
+							<div className='mb-0 mt-auto flex w-full items-center bg-background p-6'>
+								<button className='ml-auto flex cursor-pointer justify-end rounded-md border-0 bg-secondBlack p-2 font-cabin text-sm font-semibold text-white'>
+									Continue
+								</button>
 							</div>
 						</div>
 					</div>
