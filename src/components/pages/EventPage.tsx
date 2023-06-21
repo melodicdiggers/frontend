@@ -7,7 +7,6 @@ interface EvenetPageProps {
 	event: string
 }
 
-//FOLLOW EXCEED CARDS
 //https://xceed.me/pt/porto/event/neopop-festival-2023--113983
 
 export default function EventPage({ event }: EvenetPageProps) {

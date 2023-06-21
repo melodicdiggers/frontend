@@ -131,7 +131,7 @@ export default function TicketWrapper({ tickets, venue }: TicketCardProps) {
 										<span style={{ border: '1px solid rgb(226, 228, 229)' }} />
 										<div className='flex gap-4 px-2'>
 											<div className='font-cabin'>Total:</div>
-											<div className='font-cabin'>{parseInt(selectedTicket.value) * count + '$'}</div>
+											<div className='font-cabin'>{parseFloat(selectedTicket.value) * count + '€'}</div>
 										</div>
 										<span style={{ border: '1px solid rgb(226, 228, 229)' }} />
 									</div>

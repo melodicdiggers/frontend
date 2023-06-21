@@ -1,5 +1,6 @@
 import '../styles/globals.scss'
 import { Baskervville, Cabin, Josefin_Sans } from 'next/font/google'
+import ProvidersWrapper from './providers/SessionProvider'
 
 const baskervville = Baskervville({
 	subsets: ['latin'],
@@ -35,7 +36,9 @@ export default function RootLayout({ children }: Props) {
 				<meta name='msapplication-TileColor' content='#da532c' />
 				<meta name='theme-color' content='#ffffff' />
 			</head>
-			<body>{children}</body>
+			<ProvidersWrapper>
+				<body>{children}</body>
+			</ProvidersWrapper>
 		</html>
 	)
 }
