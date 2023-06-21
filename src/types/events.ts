@@ -18,6 +18,7 @@ export interface IEvent {
 	ticket: {
 		data: [
 			{
+				id: string
 				attributes: {
 					name: string
 					ammount: number
@@ -47,6 +48,7 @@ export class Event implements IEvent {
 	ticket: {
 		data: [
 			{
+				id: string
 				attributes: {
 					name: string
 					ammount: number

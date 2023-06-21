@@ -16,6 +16,7 @@ query eventBySlug($slug: String!) {
 				}
 				ticket {
 					data {
+						id
 						attributes {
 							name
 							ammount

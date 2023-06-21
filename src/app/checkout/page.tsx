@@ -2,6 +2,8 @@
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
+import { clientFetchRequest } from '../../utils/client-requests'
+import { AddUserTicketDocument } from '../../generated/sdk'
 
 export default function CheckoutPage() {
 	const session = useSession()
@@ -9,6 +11,23 @@ export default function CheckoutPage() {
 	const ammount = localStorage.getItem('ammount') || ''
 	const { data } = session
 	const ticket = JSON.parse(ticketData)
+
+	const onSubmit = async () => {
+		const body = {
+			userID: data?.id,
+			ticketID: [ticket?.id],
+		}
+		if (data?.user && ticket && ammount) {
+			try {
+				const data = await clientFetchRequest(AddUserTicketDocument, body)
+				if (data) {
+					console.log('updatedUser', data)
+				}
+			} catch (err) {
+				console.log(err)
+			}
+		}
+	}
 
 	return (
 		<>
@@ -57,7 +76,9 @@ export default function CheckoutPage() {
 							</div>
 							<div className='mb-0 mt-auto flex w-full items-center bg-background p-6'>
 								<Link href={'/'} className='ml-auto no-underline'>
-									<button className='ml-auto flex cursor-pointer justify-end rounded-md border-0 bg-secondBlack p-2 font-cabin text-sm font-semibold text-white'>
+									<button
+										className='ml-auto flex cursor-pointer justify-end rounded-md border-0 bg-secondBlack p-2 font-cabin text-sm font-semibold text-white'
+										onClick={onSubmit}>
 										Continue / add tickets to user
 									</button>
 								</Link>

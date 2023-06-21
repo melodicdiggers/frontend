@@ -326,7 +326,6 @@ export type Event = {
   publishedAt?: Maybe<Scalars['DateTime']>;
   slug?: Maybe<Scalars['String']>;
   ticket?: Maybe<TicketRelationResponseCollection>;
-  ticketPrices?: Maybe<Scalars['JSON']>;
   title?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -372,7 +371,6 @@ export type EventFiltersInput = {
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   ticket?: InputMaybe<TicketFiltersInput>;
-  ticketPrices?: InputMaybe<JsonFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -385,7 +383,6 @@ export type EventInput = {
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   slug?: InputMaybe<Scalars['String']>;
   ticket?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
-  ticketPrices?: InputMaybe<Scalars['JSON']>;
   title?: InputMaybe<Scalars['String']>;
 };
 
@@ -1116,6 +1113,7 @@ export type Ticket = {
   createdAt?: Maybe<Scalars['DateTime']>;
   name?: Maybe<Scalars['String']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
+  ticketID?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   value?: Maybe<Scalars['Float']>;
 };
@@ -1144,6 +1142,7 @@ export type TicketFiltersInput = {
   not?: InputMaybe<TicketFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<TicketFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  ticketID?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   value?: InputMaybe<FloatFilterInput>;
 };
@@ -1153,6 +1152,7 @@ export type TicketInput = {
   available?: InputMaybe<Scalars['Boolean']>;
   name?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
+  ticketID?: InputMaybe<Scalars['String']>;
   value?: InputMaybe<Scalars['Float']>;
 };
 
@@ -1452,8 +1452,17 @@ export type UsersPermissionsUser = {
   email: Scalars['String'];
   provider?: Maybe<Scalars['String']>;
   role?: Maybe<UsersPermissionsRoleEntityResponse>;
+  tickets?: Maybe<TicketRelationResponseCollection>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   username: Scalars['String'];
+};
+
+
+export type UsersPermissionsUserTicketsArgs = {
+  filters?: InputMaybe<TicketFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type UsersPermissionsUserEntity = {
@@ -1484,6 +1493,7 @@ export type UsersPermissionsUserFiltersInput = {
   provider?: InputMaybe<StringFilterInput>;
   resetPasswordToken?: InputMaybe<StringFilterInput>;
   role?: InputMaybe<UsersPermissionsRoleFiltersInput>;
+  tickets?: InputMaybe<TicketFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   username?: InputMaybe<StringFilterInput>;
 };
@@ -1497,12 +1507,21 @@ export type UsersPermissionsUserInput = {
   provider?: InputMaybe<Scalars['String']>;
   resetPasswordToken?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Scalars['ID']>;
+  tickets?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   username?: InputMaybe<Scalars['String']>;
 };
 
 export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
+
+export type AddUserTicketMutationVariables = Exact<{
+  userID: Scalars['ID'];
+  ticketID: Array<InputMaybe<Scalars['ID']>> | InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type AddUserTicketMutation = { updateUsersPermissionsUser: { data?: { attributes?: { username: string, confirmed?: boolean | null } | null } | null } };
 
 export type AboutPageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1538,7 +1557,7 @@ export type EventBySlugQueryVariables = Exact<{
 }>;
 
 
-export type EventBySlugQuery = { events?: { data: Array<{ attributes?: { title?: string | null, location?: string | null, eventDate?: any | null, slug?: string | null, description?: string | null, media?: { data: Array<{ attributes?: { url: string } | null }> } | null, ticket?: { data: Array<{ attributes?: { name?: string | null, ammount?: number | null, available?: boolean | null, value?: number | null } | null }> } | null } | null }> } | null };
+export type EventBySlugQuery = { events?: { data: Array<{ attributes?: { title?: string | null, location?: string | null, eventDate?: any | null, slug?: string | null, description?: string | null, media?: { data: Array<{ attributes?: { url: string } | null }> } | null, ticket?: { data: Array<{ id?: string | null, attributes?: { name?: string | null, ammount?: number | null, available?: boolean | null, value?: number | null } | null }> } | null } | null }> } | null };
 
 export type EventsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1568,6 +1587,18 @@ export type MusicQueryVariables = Exact<{
 export type MusicQuery = { musics?: { data: Array<{ attributes?: { title?: string | null, description?: string | null, category?: Enum_Music_Category | null, mediaBlock?: any | null } | null }> } | null };
 
 
+export const AddUserTicketDocument = /*#__PURE__*/ gql`
+    mutation addUserTicket($userID: ID!, $ticketID: [ID]!) {
+  updateUsersPermissionsUser(id: $userID, data: {tickets: $ticketID}) {
+    data {
+      attributes {
+        username
+        confirmed
+      }
+    }
+  }
+}
+    `;
 export const AboutPageDocument = /*#__PURE__*/ gql`
     query AboutPage {
   about {
@@ -1684,6 +1715,7 @@ export const EventBySlugDocument = /*#__PURE__*/ gql`
         }
         ticket {
           data {
+            id
             attributes {
               name
               ammount
@@ -1791,6 +1823,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    addUserTicket(variables: AddUserTicketMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AddUserTicketMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AddUserTicketMutation>(AddUserTicketDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'addUserTicket', 'mutation');
+    },
     AboutPage(variables?: AboutPageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AboutPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AboutPageQuery>(AboutPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AboutPage', 'query');
     },

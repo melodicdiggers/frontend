@@ -1,0 +1,10 @@
+mutation addUserTicket($userID: ID!, $ticketID: [ID]!) {
+	updateUsersPermissionsUser(id: $userID, data: { tickets: $ticketID }) {
+		data {
+			attributes {
+				username
+				confirmed
+			}
+		}
+	}
+}

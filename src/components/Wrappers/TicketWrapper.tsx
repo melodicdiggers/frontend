@@ -12,6 +12,7 @@ interface TicketCardProps {
 }
 
 interface Ticket {
+	id: string
 	name: string
 	ammount: number
 	available: boolean

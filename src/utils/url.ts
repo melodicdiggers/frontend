@@ -2,6 +2,7 @@ import { DocumentNode } from 'graphql'
 import { graphqlClient } from '../services/client'
 import {
 	AboutPageDocument,
+	AddUserTicketDocument,
 	ArticlebySlugDocument,
 	ArticlesDocument,
 	ContactPageDocument,
@@ -65,4 +66,8 @@ export const getArticleBySlug = async (slug: string) => {
 
 export const getEventBySlug = async (slug: string) => {
 	return await fetchGraphQLData(EventBySlugDocument, { slug })
+}
+
+export const addTicketToUser = async (userId: string, ticketId: string) => {
+	return await fetchGraphQLData(AddUserTicketDocument, { userId, ticketId })
 }

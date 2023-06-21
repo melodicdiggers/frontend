@@ -7,8 +7,6 @@ interface EvenetPageProps {
 	event: string
 }
 
-//https://xceed.me/pt/porto/event/neopop-festival-2023--113983
-
 export default function EventPage({ event }: EvenetPageProps) {
 	let venue: Event | null = null
 	if (event) venue = JSON.parse(event)
@@ -17,10 +15,13 @@ export default function EventPage({ event }: EvenetPageProps) {
 	let tickets = null as any
 	if (ticketsData) {
 		tickets = ticketsData.map(ticket => {
-			const { name, ammount, available, value } = ticket.attributes
-			return { name, ammount, available, value }
+			const { id, attributes } = ticket
+			const { name, ammount, available, value } = attributes
+			return { id, name, ammount, available, value }
 		})
 	}
+
+	//DO LOGIC FOR AVAILABLE TICKETS
 
 	return (
 		<>
