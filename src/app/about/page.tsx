@@ -1,5 +1,5 @@
-import { About, GenericBlock, IAbout } from '../../../types'
-import { getAboutPage } from '../../../utils/url'
+import { About, GenericBlock, IAbout } from '../../types'
+import { getAboutPage } from '../../utils/url'
 
 async function getAboutData(): Promise<About | null> {
 	try {
