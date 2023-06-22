@@ -21,8 +21,6 @@ export default function EventPage({ event }: EvenetPageProps) {
 		})
 	}
 
-	//DO LOGIC FOR AVAILABLE TICKETS
-
 	return (
 		<>
 			{venue && tickets && (

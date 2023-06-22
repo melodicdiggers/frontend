@@ -57,13 +57,24 @@ export default function TicketWrapper({ tickets, venue }: TicketCardProps) {
 			<div className='flex flex-col gap-6'>
 				{tickets.map(ticket => {
 					return (
-						<div
-							className='flex cursor-pointer items-center gap-6 rounded-md bg-white p-8'
-							key={ticket.name}
-							onClick={() => handleTicketClick(ticket)}>
-							<div className='text-xl'>{ticket.name} :</div>
-							<div className='text-lg'>{ticket.value + '€'}</div>
-						</div>
+						<>
+							<div
+								className={`flex ${
+									ticket.available ? 'cursor-pointer' : ''
+								} flex-col items-center gap-6 rounded-md bg-white p-8`}
+								key={ticket.id}
+								onClick={() => {
+									if (ticket.available) {
+										handleTicketClick(ticket)
+									}
+								}}>
+								<div className='flex'>
+									<div className='text-xl'>{ticket.name} :</div>
+									<div className='text-lg'>{ticket.value + '€'}</div>
+								</div>
+								{!ticket.available && <div className='text-lg'>Sold Out</div>}
+							</div>
+						</>
 					)
 				})}
 			</div>
