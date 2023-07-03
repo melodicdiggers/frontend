@@ -25,6 +25,10 @@ body {
     //scroll-behavior: auto;
     //overscroll-behavior-y: none;
     background-color: $background !important;
+
+    &:has(.modal-wrapper) {
+        overflow-y: hidden !important;
+    }
 }
 
 img {

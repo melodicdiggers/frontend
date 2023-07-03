@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import { Event } from '../../types'
 import Image from 'next/image'
 import Link from 'next/link'
+import ModalContainer from '../Modal/ModalContainer'
 
 interface TicketCardProps {
 	tickets: Ticket[]
@@ -79,12 +80,10 @@ export default function TicketWrapper({ tickets, venue }: TicketCardProps) {
 				})}
 			</div>
 			{isOpened && selectedTicket && event && (
-				<div
-					className={`} fixed bottom-0 right-0 top-0 z-10 ml-auto mr-0 flex h-full w-full flex-col rounded-l-md p-8 `}
-					style={{ backdropFilter: 'blur(6px)', overflow: 'auto' }}>
-					<div className='flex h-full w-full flex-col items-center justify-center'>
+				<ModalContainer isOpen={isOpened}>
+					<div className='flex items-center justify-center'>
 						<div
-							className='flex w-2/4 flex-col items-center justify-center gap-6 rounded-md bg-white'
+							className='flex w-3/5 flex-col items-center justify-center gap-6 rounded-md bg-white'
 							style={{ border: '1px solid rgba(216,216,216), 0.4', boxShadow: '0 4px 12px #0000001a' }}>
 							<div className='flex w-full flex-col gap-4 p-8' style={{ boxShadow: '0 4px 12px #0000001a' }}>
 								<div className='relative'>
@@ -160,7 +159,7 @@ export default function TicketWrapper({ tickets, venue }: TicketCardProps) {
 							</div>
 						</div>
 					</div>
-				</div>
+				</ModalContainer>
 			)}
 		</div>
 	)
