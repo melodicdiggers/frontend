@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 
-export default function Register() {
+export default function RegisterCard() {
 	const router = useRouter()
 
 	const [formData, setFormData] = useState({

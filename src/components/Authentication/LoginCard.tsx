@@ -2,7 +2,7 @@
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
-export default function Login() {
+export default function LoginCard() {
 	const router = useRouter()
 
 	const onSubmit = async e => {
@@ -21,14 +21,14 @@ export default function Login() {
 	}
 
 	return (
-		<div className='bg-gray-50 dark:bg-gray-900 '>
-			<div className='mx-auto flex h-screen w-screen max-w-xl flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0'>
+		<div className='mx-auto flex h-screen w-screen max-w-xl flex-col items-center justify-center '>
+			<div className='flex w-full flex-col rounded-md bg-background px-6 py-8 md:h-screen lg:py-0'>
 				<a
 					href='/'
-					className='text-gray-900 mb-6 flex items-center font-josefin text-2xl font-bold leading-loose tracking-widest text-black no-underline hover:text-opacity-70 dark:text-white'>
+					className='text-gray-900 mb-6 flex items-center justify-center font-josefin text-2xl font-bold leading-loose tracking-widest text-black no-underline hover:text-opacity-70 dark:text-white'>
 					Melodic Diggers
 				</a>
-				<div className='dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg bg-white shadow dark:border sm:max-w-md md:mt-0 xl:p-0'>
+				<div className='dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg dark:border sm:max-w-md md:mt-0 xl:p-0'>
 					<div className='space-y-4 p-6 sm:p-8 md:space-y-6'>
 						<h1 className='text-gray-900 font-josefin text-xl font-bold leading-tight tracking-tight dark:text-white md:text-2xl'>
 							Sign in to your account
@@ -60,31 +60,10 @@ export default function Login() {
 									required
 								/>
 							</div>
-							{/* 	<div className='flex items-center justify-between'>
-								<div className='flex items-start'>
-									<div className='flex h-5 items-center'>
-										<input
-											id='remember'
-											aria-describedby='remember'
-											type='checkbox'
-											className='border-gray-300 bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 h-4 w-4 rounded border'
-											required
-										/>
-									</div>
-									<div className='ml-3 text-sm'>
-										<label htmlFor='remember' className='text-gray-500 dark:text-gray-300'>
-											Remember me
-										</label>
-									</div>
-								</div>
-								<a href='#' className='text-primary-600 dark:text-primary-500 text-sm font-medium hover:underline'>
-									Forgot password?
-								</a>
-							</div> */}
 							<div className='flex items-center justify-center'>
 								<button
 									type='submit'
-									className='w-56 cursor-pointer rounded-lg border-none px-5 py-2.5 text-center text-sm font-medium text-white'>
+									className='w-56 cursor-pointer rounded-lg border-none bg-black px-5 py-2.5 text-center text-sm font-medium text-white'>
 									Sign in
 								</button>
 							</div>

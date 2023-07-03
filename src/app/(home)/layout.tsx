@@ -5,6 +5,8 @@ import { getFooterBlock, getHeader } from '../../utils/url'
 
 interface Props {
 	children: JSX.Element
+	login: React.ReactNode
+	register: React.ReactNode
 }
 
 async function getHeaderData(): Promise<Header | null> {
@@ -27,11 +29,13 @@ async function getFooterData(): Promise<Footer | null> {
 	}
 }
 
-export default async function HomeLayout({ children }: Props) {
+export default async function HomeLayout({ children, login, register }: Props) {
 	const [header, footer] = await Promise.all([getHeaderData(), getFooterData()])
 
 	return (
 		<div className='flex h-full w-full flex-col'>
+			{login}
+			{register}
 			<HeaderContainer headerData={JSON.stringify(header)} />
 			{children}
 			<FooterContainer headerData={JSON.stringify(footer)} />
