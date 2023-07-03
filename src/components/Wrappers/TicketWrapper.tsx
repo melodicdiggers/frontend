@@ -51,6 +51,7 @@ export default function TicketWrapper({ tickets, venue }: TicketCardProps) {
 	const savePurchase = () => {
 		localStorage.setItem('ticket', JSON.stringify(selectedTicket))
 		localStorage.setItem('ammount', JSON.stringify(count))
+		setIsOpened(false)
 	}
 
 	return (
@@ -137,7 +138,7 @@ export default function TicketWrapper({ tickets, venue }: TicketCardProps) {
 										<div className='font-cabin text-xl font-semibold'>Summary:</div>
 										<div className='flex justify-between px-2'>
 											<div className='font-cabin text-base'>{count + ' x ' + ' ' + selectedTicket.name}</div>
-											<div className='flex font-cabin text-base'>{selectedTicket.value}</div>
+											<div className='flex font-cabin text-base'>{selectedTicket.value + '€'}</div>
 										</div>
 										<span style={{ border: '1px solid rgb(226, 228, 229)' }} />
 										<div className='flex gap-4 px-2'>

@@ -1,6 +1,6 @@
-import { GenericBlock } from '../../types'
-import { Contact, IContactData } from '../../types/contact'
-import { getContactPage } from '../../utils/url'
+import { GenericBlock } from '../../../types'
+import { Contact, IContactData } from '../../../types/contact'
+import { getContactPage } from '../../../utils/url'
 
 async function getContactData(): Promise<Contact | null> {
 	try {

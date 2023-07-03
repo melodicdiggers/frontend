@@ -3,7 +3,6 @@ import { CloseButton } from './CloseButton'
 interface ModalProps {
 	children: React.ReactNode
 	isOpen: boolean
-	isLoading?: boolean
 	closeButton?: JSX.Element
 }
 
