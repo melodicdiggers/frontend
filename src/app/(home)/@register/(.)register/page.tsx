@@ -8,7 +8,7 @@ export default async function RegisterModal() {
 		<ModalContainer
 			isOpen
 			closeButton={<FontAwesomeIcon icon={faClose} size='xl' className='ml-auto mr-0 cursor-pointer text-black' />}>
-			<RegisterCard />
+			<RegisterCard ismodal={true} />
 		</ModalContainer>
 	)
 }

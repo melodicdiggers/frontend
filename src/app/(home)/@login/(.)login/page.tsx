@@ -8,7 +8,7 @@ export default async function LoginModal() {
 		<ModalContainer
 			isOpen
 			closeButton={<FontAwesomeIcon icon={faClose} size='xl' className='ml-auto mr-0 cursor-pointer text-black' />}>
-			<LoginCard />
+			<LoginCard ismodal={true} />
 		</ModalContainer>
 	)
 }

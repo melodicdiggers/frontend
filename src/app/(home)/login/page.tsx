@@ -1,5 +1,5 @@
 import LoginCard from '../../../components/Authentication/LoginCard'
 
 export default async function LoginPage() {
-	return <LoginCard />
+	return <LoginCard ismodal={false} />
 }
