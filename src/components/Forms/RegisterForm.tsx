@@ -1,5 +1,6 @@
 import React from 'react'
 import RegisterInputLabel from '../Inputs/RegisterInputLabel'
+import SubmitButton from '../Buttons/SubmitButton'
 
 interface RegisterFormProps {
 	formData: {
@@ -28,11 +29,7 @@ export default function RegisterForm({ formData, handleInputChange, handleSubmit
 				type={'password'}
 			/>
 			<div className='flex items-center justify-center'>
-				<button
-					type='submit'
-					className='w-56 cursor-pointer rounded-lg border-none  bg-black px-5 py-2.5 text-center font-cabin text-sm font-medium text-white'>
-					Register
-				</button>
+				<SubmitButton title={'Sign up'} />
 			</div>
 		</form>
 	)

@@ -6,7 +6,7 @@ import { Dispatch, SetStateAction } from 'react'
 
 interface LoginCardProps {
 	ismodal: boolean
-	setIsOpen: Dispatch<SetStateAction<boolean>>
+	setIsOpen?: Dispatch<SetStateAction<boolean>>
 }
 
 export default function LoginCard({ ismodal, setIsOpen }: LoginCardProps) {
@@ -22,7 +22,7 @@ export default function LoginCard({ ismodal, setIsOpen }: LoginCardProps) {
 		})
 		if (result?.ok) {
 			router.replace('/')
-			setIsOpen(false)
+			setIsOpen && setIsOpen(false)
 			return
 		}
 		alert('Credential is not valid')

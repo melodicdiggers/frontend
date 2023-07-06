@@ -2,8 +2,8 @@
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
-import { clientFetchRequest } from '../../utils/client-requests'
-import { AddUserTicketDocument } from '../../generated/sdk'
+import { clientFetchRequest } from '../../../utils/client-requests'
+import { AddUserTicketDocument } from '../../../generated/sdk'
 
 export default function CheckoutPage() {
 	const session = useSession()
@@ -56,7 +56,7 @@ export default function CheckoutPage() {
 							<div className='grid w-full grid-cols-2 flex-col items-center justify-center gap-28 rounded-md bg-white p-6'>
 								<div className='mb-auto mt-0 flex w-full flex-col gap-4'>
 									<div className='font-cabin text-xl font-semibold'>Ticket Type:</div>
-									<div className='font-cabin'>{ticket?.name}</div>
+									<div className='font-cabin'>{ticket.name}</div>
 								</div>
 								<div className='ml-auto mr-0 flex w-full flex-col gap-12'>
 									<div className='mr-6 flex flex-col justify-center gap-2'>

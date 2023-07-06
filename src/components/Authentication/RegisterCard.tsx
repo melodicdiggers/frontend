@@ -6,7 +6,7 @@ import RegisterForm from '../Forms/RegisterForm'
 
 interface RegisterCardProps {
 	ismodal: boolean
-	setIsOpen: Dispatch<SetStateAction<boolean>>
+	setIsOpen?: Dispatch<SetStateAction<boolean>>
 }
 
 export default function RegisterCard({ ismodal, setIsOpen }: RegisterCardProps) {
@@ -36,7 +36,7 @@ export default function RegisterCard({ ismodal, setIsOpen }: RegisterCardProps) 
 		})
 		if (result?.ok) {
 			router.replace('/login')
-			setIsOpen(false)
+			setIsOpen && setIsOpen(false)
 		} else {
 			alert('Failed to create user')
 		}
