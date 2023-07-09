@@ -1,11 +1,16 @@
-'use client'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
-import { clientFetchRequest } from '../../../utils/client-requests'
-import { AddUserTicketDocument } from '../../../generated/sdk'
+import { AddUserTicketDocument } from '../../generated/sdk'
+import { clientFetchRequest } from '../../utils/client-requests'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClose } from '@fortawesome/free-solid-svg-icons'
 
-export default function CheckoutPage() {
+interface CheckoutPageProps {
+	closeModal: any
+}
+
+export default function CheckoutPage({ closeModal }: CheckoutPageProps) {
 	const session = useSession()
 	const ticketData = localStorage.getItem('ticket') || ''
 	const ammount = localStorage.getItem('ammount') || ''
@@ -32,16 +37,20 @@ export default function CheckoutPage() {
 	return (
 		<>
 			{data?.user && ticket && ammount && (
-				<div
-					className={`} fixed bottom-0 right-0 top-0 z-10 ml-auto mr-0 flex h-full w-full flex-col rounded-l-md p-8 `}
-					style={{ backdropFilter: 'blur(6px)', overflow: 'auto' }}>
+				<div className={` flex items-center justify-center`}>
 					<div className='flex h-full w-full flex-col items-center justify-center'>
 						<div
 							className='flex w-2/4 flex-col items-center justify-center gap-6 rounded-md bg-white'
 							style={{ border: '1px solid rgba(216,216,216), 0.7', boxShadow: '0 4px 12px #0000001a' }}>
-							<div className='flex w-full flex-col gap-4 p-8' style={{ boxShadow: '0 4px 12px #0000001a' }}>
-								<div className='relative'>
-									<div className='flex items-center justify-center font-cabin text-2xl font-bold'>{'Checkout'}</div>
+							<div className='relative flex w-full flex-col gap-4 p-8' style={{ boxShadow: '0 4px 12px #0000001a' }}>
+								<div className='flex items-center justify-center font-cabin text-2xl font-bold'>Checkout</div>
+								<div className='absolute right-0 top-0'>
+									<FontAwesomeIcon
+										icon={faClose}
+										size='xl'
+										className='ml-auto mr-4 mt-4 cursor-pointer text-black'
+										onClick={closeModal}
+									/>
 								</div>
 								<div className='flex justify-center gap-4'>
 									<div className='flex items-center justify-center font-cabin text-base text-hover'>Welcome</div>

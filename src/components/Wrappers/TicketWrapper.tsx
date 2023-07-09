@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { Event } from '../../types'
 import Image from 'next/image'
-import Link from 'next/link'
 import ModalContainer from '../Modal/ModalContainer'
+import CheckoutPage from '../Pages/CheckoutPage'
 
 interface TicketCardProps {
 	tickets: Ticket[]
@@ -25,6 +25,7 @@ export default function TicketWrapper({ tickets, venue }: TicketCardProps) {
 	if (venue) event = JSON.parse(venue)
 	else event = null
 	const [isOpened, setIsOpened] = useState(false)
+	const [isSecondModalOpened, setIsSecondModalOpened] = useState(false)
 	const [count, setCount] = useState(1)
 	const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null)
 
@@ -36,6 +37,10 @@ export default function TicketWrapper({ tickets, venue }: TicketCardProps) {
 
 	const closeModal = () => {
 		setIsOpened(false)
+	}
+
+	const closeSecondModal = () => {
+		setIsSecondModalOpened(false)
 	}
 
 	const handleTicketClick = (ticket: Ticket) => {
@@ -52,6 +57,7 @@ export default function TicketWrapper({ tickets, venue }: TicketCardProps) {
 		localStorage.setItem('ticket', JSON.stringify(selectedTicket))
 		localStorage.setItem('ammount', JSON.stringify(count))
 		setIsOpened(false)
+		setIsSecondModalOpened(true)
 	}
 
 	return (
@@ -150,16 +156,19 @@ export default function TicketWrapper({ tickets, venue }: TicketCardProps) {
 								</div>
 							</div>
 							<div className='mb-0 mt-auto flex w-full items-center bg-background p-6'>
-								<Link href={'/checkout'} className='ml-auto no-underline'>
-									<button
-										className='ml-auto flex cursor-pointer justify-end rounded-md border-0 bg-secondBlack p-2 font-cabin text-sm font-semibold text-white'
-										onClick={savePurchase}>
-										Continue
-									</button>
-								</Link>
+								<button
+									className='ml-auto flex cursor-pointer justify-end rounded-md border-0 bg-secondBlack p-2 font-cabin text-sm font-semibold text-white'
+									onClick={savePurchase}>
+									Continue
+								</button>
 							</div>
 						</div>
 					</div>
+				</ModalContainer>
+			)}
+			{isSecondModalOpened && (
+				<ModalContainer isOpen={isSecondModalOpened}>
+					<CheckoutPage closeModal={closeSecondModal} />
 				</ModalContainer>
 			)}
 		</div>

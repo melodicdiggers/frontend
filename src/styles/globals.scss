@@ -26,6 +26,7 @@ body {
     //scroll-behavior: auto;
     //overscroll-behavior-y: none;
     background-color: $background !important;
+    overflow-x: hidden !important;
 
     &:has(.modal-wrapper) {
         overflow-y: hidden !important;

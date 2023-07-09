@@ -29,3 +29,29 @@
     width: 508px;
     height: 400px;
 }
+
+.card-preview {
+    @extend .preview;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 512px;
+    margin-bottom: 40px;
+}
+
+.block-preview {
+    @extend .preview;
+    display: flex;
+    flex-direction: column;
+    width: 912px;
+    height: 382px;
+    margin-bottom: 60px;
+}
+
+.landing-skeleton {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}

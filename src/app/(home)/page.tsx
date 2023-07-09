@@ -33,7 +33,7 @@ export default async function Homepage() {
 								src={process.env.MEDIA_HOST + block.photograph.data.attributes.url}
 								alt={''}
 								width={2000}
-								height={550}
+								height={512}
 								quality={100}
 								style={{
 									objectFit: 'cover',
@@ -50,6 +50,8 @@ export default async function Homepage() {
 						</div>
 					))}
 			</Suspense>
+			<div>Coffee break component</div>
+			<div>News component</div>
 			<Suspense fallback={<div>Loading...</div>}>
 				{dynamicBlock?.landingPageBlock
 					?.filter(block => block.key === 'landing_bottom')
@@ -59,7 +61,7 @@ export default async function Homepage() {
 								src={process.env.MEDIA_HOST + block.photograph.data.attributes.url}
 								alt={''}
 								width={2000}
-								height={650}
+								height={660}
 								quality={100}
 								style={{
 									objectFit: 'cover',
