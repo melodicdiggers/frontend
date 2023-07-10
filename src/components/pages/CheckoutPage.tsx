@@ -38,7 +38,7 @@ export default function CheckoutPage({ closeModal }: CheckoutPageProps) {
 		<>
 			{data?.user && ticket && ammount && (
 				<div className={` flex items-center justify-center`}>
-					<div className='flex h-full w-full flex-col items-center justify-center'>
+					<div className='flex h-screen w-full flex-col items-center justify-center'>
 						<div
 							className='flex w-2/4 flex-col items-center justify-center gap-6 rounded-md bg-white'
 							style={{ border: '1px solid rgba(216,216,216), 0.7', boxShadow: '0 4px 12px #0000001a' }}>

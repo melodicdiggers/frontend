@@ -33,7 +33,7 @@ export default async function HomeLayout({ children, login, register }: Props) {
 	const [header, footer] = await Promise.all([getHeaderData(), getFooterData()])
 
 	return (
-		<div className='flex h-full w-full flex-col'>
+		<div className='flex h-screen w-full flex-col'>
 			{login}
 			{register}
 			<HeaderContainer headerData={JSON.stringify(header)} />

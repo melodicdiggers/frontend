@@ -35,7 +35,6 @@ async function getEventsByIdData(slug: string): Promise<Event | null> {
 export default async function IdPage({ params }: PageProps) {
 	const slug = params.id[params.id.length - 1]
 	const article = await getArticlesByIdData(slug)
-	//needs refactoring as done on the parent page
 	const event = await getEventsByIdData(slug)
 
 	return (

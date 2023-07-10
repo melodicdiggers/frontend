@@ -13,7 +13,7 @@ const SoundCloudPlayer = dynamic(() => import('react-player'), { ssr: false })
 
 export default function Player({ url, slug }: PlayerProps) {
 	return (
-		<div>
+		<>
 			{
 				<SoundCloudPlayer
 					url={url}
@@ -22,6 +22,6 @@ export default function Player({ url, slug }: PlayerProps) {
 					height={slug === 'a-minute-with' ? 600 : 380}
 				/>
 			}
-		</div>
+		</>
 	)
 }

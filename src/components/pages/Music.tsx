@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Music } from '../../types'
 import Player from '../Player/Player'
 import Link from 'next/link'
+import MusicBlockSkeleton from '../Skeletons/MusicBlockSkeleton'
 
 interface MusicsProps {
 	musics: Music
@@ -14,7 +15,11 @@ export default function Musics({ musics, slug }: MusicsProps) {
 			<div className='font-cabin text-4xl font-bold tracking-widest'>{musics.title}</div>
 			<div className='flex flex-wrap gap-16'>
 				{musics.mediaBlock.map(block => {
-					return <Player key={`music-block-${block.url}`} url={block.url} slug={slug} />
+					return (
+						<Suspense key={`music-block-${block.url}`} fallback={<MusicBlockSkeleton />}>
+							<Player url={block.url} slug={slug} />
+						</Suspense>
+					)
 				})}
 			</div>
 			<Link

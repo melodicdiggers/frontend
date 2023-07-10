@@ -6,6 +6,7 @@ import { DynamicBlock, GenericBlock, IDynamicBlock } from '../../types'
 import Link from 'next/link'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../../pages/api/auth/[...nextauth]'
+import LandingBlockSkeleton from '../../components/Skeletons/LandingBlockSkeleton'
 
 async function getDynamicBlockData(): Promise<DynamicBlock | null> {
 	try {
@@ -19,12 +20,11 @@ async function getDynamicBlockData(): Promise<DynamicBlock | null> {
 
 export default async function Homepage() {
 	const dynamicBlock = await getDynamicBlockData()
-	const session = await getServerSession(authOptions)
+	//const session = await getServerSession(authOptions)
 
-	//console.log(session)
 	return (
 		<div className='flex flex-col gap-12 pb-16 sm:gap-4'>
-			<Suspense fallback={<div>Loading...</div>}>
+			<Suspense fallback={<LandingBlockSkeleton />}>
 				{dynamicBlock?.landingPageBlock
 					?.filter(block => block.key === 'landing_top')
 					.map(block => (
@@ -52,7 +52,7 @@ export default async function Homepage() {
 			</Suspense>
 			<div>Coffee break component</div>
 			<div>News component</div>
-			<Suspense fallback={<div>Loading...</div>}>
+			<Suspense fallback={<LandingBlockSkeleton />}>
 				{dynamicBlock?.landingPageBlock
 					?.filter(block => block.key === 'landing_bottom')
 					.map(block => (
@@ -79,7 +79,7 @@ export default async function Homepage() {
 					))}
 			</Suspense>
 			<div className='flex items-center justify-center font-josefin text-3xl font-semibold'>FOLLOW US</div>
-			<Suspense fallback={<div>Loading...</div>}>
+			<Suspense fallback={<LandingBlockSkeleton />}>
 				{/* @ts-expect-error Server Component */}
 				<MediaGallery />
 			</Suspense>
