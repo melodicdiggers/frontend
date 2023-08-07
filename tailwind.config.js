@@ -40,6 +40,21 @@ module.exports = {
 				baskervville: ['var(--font-baskervville)'],
 				josefin: ['var(--font-josefin)'],
 			},
+			gridTemplateColumns: {
+				desktop: 'repeat(1, minmax(0, 1fr))',
+				tablet: 'repeat(6, minmax(0, 1fr))',
+				mobile: 'repeat(4, minmax(0, 1fr))',
+			},
+			gridColumnEnd: {
+				desktop: '13',
+				tablet: '7',
+				mobile: '5',
+			},
+			gap: {
+				desktop: '24px',
+				tablet: '20px',
+				mobile: '16px',
+			},
 		},
 	},
 	plugins: [],

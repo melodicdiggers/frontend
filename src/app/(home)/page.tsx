@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../../pages/api/auth/[...nextauth]'
 import LandingBlockSkeleton from '../../components/Skeletons/LandingBlockSkeleton'
+import GridLayout from '../../components/Layout/GridLayout'
 
 async function getDynamicBlockData(): Promise<DynamicBlock | null> {
 	try {
@@ -23,7 +24,7 @@ export default async function Homepage() {
 	//const session = await getServerSession(authOptions)
 
 	return (
-		<div className='flex flex-col gap-12 pb-16 sm:gap-4'>
+		<GridLayout className='gap-12 pb-16 sm:gap-4'>
 			<Suspense fallback={<LandingBlockSkeleton />}>
 				{dynamicBlock?.landingPageBlock
 					?.filter(block => block.key === 'landing_top')
@@ -31,7 +32,7 @@ export default async function Homepage() {
 						<div key={`top-bloc-${block.key}`} className='relative flex w-full'>
 							<Image
 								src={process.env.MEDIA_HOST + block.photograph.data.attributes.url}
-								alt={''}
+								alt={'Landing Top Image'}
 								width={2000}
 								height={512}
 								quality={100}
@@ -59,7 +60,7 @@ export default async function Homepage() {
 						<div key={`top-bloc-${block.key}`} className='relative flex w-full'>
 							<Image
 								src={process.env.MEDIA_HOST + block.photograph.data.attributes.url}
-								alt={''}
+								alt={'Landing Bottom Image'}
 								width={2000}
 								height={660}
 								quality={100}
@@ -83,6 +84,6 @@ export default async function Homepage() {
 				{/* @ts-expect-error Server Component */}
 				<MediaGallery />
 			</Suspense>
-		</div>
+		</GridLayout>
 	)
 }

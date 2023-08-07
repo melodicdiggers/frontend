@@ -8,6 +8,8 @@ import { Header, IHeaderBlock } from '../../types'
 import MobileMenu from './MobileMenu'
 import { LoginSvg, SignOutSvg } from '../Icons'
 import { signOut, useSession } from 'next-auth/react'
+import GridLayout from '../Layout/GridLayout'
+import GridItem from '../Layout/GridItem'
 
 interface Props {
 	headerData: string
@@ -28,14 +30,14 @@ export default function HeaderContainer(props: Props) {
 	}
 
 	return (
-		<nav className='w-full px-48 py-14 sm:px-2 sm:py-4 md:px-12 lg:px-4'>
+		<div className='px-32 py-14 sm:px-2 sm:py-4 md:px-12 lg:px-4'>
 			<div className='flex items-center justify-between sm:hidden lg:flex'>
 				<Link
 					href={'/'}
 					className='items-center font-josefin text-3xl font-semibold text-black no-underline sm:text-3xl sm:lowercase'>
 					{header?.title.toUpperCase()}
 				</Link>
-				<div className='flex flex-row gap-12 sm:hidden'>
+				<div className='flex flex-row items-center gap-12 sm:hidden'>
 					{header?.headerBlock.map((block: IHeaderBlock) => {
 						return <DesktopMenu block={block} key={`header-desktop-block-${block.title}`} />
 					})}
@@ -44,8 +46,8 @@ export default function HeaderContainer(props: Props) {
 							<LoginSvg width={18} heigth={18} color={'#000'} />
 						</Link>
 					) : (
-						<div className='flex flex-row gap-2'>
-							<div>hello {session.data.user?.name}</div>
+						<div className='flex flex-row items-center gap-2'>
+							<div className=''>{session.data.user?.name}</div>
 							<div className='cursor-pointer' onClick={logoutAccount}>
 								<SignOutSvg width={18} heigth={18} color={'#000'} />
 							</div>
@@ -66,7 +68,7 @@ export default function HeaderContainer(props: Props) {
 					<FontAwesomeIcon
 						icon={faClose}
 						size='xl'
-						className='cursor-pointer text-white'
+						className='cursor-pointer'
 						onClick={() => setMobileNavbar(!mobileNavbar)}
 					/>
 				</div>
@@ -85,6 +87,6 @@ export default function HeaderContainer(props: Props) {
 					})}
 				</div>
 			</div>
-		</nav>
+		</div>
 	)
 }

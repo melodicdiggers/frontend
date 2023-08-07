@@ -10,7 +10,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 	}
 
 	const io = new Server((res.socket as any).server, {
-		path: 'htttp://localhost:1337/socket/v1',
+		path: 'htttp://localhost:1337/socket/',
 		addTrailingSlash: false,
 	})
 	;(res.socket as any).server.io = io

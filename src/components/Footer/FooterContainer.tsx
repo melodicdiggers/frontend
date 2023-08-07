@@ -2,6 +2,7 @@ import React from 'react'
 import { Footer } from '../../types'
 import Link from 'next/link'
 import { FacebookSvg, InstagramSvg, SoundCloudSvg, SpotifySvg, YoutubeSvg } from '../Icons'
+import GridLayout from '../Layout/GridLayout'
 
 interface Props {
 	headerData: string
@@ -23,7 +24,7 @@ export default function FooterContainer(props: Props) {
 	const { aboutBlock, contactBlock, socialBlock } = footer || {}
 
 	return (
-		<div className='mb-12 mt-auto flex flex-col gap-12'>
+		<GridLayout className='mb-12 mt-auto gap-12'>
 			<div className='flex items-center justify-center gap-8'>
 				<Link href={'/about'} className=' font-josefin text-sm font-medium text-black no-underline hover:text-hover'>
 					{aboutBlock?.title.toUpperCase()}
@@ -39,6 +40,6 @@ export default function FooterContainer(props: Props) {
 					</a>
 				))}
 			</div>
-		</div>
+		</GridLayout>
 	)
 }
