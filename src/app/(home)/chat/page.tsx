@@ -1,4 +1,5 @@
 'use client'
+import moment from 'moment'
 import { useSession } from 'next-auth/react'
 import { ChangeEvent, useEffect, useState } from 'react'
 import io from 'socket.io-client'
@@ -58,30 +59,35 @@ export default function ChatPage() {
 
 	return (
 		<div className='flex flex-col items-center justify-start gap-8 p-24'>
-			<div className='flex w-full flex-col gap-6'>
-				{messages.map((msg, index) => (
+			<div className='flex w-full flex-col gap-2'>
+				{messages.map(msg => (
 					<div
-						key={index}
 						style={{
 							alignSelf: msg.userId === session.data?.user?.email ? 'flex-end' : 'flex-start',
 							backgroundColor: msg.userId === session.data?.user?.email ? '#cce0ff' : '#f0f0f0',
-							padding: '8px',
-							borderRadius: '8px',
-							maxWidth: '60%',
-						}}>
-						<div>{msg.name}</div>
-						<div>{msg.message}</div>
+						}}
+						key={`message-${msg.timeStamp}`}
+						className='flex flex-col gap-2 rounded p-2'>
+						<div className='font-cabin text-xs'>{msg.name}</div>
+						<div className='flex items-center gap-2'>
+							<div className='font-cabin text-lg'>{msg.message}</div>
+							<div className='-mb-4 ml-auto mr-0 font-cabin text-xs'>{moment(msg.timeStamp).format('HH:mm')}</div>
+						</div>
 					</div>
 				))}
 			</div>
-			<div style={{ display: 'flex', flexDirection: 'row', gap: '8px' }}>
+			<div className='mb-0 mt-auto flex gap-4'>
 				<input
 					value={value}
 					onChange={handleChange}
-					className='mt-auto h-12 w-full rounded px-2'
-					placeholder='Enter some text and see the syncing of text in another tab'
+					className='w-full rounded px-2 font-cabin'
+					placeholder='Enter some text...'
 				/>
-				<button onClick={handleSendMessage}>send</button>
+				<button
+					className='cursor-pointer rounded-lg border-none bg-secondBlack p-4 font-cabin text-white'
+					onClick={handleSendMessage}>
+					Send
+				</button>
 			</div>
 		</div>
 	)

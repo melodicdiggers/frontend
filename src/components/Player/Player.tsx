@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-
 import dynamic from 'next/dynamic'
 
 interface PlayerProps {
@@ -8,7 +7,6 @@ interface PlayerProps {
 	slug: string
 }
 
-//WORK AROUND FOR NOW
 const SoundCloudPlayer = dynamic(() => import('react-player'), { ssr: false })
 
 export default function Player({ url, slug }: PlayerProps) {

@@ -46,7 +46,7 @@ export default function HeaderContainer(props: Props) {
 					) : (
 						<div className='flex flex-row items-center gap-2'>
 							<div className=''>{session.data.user?.name}</div>
-							<div className='cursor-pointer' onClick={logoutAccount}>
+							<div className='flex cursor-pointer items-center' onClick={logoutAccount}>
 								<SignOutSvg width={18} heigth={18} color={'#000'} />
 							</div>
 						</div>
@@ -76,7 +76,7 @@ export default function HeaderContainer(props: Props) {
 							<LoginSvg width={18} heigth={18} color={'#000'} />
 						</Link>
 					) : (
-						<div>hello {session.data.user?.name}</div>
+						<div>{session.data.user?.name}</div>
 					)}
 					{header?.headerBlock.map((block: IHeaderBlock) => {
 						return (
