@@ -7,7 +7,6 @@ import Link from 'next/link'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../../pages/api/auth/[...nextauth]'
 import LandingBlockSkeleton from '../../components/Skeletons/LandingBlockSkeleton'
-import GridLayout from '../../components/Layout/GridLayout'
 
 async function getDynamicBlockData(): Promise<DynamicBlock | null> {
 	try {
@@ -24,7 +23,7 @@ export default async function Homepage() {
 	//const session = await getServerSession(authOptions)
 
 	return (
-		<GridLayout className='gap-12 pb-16 sm:gap-4'>
+		<div className='grid grid-cols-1 gap-12 pb-16 sm:gap-4'>
 			<Suspense fallback={<LandingBlockSkeleton />}>
 				{dynamicBlock?.landingPageBlock
 					?.filter(block => block.key === 'landing_top')
@@ -84,6 +83,6 @@ export default async function Homepage() {
 				{/* @ts-expect-error Server Component */}
 				<MediaGallery />
 			</Suspense>
-		</GridLayout>
+		</div>
 	)
 }

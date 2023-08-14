@@ -8,8 +8,6 @@ import { Header, IHeaderBlock } from '../../types'
 import MobileMenu from './MobileMenu'
 import { LoginSvg, SignOutSvg } from '../Icons'
 import { signOut, useSession } from 'next-auth/react'
-import GridLayout from '../Layout/GridLayout'
-import GridItem from '../Layout/GridItem'
 
 interface Props {
 	headerData: string
@@ -30,7 +28,7 @@ export default function HeaderContainer(props: Props) {
 	}
 
 	return (
-		<div className='px-32 py-14 sm:px-2 sm:py-4 md:px-12 lg:px-4'>
+		<div className='px-28 py-14 sm:px-2 sm:py-4 md:px-12 xl:px-8'>
 			<div className='flex items-center justify-between sm:hidden lg:flex'>
 				<Link
 					href={'/'}

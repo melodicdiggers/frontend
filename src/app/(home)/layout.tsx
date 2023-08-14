@@ -1,6 +1,5 @@
 import FooterContainer from '../../components/Footer/FooterContainer'
 import HeaderContainer from '../../components/Header/HeaderContainer'
-import GridLayout from '../../components/Layout/GridLayout'
 import { Footer, GenericBlock, Header, IFooter, IHeader } from '../../types'
 import { getFooterBlock, getHeader } from '../../utils/url'
 
@@ -34,12 +33,12 @@ export default async function HomeLayout({ children, login, register }: Props) {
 	const [header, footer] = await Promise.all([getHeaderData(), getFooterData()])
 
 	return (
-		<GridLayout className='h-screen w-full'>
+		<div className='grid h-screen w-full grid-cols-1'>
 			{login}
 			{register}
 			<HeaderContainer headerData={JSON.stringify(header)} />
 			{children}
 			<FooterContainer headerData={JSON.stringify(footer)} />
-		</GridLayout>
+		</div>
 	)
 }
