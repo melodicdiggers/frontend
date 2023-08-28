@@ -1,4 +1,3 @@
-export { dynamicParams }
 import { Article, Event, GenericBlock, Header, IHeader, IMusic, MultiGenericBlock, Music } from '../../../types'
 import { getArticles, getEvents, getHeader, getMusics } from '../../../utils/url'
 import { Suspense } from 'react'
@@ -6,7 +5,7 @@ import Articles from '../../../components/Pages/Articles'
 import Musics from '../../../components/Pages/Music'
 import Events from '../../../components/Pages/Events'
 
-const dynamicParams = false
+export const revalidate = 86400
 
 interface PageProps {
 	params: {

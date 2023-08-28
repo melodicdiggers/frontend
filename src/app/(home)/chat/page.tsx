@@ -56,7 +56,6 @@ export default function ChatPage() {
 			setValue('')
 		}
 	}
-
 	return (
 		<div className='flex flex-col items-center justify-start gap-8 p-24'>
 			<div className='flex w-full flex-col gap-2'>

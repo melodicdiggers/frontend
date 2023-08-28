@@ -3,7 +3,6 @@ import { createUser, signIn } from '../../../services/auth'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 
 export const authOptions: NextAuthOptions = {
-	// Configure one or more authentication providers
 	secret: process.env.AUTH_SECRET,
 	providers: [
 		CredentialsProvider({
@@ -14,18 +13,8 @@ export const authOptions: NextAuthOptions = {
 				password: { label: 'Password', type: 'password' },
 				isLogin: { label: 'IsLogin', type: 'boolean' },
 			},
-
-			async authorize(credentials, req) {
-				/**
-				 * This function is used to define if the user is authenticated or not.
-				 * If authenticated, the function should return an object contains the user data.
-				 * If not, the function should return `null`.
-				 */
+			async authorize(credentials) {
 				if (credentials == null) return null
-				/**
-				 * credentials is defined in the config above.
-				 * We can expect it contains two properties: `email` and `password`
-				 */
 				if (credentials.isLogin === 'true') {
 					try {
 						const { user, jwt } = await signIn({
